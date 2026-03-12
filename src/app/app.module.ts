@@ -31,6 +31,12 @@ import {HeaderComponent} from '@common/layout/header/header.component';
 import {ServerNotificationDialogContainerComponent} from '@common/layout/server-notification-dialog-container/server-notification-dialog-container.component';
 import {SideNavComponent} from '~/layout/side-nav/side-nav.component';
 import {ColorPickerWrapperComponent} from '@common/shared/ui-components/inputs/color-picker/color-picker-wrapper.component';
+import {TranslateModule, MissingTranslationHandler} from '@ngx-translate/core';
+import {provideTranslateHttpLoader} from '@ngx-translate/http-loader';
+import {
+  DEFAULT_APP_LANGUAGE,
+  FriendlyMissingTranslationHandler
+} from '~/shared/services/locale.service';
 
 @NgModule({
   declarations   : [AppComponent, AppRootComponent],
@@ -67,6 +73,18 @@ import {ColorPickerWrapperComponent} from '@common/shared/ui-components/inputs/c
     ServerNotificationDialogContainerComponent,
     SideNavComponent,
     ColorPickerWrapperComponent,
+    TranslateModule.forRoot({
+      loader: provideTranslateHttpLoader({
+        prefix: './assets/i18n/',
+        suffix: '.json'
+      }),
+      fallbackLang: DEFAULT_APP_LANGUAGE,
+      lang: DEFAULT_APP_LANGUAGE,
+      missingTranslationHandler: {
+        provide: MissingTranslationHandler,
+        useClass: FriendlyMissingTranslationHandler
+      }
+    })
   ],
   providers: [
     UserPreferences,

@@ -45,6 +45,8 @@
     "@ngrx/router-store": "^20.1.0",
     "@ngrx/signals": "^20.1.0",
     "@ngrx/store": "^20.1.0",
+    "@ngx-translate/core": "^17.0.0",
+    "@ngx-translate/http-loader": "^17.0.0",
     "@primeng/themes": "^20.3.0",
     "@typescript-eslint/types": "^8.48.0",
     "ace-builds": "^1.43.4",
