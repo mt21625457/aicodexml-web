@@ -1,0 +1,17 @@
+<button mat-menu-item (click)="switchLanguage('en')" [disabled]="currentLanguage() === 'en'">
+  <mat-icon>
+    @if (currentLanguage() === 'en') {
+      done
+    }
+  </mat-icon>
+  <span>{{ 'locale.english' | translate }}</span>
+</button>
+
+<button mat-menu-item (click)="switchLanguage('zh-CN')" [disabled]="currentLanguage() === 'zh-CN'">
+  <mat-icon>
+    @if (currentLanguage() === 'zh-CN') {
+      done
+    }
+  </mat-icon>
+  <span>{{ 'locale.simplifiedChinese' | translate }}</span>
+</button>
