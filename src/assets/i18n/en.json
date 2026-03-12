@@ -1,0 +1,18 @@
+{
+  "header": {
+    "appearance": "Appearance",
+    "contactUs": "Contact Us",
+    "documentation": "Online Documentation",
+    "logout": "Logout",
+    "proTips": "Pro Tips",
+    "pythonPackageSetup": "ClearML Python Package setup",
+    "searchAll": "Search all [ctrl + k]",
+    "settings": "Settings",
+    "versionNotifications": "Version Notifications",
+    "youtube": "ClearML on Youtube"
+  },
+  "locale": {
+    "english": "English",
+    "simplifiedChinese": "简体中文"
+  }
+}

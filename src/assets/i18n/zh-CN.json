@@ -1,0 +1,18 @@
+{
+  "header": {
+    "appearance": "外观",
+    "contactUs": "联系我们",
+    "documentation": "在线文档",
+    "logout": "退出登录",
+    "proTips": "专业提示",
+    "pythonPackageSetup": "ClearML Python 包配置",
+    "searchAll": "搜索全部 [ctrl + k]",
+    "settings": "设置",
+    "versionNotifications": "版本通知",
+    "youtube": "ClearML 视频频道"
+  },
+  "locale": {
+    "english": "English",
+    "simplifiedChinese": "简体中文"
+  }
+}

@@ -30,6 +30,7 @@ import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
 import {NgOptimizedImage} from '@angular/common';
 import {TooltipDirective} from '@common/shared/ui-components/indicators/tooltip/tooltip.directive';
 import {MatIconButton} from '@angular/material/button';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'sm-header',
@@ -52,7 +53,8 @@ import {MatIconButton} from '@angular/material/button';
     MatMenuTrigger,
     NgOptimizedImage,
     TooltipDirective,
-    MatIconButton
+    MatIconButton,
+    TranslatePipe
   ]
 })
 export class HeaderComponent implements OnInit {
