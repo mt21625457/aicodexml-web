@@ -18,7 +18,8 @@ import {
 } from '@common/shared/ui-components/indicators/tooltip/show-tooltip-if-ellipsis.directive';
 import {TooltipDirective} from '@common/shared/ui-components/indicators/tooltip/tooltip.directive';
 import {PrimeTemplate} from 'primeng/api';
-import {DecimalPipe} from '@angular/common';
+import {LocalizedNumberPipe} from '@common/shared/pipes/localized-format.pipe';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'sm-serving-general-info',
@@ -33,7 +34,8 @@ import {DecimalPipe} from '@angular/common';
     ShowTooltipIfEllipsisDirective,
     PrimeTemplate,
     DurationPipe,
-    DecimalPipe,
+    LocalizedNumberPipe,
+    TranslatePipe,
   ]
 })
 export class ServingGeneralInfoComponent {
@@ -49,13 +51,13 @@ export class ServingGeneralInfoComponent {
     if (this.endpoint()) {
       const modelUrl = this.endpoint().instances[0]?.reference.find(ref => ref.type === 'url');
       return [
-        {label: 'ENDPOINT NAME', value: this.endpoint().endpoint || NA},
-        {label: 'ENDPOINT URL', value: this.endpoint().url || NA, href: ''},
-        {label: 'MODEL NAME', value: this.endpoint().model || NA, href: modelUrl?.value},
-        {label: 'UPTIME', value: this.endpoint().uptime_sec ? (this.duration.transform(this.endpoint().uptime_sec)) : NA},
-        {label: 'PREPROCESS ARTIFACT', value: this.endpoint().preprocess_artifact || NA},
-        {label: 'INPUT TYPE', value: this.endpoint().input_type || NA},
-        {label: 'INPUT SIZE', value: this.endpoint().input_size ? this.fileSize.transform(this.endpoint().input_size, fileSizeConfigStorage) : NA}
+        {label: 'serving.general.kpis.endpointName', value: this.endpoint().endpoint || NA},
+        {label: 'serving.general.kpis.endpointUrl', value: this.endpoint().url || NA, href: ''},
+        {label: 'serving.general.kpis.modelName', value: this.endpoint().model || NA, href: modelUrl?.value},
+        {label: 'serving.table.headers.uptime', value: this.endpoint().uptime_sec ? (this.duration.transform(this.endpoint().uptime_sec)) : NA},
+        {label: 'serving.general.kpis.preprocessArtifact', value: this.endpoint().preprocess_artifact || NA},
+        {label: 'serving.loading.headers.inputType', value: this.endpoint().input_type || NA},
+        {label: 'serving.loading.headers.inputSize', value: this.endpoint().input_size ? this.fileSize.transform(this.endpoint().input_size, fileSizeConfigStorage) : NA}
       ];
     } else {
       return [];
@@ -65,38 +67,38 @@ export class ServingGeneralInfoComponent {
   columns: ISmCol[] = [
     {
       id: 'id',
-      header: 'INSTANCE ID',
+      header: 'serving.loading.headers.instanceId',
       key: '',
       bodyStyleClass: ''
     },
     {
       id: 'uptime_sec',
-      header: 'UPTIME',
+      header: 'serving.table.headers.uptime',
       key: '',
       style: {maxWidth: '360px'}
     },
     {
       id: 'requests',
-      header: '# REQUESTS',
+      header: 'serving.table.headers.requests',
       key: ''
     }, {
       id: 'requests_min',
-      header: 'REQUESTS/MIN',
+      header: 'serving.general.headers.requestsPerMinute',
       key: ''
     },
     {
       id: 'cpu_count',
-      header: 'CPU COUNT',
+      header: 'serving.general.headers.cpuCount',
       key: ''
     },
     {
       id: 'gpu_count',
-      header: 'GPU COUNT',
+      header: 'serving.general.headers.gpuCount',
       key: ''
     },
     {
       id: 'latency_ms',
-      header: 'LATENCY',
+      header: 'serving.general.headers.latency',
       key: '',
       style: {maxWidth: '80px'}
     }

@@ -1,18 +1,882 @@
 {
   "header": {
     "appearance": "外观",
+    "avatarAlt": "用户头像",
+    "codeIcon": "代码",
     "contactUs": "联系我们",
     "documentation": "在线文档",
+    "docsIcon": "文档",
     "logout": "退出登录",
+    "logoAlt": "Logo",
+    "notificationsIcon": "通知",
     "proTips": "专业提示",
     "pythonPackageSetup": "ClearML Python 包配置",
     "searchAll": "搜索全部 [ctrl + k]",
     "settings": "设置",
+    "tipsIcon": "提示",
     "versionNotifications": "版本通知",
-    "youtube": "ClearML 视频频道"
+    "youtube": "ClearML 视频频道",
+    "youtubeIcon": "Youtube"
   },
   "locale": {
     "english": "English",
     "simplifiedChinese": "简体中文"
+  },
+  "shell": {
+    "sideNav": {
+      "workersAndQueues": "工作节点与队列",
+      "modelEndpoints": "模型服务端点",
+      "datasets": "数据集",
+      "projects": "项目",
+      "pipelines": "流水线",
+      "enterprise": "探索 ClearML 企业版",
+      "communitySlack": "Slack 社区支持"
+    },
+    "settings": {
+      "title": "设置",
+      "profile": "个人资料",
+      "configuration": "配置",
+      "workspace": "工作区",
+      "storageCleanup": "存储清理",
+      "userPreferences": "用户偏好"
+    },
+    "breadcrumbs": {
+      "login": "登录",
+      "share": "分享",
+      "shareView": "分享视图",
+      "shareCopy": "复制以下 URL 与他人共享当前视图",
+      "archive": "归档",
+      "exampleSuffix": "（示例）"
+    }
+  },
+  "serving": {
+    "breadcrumb": "模型服务端点",
+    "views": {
+      "table": "表格视图",
+      "details": "详情视图"
+    },
+    "actions": {
+      "downloadCsv": "下载表格 CSV"
+    },
+    "empty": {
+      "loading": "当前没有正在部署中的模型端点",
+      "noActive": "当前没有活跃模型端点",
+      "monitorPrefix": "监控使用",
+      "orThe": "部署的模型，或使用",
+      "httpRouter": "的 HttpRouter 类"
+    },
+    "routes": {
+      "active": "活跃",
+      "loading": "加载中",
+      "details": "详情",
+      "monitor": "监控"
+    },
+    "table": {
+      "listHeader": "端点列表",
+      "systemTags": "系统标签",
+      "uptimePrefix": "运行时长：",
+      "headers": {
+        "endpoint": "端点",
+        "model": "模型",
+        "url": "URL",
+        "instances": "实例数",
+        "uptime": "运行时长",
+        "requests": "请求数",
+        "requestsPerMinute": "每分钟请求数（平均）",
+        "latency": "延迟（平均）"
+      }
+    },
+    "loading": {
+      "headers": {
+        "instanceId": "实例 ID",
+        "age": "已运行时长",
+        "preprocessArtifact": "预处理工件",
+        "inputType": "输入类型",
+        "inputSize": "输入大小"
+      }
+    },
+    "stats": {
+      "cpuUsage": "CPU 使用率",
+      "gpuUsage": "GPU 使用率",
+      "memoryUsed": "已用内存",
+      "gpuMemory": "GPU 内存",
+      "networkReceive": "网络接收",
+      "networkTransmit": "网络发送"
+    },
+    "general": {
+      "modelInstancesList": "模型实例列表",
+      "kpis": {
+        "endpointName": "端点名称",
+        "endpointUrl": "端点 URL",
+        "modelName": "模型名称",
+        "preprocessArtifact": "预处理工件"
+      },
+      "headers": {
+        "requestsPerMinute": "每分钟请求数",
+        "cpuCount": "CPU 数量",
+        "gpuCount": "GPU 数量",
+        "latency": "延迟"
+      }
+    }
+  },
+  "appearance": {
+    "title": "界面主题",
+    "light": "浅色",
+    "dark": "深色",
+    "system": "跟随系统"
+  },
+  "auth": {
+    "loginTitle": "登录",
+    "username": "用户名",
+    "fullName": "姓名",
+    "password": "密码",
+    "invalidCredentials": "用户名或密码无效",
+    "start": "开始",
+    "loginAction": "登录",
+    "inviteTitle": "接受 {{name}} 的邀请并加入他们的团队",
+    "licenseLine": "ClearML 服务器根据其<a class=\"link\" href=\"{{url}}\" target=\"_blank\">许可协议</a>免费提供。",
+    "securityLine": "此实例的安全、配置和维护由部署该实例的组织负责。",
+    "supportLine": "如需商业支持和企业功能，请<a class=\"link\" href=\"https://clear.ml/contact-us\" target=\"_blank\">联系 ClearML</a>。",
+    "serverLoginIssue": "当前服务器登录似乎出现了问题，请联系你的管理员或支持团队",
+    "githubCta": "如果你喜欢 ClearML，欢迎在 <a class=\"link\" href=\"https://github.com/clearml/clearml\">GitHub</a> 上给我们点星",
+    "slackCta": "加入我们的 Slack 社区",
+    "contactUs": "联系我们",
+    "serverUnavailable": "服务器不可用",
+    "reload": "重新加载"
+  },
+  "preferences": {
+    "showHiddenProjects": "显示隐藏项目",
+    "dontShowExamples": "不显示 ClearML 示例",
+    "disableHidpi": "禁用 HiDPI 浏览器缩放覆盖",
+    "hidpiTooltip": "ClearML 会动态设置浏览器缩放比例以获得最佳页面布局。禁用后将恢复桌面默认缩放。",
+    "reloadToApply": "重新加载以应用",
+    "dontShowProTips": "不再定期显示专业提示",
+    "dontShowEnterprise": "不显示企业版功能",
+    "blockUserScripts": "阻止在浏览器中运行用户脚本",
+    "hideContainerArgs": "隐藏特定容器参数",
+    "hideContainerArgsTooltip": "在任务执行页面中隐藏指定容器环境变量的值",
+    "edit": "编辑"
+  },
+  "settings": {
+    "storage": {
+      "credentials": "存储凭证",
+      "providersTitle": "存储提供商",
+      "providersDescription": "配置存储提供商访问凭证，以便在删除任务或模型时允许 ClearML 删除保存在云存储中的工件。",
+      "configured": "已配置",
+      "awsCompatiblePrefix": "（也可用于",
+      "awsCompatibleSuffix": "）",
+      "actions": {
+        "resetChanges": "重置更改"
+      },
+      "providers": {
+        "google": "Google 云存储",
+        "aws": "AWS S3 存储",
+        "azure": "Azure Blob 存储"
+      },
+      "labels": {
+        "defaultCredentials": "默认凭证",
+        "bucketSpecificCredentials": "Bucket 专用凭证",
+        "credentialsJson": "凭证 JSON",
+        "credentialsJsonRequired": "凭证 JSON *",
+        "noFileSelected": "未选择文件",
+        "showFile": "查看",
+        "uploadFile": "上传文件",
+        "addCredentials": "添加凭证",
+        "addAccessKeys": "添加访问密钥"
+      },
+      "fields": {
+        "project": "项目",
+        "bucket": "Bucket",
+        "region": "区域",
+        "host": "Host",
+        "secureHost": "安全 Host",
+        "verifySslCertificate": "验证 SSL 证书",
+        "accessKey": "访问密钥",
+        "accessKeyShort": "Key",
+        "secret": "密钥",
+        "secretOrSas": "密钥 / SAS",
+        "accessToken": "访问令牌",
+        "token": "令牌",
+        "awsRegion": "AWS 区域",
+        "credentialsChain": "凭证链",
+        "useCredentialsChain": "使用凭证链",
+        "hostEndpoint": "Host（端点）",
+        "accountName": "账户名称",
+        "accountKey": "账户密钥",
+        "containerName": "容器名称"
+      },
+      "validation": {
+        "bucketRequired": "Bucket 为必填项",
+        "keyRequired": "Key 为必填项",
+        "secretRequired": "密钥为必填项",
+        "accountNameRequired": "账户名称为必填项",
+        "accountKeyRequired": "账户密钥为必填项"
+      },
+      "messages": {
+        "loadFailed": "读取存储凭证失败",
+        "updateFailed": "更新存储凭证失败"
+      },
+      "aws": {
+        "tooltips": {
+          "defaultAccessKey": "未在 bucket 列表中单独指定时，这个访问密钥会作为默认值使用",
+          "defaultSecret": "未在 bucket 列表中单独指定时，这个密钥会作为默认值使用",
+          "defaultAccessToken": "这是 AWS 账号的会话密钥，仅在使用临时凭证时需要",
+          "defaultRegion": "未在 bucket 列表中单独指定时，这个区域会作为默认值使用",
+          "credentialsChain": "系统会在环境变量、凭证文件以及配置了 IAM 角色的元数据服务中查找凭证",
+          "bucket": "为单个 bucket 指定专属凭证时使用的 bucket 名称",
+          "bucketRegion": "当前 bucket 所在区域",
+          "host": "指定 bucket 的 Host URL 和端口。对于非 AWS 端点，通常都需要显式指定端口",
+          "secureHost": "指定按 Host 区分的 bucket 凭证时，表示该 Host 是否为安全连接",
+          "bucketAccessKey": "当前 bucket 使用的访问密钥",
+          "bucketSecret": "当前 bucket 使用的密钥",
+          "bucketAccessToken": "当前 AWS bucket 的会话密钥，仅在使用临时凭证时需要",
+          "useCredentialsChain": "系统会在环境变量、凭证文件以及配置了 IAM 角色的元数据服务中查找凭证"
+        }
+      },
+      "google": {
+        "bucketTitle": "Bucket {{bucket}}"
+      },
+      "s3Access": {
+        "placeholders": {
+          "region": "us-east-2",
+          "endpoint": "AWS S3 可留空"
+        },
+        "insecureWarning": "在安全网页中通过非安全传输（HTTP）嵌入图像时，浏览器可能需要额外配置"
+      }
+    },
+    "redactedArguments": {
+      "title": "隐藏参数",
+      "required": "必填",
+      "argument": "参数"
+    },
+    "admin": {
+      "credentials": {
+        "lastUsed": "最近使用",
+        "workerIp": "工作节点/IP",
+        "never": "从未"
+      },
+      "footer": {
+        "webApp": "WebApp",
+        "server": "服务端",
+        "api": "API"
+      },
+      "usageStats": {
+        "toggle": "发送匿名使用数据（全局设置）"
+      }
+    },
+    "profile": {
+      "copyUserId": "复制用户 ID",
+      "emailAddress": "电子邮箱"
+    }
+  },
+  "workers": {
+    "table": {
+      "headers": {
+        "availableWorkers": "可用工作节点",
+        "currentlyRunningTask": "当前运行任务",
+        "taskRunningTime": "任务运行时长",
+        "iteration": "迭代"
+      }
+    },
+    "stats": {
+      "title": "工作节点利用率",
+      "params": {
+        "cpuAndGpuUsage": "CPU 与 GPU 使用率",
+        "memoryUsage": "内存使用量",
+        "gpuMemory": "GPU 显存",
+        "networkUsage": "网络使用量"
+      },
+      "series": {
+        "cpu": "CPU",
+        "gpu": "GPU",
+        "usage": "使用率",
+        "memory": "内存",
+        "memoryUsed": "已用内存",
+        "networkReceive": "网络接收",
+        "networkTransmit": "网络发送",
+        "totalWorkers": "工作节点总数",
+        "activeWorkers": "活跃工作节点"
+      },
+      "messages": {
+        "fetchFailed": "获取工作节点活动统计失败"
+      },
+      "yAxis": {
+        "count": "数量",
+        "usagePercent": "使用率 %",
+        "bytes": "字节",
+        "bytesPerSecond": "字节/秒"
+      }
+    },
+    "info": {
+      "tabs": {
+        "info": "信息",
+        "queues": "队列"
+      },
+      "labels": {
+        "workerName": "工作节点名称",
+        "updateTime": "更新时间",
+        "currentTask": "当前任务",
+        "tasksRunTime": "任务运行时长",
+        "tasksIteration": "任务迭代"
+      },
+      "empty": {
+        "noQueues": "当前没有分配给该工作节点的队列"
+      },
+      "queueTable": {
+        "headers": {
+          "queue": "队列",
+          "nextTask": "下一个任务",
+          "inQueue": "队列中"
+        }
+      },
+      "copyQueueId": "复制队列 ID"
+    }
+  },
+  "queues": {
+    "searchPlaceholder": "搜索队列",
+    "table": {
+      "headers": {
+        "queue": "队列",
+        "workers": "工作节点",
+        "nextTask": "下一个任务",
+        "lastUpdated": "最近更新",
+        "inQueue": "队列中"
+      }
+    },
+    "stats": {
+      "taskWaitTime": "任务等待时间",
+      "queuedTasks": "排队中的任务",
+      "series": {
+        "queueAverageWaitTime": "队列平均等待时间",
+        "queuesAverageLength": "队列平均长度"
+      }
+    },
+    "info": {
+      "tabs": {
+        "tasks": "任务",
+        "workers": "工作节点"
+      },
+      "headers": {
+        "name": "名称",
+        "ip": "IP",
+        "currentlyExecuting": "当前执行中"
+      },
+      "empty": {
+        "noTasks": "当前没有排队中的任务",
+        "noWorkers": "当前没有分配到该队列的工作节点"
+      }
+    },
+    "actions": {
+      "newQueue": "新建队列",
+      "updateQueue": "更新队列",
+      "moveToTop": "移动到顶部",
+      "moveToBottom": "移动到底部",
+      "moveToQueue": "移动到队列...",
+      "removeFromQueue": "从队列中移除"
+    },
+    "menu": {
+      "managedByPrefix": "该队列由",
+      "managedBySuffix": "资源策略管理",
+      "delete": "删除",
+      "update": "更新",
+      "clear": "清空"
+    },
+    "messages": {
+      "deleteTitle": "删除队列",
+      "deleteBody": "确定要删除队列“{{queue}}”吗？",
+      "deleteFailed": "删除队列失败",
+      "clearTitle": "清空所有待处理任务",
+      "clearBody": "确定要将 {{queue}} 队列中当前待处理的 {{count}} 个任务移出队列吗？",
+      "clearAction": "清空队列",
+      "clearFailed": "清空队列失败",
+      "moveTaskFailed": "移动任务失败",
+      "moveQueueFailed": "移动队列失败",
+      "removeFromQueueFailed": "从队列移除失败",
+      "moveToQueueFailed": "移动任务失败，{{error}}",
+      "copied": "队列 {{key}} 已复制到剪贴板"
+    }
+  },
+  "dashboard": {
+    "searchPlaceholder": "搜索全部",
+    "manageWorkersAndQueues": "管理工作节点与队列",
+    "recentTasks": "最近任务",
+    "recentProjects": "最近项目",
+    "recentReports": "最近报告",
+    "viewAll": "查看全部",
+    "newReport": "新建报告"
+  },
+  "projects": {
+    "breadcrumb": "项目",
+    "actions": {
+      "newProject": "新建项目"
+    },
+    "sort": {
+      "recent": "最近",
+      "name": "名称"
+    },
+    "searchPlaceholder": "搜索项目"
+  },
+  "datasets": {
+    "breadcrumb": "数据集",
+    "actions": {
+      "newDataset": "新建数据集",
+      "createNewDataset": "创建新数据集"
+    },
+    "views": {
+      "list": "列表视图",
+      "project": "项目视图"
+    },
+    "empty": {
+      "title": "暂无可显示的数据集",
+      "subtitle": "运行你的第一个数据集后，它会显示在这里",
+      "or": "或",
+      "generateExample": "生成示例",
+      "description": "你可以通过命令行或在 Python 代码中使用 ClearML Data。",
+      "quickExample": "运行以下代码片段即可快速体验（需要 ClearML 1.7 或更高版本）。",
+      "moreDetails": "更多详情请参阅"
+    },
+    "labels": {
+      "datasets": "数据集",
+      "tagsInUse": "使用中的标签"
+    },
+    "tabs": {
+      "cli": "命令行",
+      "sdk": "SDK"
+    },
+    "searchPlaceholder": "搜索数据集"
+  },
+  "pipelines": {
+    "breadcrumb": "流水线",
+    "actions": {
+      "newPipeline": "新建流水线",
+      "createNewPipeline": "创建新流水线"
+    },
+    "views": {
+      "list": "列表视图",
+      "project": "项目视图"
+    },
+    "empty": {
+      "title": "暂无可显示的流水线",
+      "subtitle": "运行你的第一条流水线后，它会显示在这里",
+      "or": "或",
+      "generateExample": "生成示例",
+      "quickExample": "运行以下代码即可快速体验（需要 ClearML 1.3 或更高版本）。",
+      "moreDetails": "更多详情请参阅",
+      "noRunsYet": "暂无流水线运行记录"
+    },
+    "labels": {
+      "running": "运行中",
+      "pending": "待处理",
+      "completed": "已完成",
+      "failed": "失败",
+      "last24Hours": "（24 小时）"
+    },
+    "card": {
+      "lastRun": "最近运行",
+      "subProjects": "个子项目"
+    },
+    "searchPlaceholder": "搜索流水线"
+  },
+  "reports": {
+    "breadcrumb": "报告",
+    "actions": {
+      "newReport": "新建报告",
+      "createNewReport": "创建新报告",
+      "createReport": "创建报告",
+      "startEditing": "开始编辑报告",
+      "restoreFromArchive": "从归档中恢复"
+    },
+    "sort": {
+      "recent": "最近",
+      "name": "名称"
+    },
+    "views": {
+      "list": "列表视图",
+      "project": "项目视图"
+    },
+    "empty": {
+      "title": "暂无可显示的报告",
+      "editorTitle": "这里还没有任何内容..."
+    },
+    "labels": {
+      "reports": "报告",
+      "published": "已发布",
+      "updated": "更新于"
+    },
+    "description": {
+      "title": "描述"
+    },
+    "placeholders": {
+      "description": "报告描述"
+    },
+    "tooltips": {
+      "copyMarkdown": "复制报告 Markdown 到剪贴板",
+      "exportPdf": "导出为 PDF",
+      "moveToProject": "移动到项目",
+      "publishDisabled": "空报告无法发布"
+    },
+    "form": {
+      "reportName": "报告名称",
+      "project": "项目",
+      "searchProjectPath": "搜索项目路径",
+      "description": "描述",
+      "errors": {
+        "nameRequired": "请输入名称。",
+        "nameExists": "报告名称已存在。",
+        "nameTooShort": "报告名称长度必须超过 3 个字符。",
+        "projectRequired": "请选择项目。",
+        "projectSpaces": "项目名称不能只包含空格",
+        "descriptionRequired": "请输入描述。"
+      }
+    },
+    "messages": {
+      "linkCopied": "报告链接已复制到剪贴板",
+      "invalidFile": "无效文件",
+      "invalidFileType": "无效文件类型",
+      "uploadFailed": "上传失败 {{message}}",
+      "deleted": "报告已删除",
+      "resourceDeleteFailed": "删除资源失败"
+    },
+    "deleteDialog": {
+      "body": "永久删除报告"
+    },
+    "searchPlaceholder": "搜索报告"
+  },
+  "models": {
+    "breadcrumb": "模型",
+    "actions": {
+      "viewFullScreen": "全屏查看",
+      "viewInTable": "在模型表中查看"
+    },
+    "headers": {
+      "createdBy": "创建来源",
+      "usedBy": "使用于"
+    },
+    "table": {
+      "name": "名称",
+      "tags": "标签",
+      "status": "状态",
+      "id": "ID",
+      "tagsExplain": "点击包含标签，再次点击表示排除。",
+      "searchTasks": "搜索任务",
+      "modelList": "模型列表",
+      "systemTags": "系统标签",
+      "unknownUser": "未知用户",
+      "updatedBy": "{{time}} 前由 {{user}} 更新"
+    },
+    "generalInfo": {
+      "createdAt": "创建时间",
+      "updatedAt": "更新时间",
+      "framework": "框架",
+      "status": "状态",
+      "modelUrl": "模型 URL",
+      "user": "用户",
+      "archived": "已归档",
+      "project": "项目",
+      "description": "描述"
+    },
+    "values": {
+      "published": "已发布",
+      "draft": "草稿"
+    },
+    "metadata": {
+      "title": "元数据",
+      "key": "键",
+      "type": "类型",
+      "value": "值",
+      "errors": {
+        "required": "必填",
+        "keyEmpty": "键不能为空",
+        "keyUnique": "键必须唯一。",
+        "typeEmpty": "类型不能为空"
+      }
+    },
+    "plots": {
+      "findPlots": "查找图表",
+      "toggleGraphs": "切换图表",
+      "parseWarning": "无法读取全部图表。请确认所有图表格式正确（不支持 NaN 和 Inf）。"
+    },
+    "select": {
+      "searchPlaceholder": "输入模型名称或 ID 以添加到对比列表",
+      "selectPublishedModel": "选择一个已发布模型",
+      "messages": {
+        "atLeastOne": "对比模块至少需要包含一个模型",
+        "limit": "最多只能对比 {{count}} 个模型"
+      },
+      "menu": {
+        "selectFromProject": "从项目中选择",
+        "all": "全部",
+        "none": "无",
+        "allMatchingFilter": "所有匹配筛选项"
+      }
+    }
+  },
+  "experiments": {
+    "views": {
+      "compare": "对比视图"
+    },
+    "details": {
+      "description": "描述",
+      "taskDetails": "任务详情",
+      "archived": "已归档",
+      "changedAt": "变更时间",
+      "lastIteration": "最后迭代",
+      "statusMessage": "状态消息",
+      "statusReason": "状态原因",
+      "createdAt": "创建时间",
+      "startedAt": "开始时间",
+      "lastUpdatedAt": "最后更新时间",
+      "completedAt": "完成时间",
+      "runTime": "运行时长",
+      "queue": "队列",
+      "worker": "工作节点",
+      "createdBy": "创建者",
+      "parentTask": "父任务",
+      "project": "项目",
+      "id": "ID",
+      "copyParentTaskId": "复制父任务 ID 到剪贴板"
+    },
+    "clone": {
+      "headers": {
+        "cloneTask": "克隆任务",
+        "extendTask": "扩展任务"
+      },
+      "reference": {
+        "draftPrefix": "将创建",
+        "draftSuffix": "的草稿副本。",
+        "extendMiddle": "的草稿副本，并将其输入模型设置为",
+        "extendSuffix": "的输出模型。"
+      },
+      "forceParent": {
+        "prefix": "将",
+        "asParent": "设为父任务"
+      },
+      "toggles": {
+        "forceOriginalPackages": "强制使用原始依赖包"
+      },
+      "errors": {
+        "readOnlyProject": "只读项目不能作为克隆{{type}}的目标位置"
+      },
+      "messages": {
+        "failed": "克隆任务失败"
+      }
+    },
+    "compare": {
+      "tasks": "任务",
+      "models": "模型",
+      "tasksLower": "任务",
+      "modelsLower": "模型",
+      "compareTasks": "对比任务",
+      "compareModels": "对比模型",
+      "allTasks": "全部任务",
+      "allModels": "全部模型",
+      "selectComparedTasks": "选择要对比的任务",
+      "selectComparedModels": "选择要对比的模型",
+      "searchPlaceholder": "输入任务名称或 ID 以添加到对比列表",
+      "includeArchived": "包含已归档",
+      "tooltips": {
+        "addRemoveTasks": "添加或移除待对比任务",
+        "addRemoveModels": "添加或移除待对比模型",
+        "exportCsv": "导出为 CSV"
+      },
+      "messages": {
+        "atLeastOne": "对比模块至少需要包含一个实验",
+        "limit": "最多只能对比 {{count}} 个实验",
+        "limitEntity": "最多只能对比 {{count}} 个{{entity}}"
+      },
+      "viewModes": {
+        "parallelCoordinates": "平行坐标",
+        "scatterPlot": "散点图",
+        "graph": "图表",
+        "lastValues": "最新值",
+        "minValues": "最小值",
+        "maxValues": "最大值",
+        "values": "数值"
+      },
+      "toggles": {
+        "hideIdenticalParameters": "隐藏相同参数",
+        "hideIdenticalFields": "隐藏相同字段",
+        "showRowExtremes": "显示行极值"
+      },
+      "generalData": {
+        "iterations": "次迭代",
+        "lastUpdated": "最后更新"
+      }
+    },
+    "queue": {
+      "headers": {
+        "retryTask": "重试任务",
+        "enqueueTask": "入队任务"
+      },
+      "retryNoticeSingle": "此前执行失败。请确认问题已修复后再重新运行。",
+      "retryNoticePlural": "此前执行失败。请确认问题已修复后再重新运行。",
+      "selectQueueForExecution": "选择执行队列。",
+      "scheduledForExecution": "将通过所选队列安排执行。",
+      "enqueueWarningLine1": "注意：部分任务似乎不包含可执行代码。",
+      "enqueueWarningLine2": "如果将其加入队列运行，可能不会产生任何结果。",
+      "queue": "队列",
+      "createNew": "创建新队列",
+      "errors": {
+        "provideValue": "请提供一个值"
+      }
+    },
+    "table": {
+      "systemTags": "系统标签",
+      "unknownUser": "未知用户",
+      "selectionLimit": "已达到选择上限",
+      "updated": "更新于",
+      "createdBy": "创建者",
+      "iterations": "次迭代"
+    },
+    "menu": {
+      "tasksCount": "{{count}} 个任务",
+      "stopWarning": "将被停止，并且不再允许额外的模型更新。",
+      "dequeuePrompt": "将从",
+      "executionQueue": "执行队列中移除。",
+      "publishStatus": "状态将被设置为已发布。",
+      "publishNotice": "已发布的任务为只读，且无法重置。该任务的输出（包括模型）也会一并发布，以便其他任务继续使用。",
+      "dialogs": {
+        "archiveRunning": {
+          "title": "归档正在运行的任务",
+          "body": "你即将归档的部分任务正在运行或排队中。<br>归档运行中的任务也会同时将其<b>重置</b>。<br>是否归档这些任务？"
+        },
+        "dequeue": {
+          "title": "移出队列任务"
+        },
+        "publish": {
+          "title": "发布任务"
+        },
+        "share": {
+          "title": "公开分享任务"
+        },
+        "archiveShared": {
+          "title": "归档已公开分享的任务",
+          "body": "该任务当前可通过公开访问链接访问。<br>归档后将禁用公开访问"
+        }
+      },
+      "messages": {
+        "fetchChildrenFailed": "获取正在运行的子任务失败"
+      }
+    }
+  },
+  "moveProject": {
+    "message": {
+      "willBeMoved": "将被移动",
+      "from": "从",
+      "toSelectedProject": "到所选项目。"
+    },
+    "errors": {
+      "projectRequired": "请选择项目。",
+      "sameProject": "不能将{{type}}移动到当前位置",
+      "exampleProject": "该项目名称已被示例项目占用，请提供其他名称"
+    }
+  },
+  "shared": {
+    "ok": "确定",
+    "cancel": "取消",
+    "save": "保存",
+    "edit": "编辑",
+    "add": "添加",
+    "extend": "扩展",
+    "delete": "删除",
+    "share": "分享",
+    "archive": "归档",
+    "restore": "恢复",
+    "publish": "发布",
+    "rename": "重命名",
+    "moveTo": "移动到",
+    "moveToProject": "移动到项目",
+    "addTag": "添加标签",
+    "apply": "应用",
+    "enqueue": "加入队列",
+    "download": "下载",
+    "details": "详情",
+    "viewFullScreen": "全屏查看",
+    "viewInTaskTable": "在任务表中查看",
+    "editColor": "编辑颜色",
+    "manageQueue": "管理队列",
+    "viewWorker": "查看工作节点",
+    "retry": "重试",
+    "dequeue": "移出队列",
+    "reset": "重置",
+    "abort": "中止",
+    "abortAllChildren": "中止所有子任务",
+    "clone": "克隆",
+    "yes": "是",
+    "no": "否",
+    "notAvailable": "不可用",
+    "restoreFromArchive": "从归档中恢复",
+    "dontShowAgain": "不再显示此消息",
+    "searchParameters": "搜索参数",
+    "clearSelection": "清除选择",
+    "noData": "暂无数据",
+    "selectionLimit": "最多只能选择 {{count}} 个参数",
+    "noItemFound": "未找到条目",
+    "invalidJson": "JSON 格式无效",
+    "codeCopied": "代码已复制到剪贴板",
+    "urlCopied": "URL 已复制成功",
+    "idCopied": "ID 已复制到剪贴板",
+    "examplePrefix": "例如",
+    "typeToSearch": "输入以搜索",
+    "searchExamplePlaceholder": "例如：{\"status\": [\"stopped\"], \"order_by\": [\"-last_update\"]}",
+    "copyToClipboard": "复制到剪贴板",
+    "dataTemporarilyNotAvailable": "数据暂时不可用",
+    "newVersionAvailable": "发现新版本",
+    "reloadPagePrompt": "点击下方重新加载按钮以刷新网页",
+    "create": "创建",
+    "remove": "移除",
+    "project": "项目",
+    "name": "名称",
+    "description": "描述",
+    "sortedBy": "排序依据",
+    "link": "链接",
+    "noValue": "（无值）",
+    "overall": "整体",
+    "toggleGraphs": "切换图表",
+    "timeframes": {
+      "threeHours": "3 小时",
+      "sixHours": "6 小时",
+      "twelveHours": "12 小时",
+      "oneDay": "1 天",
+      "oneWeek": "1 周",
+      "oneMonth": "1 个月"
+    },
+    "shareReadOnly": "<b>任何持有此链接的已注册用户</b>都将对该任务及其所有内容（制品、结果等）拥有只读访问权限。",
+    "shareCreateLink": "创建可分享链接，以向你提供该链接的<b>任意已注册用户</b>授予只读访问权限。",
+    "noChangesLogged": "暂无变更记录"
+  },
+  "credentials": {
+    "label": "标签",
+    "credentialsLabel": "凭证标签",
+    "apiCredentials": "API 凭证",
+    "apiCredentialsInfo": "供 ClearML 客户端调用 ClearML 服务器 API 的 key/secret 凭证对。这包括 ClearML SDK、Agent 以及任何其他调用 API 的客户端。",
+    "createNewCredentials": "创建新凭证",
+    "createCredentials": "创建凭证",
+    "name": "名称",
+    "accessKey": "访问密钥",
+    "secretKey": "密钥",
+    "localPython": "本地 Python",
+    "jupyterNotebook": "Jupyter Notebook",
+    "copyAgentConfig": "将以下配置复制到 ClearML Agent 的 clearml.conf 文件中",
+    "copyInitConfig": "复制以下信息用于 'clearml-init' 配置流程，或修改你现有的 clearml.conf",
+    "addToNotebook": "将以下内容添加到你的 Notebook 以配置 ClearML",
+    "updateLabel": "更新标签",
+    "revokeConfirmTitle": "确认要继续吗？",
+    "revokeConfirmBody": "确定要撤销 {{label}} 凭证（{{accessKey}}）吗？<br>\n              撤销后这些凭证将无法恢复。",
+    "revoke": "撤销",
+    "editLabelTitle": "编辑标签",
+    "save": "保存"
+  },
+  "errors": {
+    "auth": {
+      "identityVerificationFailed": "无法完成身份验证。身份提供商可能不可用，请稍后重试",
+      "identityVerificationTimeout": "无法完成身份验证。你的注册会话可能已超时，请重试。\n** 如果问题仍然存在，身份提供商可能不可用，请稍后再试。",
+      "inviteExpired": "{{user_name}} 团队的邀请已过期。请联系 {{user_name}} 加入他们的团队，或注册一个免费的独立账户。",
+      "accountAlreadyExists": "此 {{provider}} 身份对应的账户已存在。请改用“登录”。",
+      "noAccountExists": "账户不存在。请使用你注册时使用的身份提供商登录，或先注册创建账户",
+      "checkEmail": "请检查你的邮箱以继续注册流程",
+      "emailNotAllowed": "{{email}} 无权访问 ClearML，请联系管理员将该地址加入白名单",
+      "cantLoginTenant": "无法登录租户 {{tenant}}，该用户不属于此租户"
+    }
   }
 }

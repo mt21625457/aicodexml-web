@@ -1,7 +1,7 @@
 <div class="header d-flex justify-content-between">
   <div class="d-flex align-items-center">
     @if (!activeWorker()) {
-      <div class="title">Workers Utilization</div>
+      <div class="title">{{ 'workers.stats.title' | translate }}</div>
     }
     @if (activeWorker()) {
       <mat-form-field appearance="outline" class="param-selector no-bottom">
@@ -12,21 +12,21 @@
         >
           @for (chartParam of chartParamOptions; track chartParam.label) {
             <mat-option [value]="chartParam.value">
-              {{ chartParam.label }}
+              {{ chartParam.label | translate }}
             </mat-option>
           }
         </mat-select>
       </mat-form-field>
     }
     @if (statsError()) {
-      <mat-icon fontSet="al" fontIcon="al-ico-alert-outline" class="warning" smTooltip="Data temporarily not available"></mat-icon>
+      <mat-icon fontSet="al" fontIcon="al-ico-alert-outline" class="warning" [smTooltip]="'shared.dataTemporarilyNotAvailable' | translate"></mat-icon>
     }
   </div>
   <mat-form-field appearance="outline" class="time-selector no-bottom">
     <mat-select [ngModel]="currentTimeFrame()" (ngModelChange)="timeFrameChange($event)" name="time-frame">
       @for (timeFrame of timeFrameOptions; track timeFrame.label) {
         <mat-option [value]="timeFrame.value">
-          {{ timeFrame.label }}
+          {{ timeFrame.label | translate }}
         </mat-option>
       }
     </mat-select>

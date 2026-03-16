@@ -12,6 +12,7 @@ import {MatAnchor, MatButton} from '@angular/material/button';
 import {IReportsCreateRequest, ReportDialogComponent} from '@common/reports/report-dialog/report-dialog.component';
 import {createReport} from '@common/reports/reports.actions';
 import {selectDefaultNestedModeForFeature} from '@common/core/reducers/projects.reducer';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
     selector: 'sm-dashboard-reports',
@@ -21,7 +22,8 @@ import {selectDefaultNestedModeForFeature} from '@common/core/reducers/projects.
         MatIcon,
         MatButton,
         MatAnchor,
-        RouterLink
+        RouterLink,
+        TranslatePipe
     ],
     templateUrl: './dashboard-reports.component.html',
     styleUrl: './dashboard-reports.component.scss'

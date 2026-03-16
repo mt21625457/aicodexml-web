@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  OnChanges, viewChild, output, input, computed, signal, effect, Output, EventEmitter
+  OnChanges, viewChild, output, input, computed, signal, effect, Output, EventEmitter, inject
 } from '@angular/core';
 import {ColHeaderTypeEnum, ISmCol} from '@common/shared/ui-components/data/table/table.consts';
 import {get} from 'lodash-es';
@@ -57,11 +57,12 @@ import {TooltipDirective} from '@common/shared/ui-components/indicators/tooltip/
 import {
   ShowTooltipIfEllipsisDirective
 } from '@common/shared/ui-components/indicators/tooltip/show-tooltip-if-ellipsis.directive';
-import {DatePipe} from '@angular/common';
 import {ColGetterPipe} from '@common/shared/pipes/col-getter.pipe';
 import {TimeAgoPipe} from '@common/shared/pipes/timeAgo';
 import {IsRowSelectedPipe} from '@common/shared/ui-components/data/table/is-rwo-selected.pipe';
 import {ClickStopPropagationDirective} from '@common/shared/ui-components/directives/click-stop-propagation.directive';
+import {LocalizedDatePipe} from '@common/shared/pipes/localized-format.pipe';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'sm-models-table',
@@ -83,7 +84,7 @@ import {ClickStopPropagationDirective} from '@common/shared/ui-components/direct
     FilterPipe,
     TooltipDirective,
     ShowTooltipIfEllipsisDirective,
-    DatePipe,
+    LocalizedDatePipe,
     ColGetterPipe,
     IsRowSelectedPipe,
     TimeAgoPipe,
@@ -91,10 +92,12 @@ import {ClickStopPropagationDirective} from '@common/shared/ui-components/direct
     ClickStopPropagationDirective,
     MatMenuItem,
     MatMenuTrigger,
-    ModelMenuExtendedComponent
+    ModelMenuExtendedComponent,
+    TranslatePipe
   ]
 })
 export class ModelsTableComponent extends BaseTableView implements OnChanges {
+  private translate = inject(TranslateService);
   override entitiesKey = 'models';
   override selectedEntitiesKey = 'checkedModels';
   protected readonly modelsTableColFields = MODELS_TABLE_COL_FIELDS;
@@ -208,7 +211,7 @@ export class ModelsTableComponent extends BaseTableView implements OnChanges {
     ),
     [MODELS_TABLE_COL_FIELDS.READY]: this.modelsReadyOptions,
     [MODELS_TABLE_COL_FIELDS.USER]: this.sortOptionsList(this.users()?.map(user => ({
-      label: user.name ? user.name : 'Unknown User',
+      label: user.name ? user.name : this.translate.instant('models.table.unknownUser'),
       value: user.id,
       tooltip: ''
     })) ?? [], [this.currentUserId(), ...this.sortByFilterValues()[MODELS_TABLE_COL_FIELDS.USER]]),

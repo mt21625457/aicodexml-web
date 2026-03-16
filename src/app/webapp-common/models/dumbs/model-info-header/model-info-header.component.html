@@ -23,13 +23,13 @@
           <sm-id-badge [id]="model()?.id" (copied)="copyToClipboard()"></sm-id-badge>
         }
         @if (minimized()) {
-          <button class="line-item" mat-icon-button (click)="maximizedClicked.emit()" smTooltip="View Full Screen" data-id="fullscreenIcon">
+          <button class="line-item" mat-icon-button (click)="maximizedClicked.emit()" [smTooltip]="'models.actions.viewFullScreen' | translate" data-id="fullscreenIcon">
             <mat-icon fontSet="al" fontIcon="al-ico-info-max"></mat-icon>
           </button>
         }
 
         @if (model() && (!minimized()) && !isSharedAndNotOwner()) {
-          <button class="line-item" mat-icon-button (click)="minimizeClicked.emit()" smTooltip="View in models table" data-id="experimentDetailsView">
+          <button class="line-item" mat-icon-button (click)="minimizeClicked.emit()" [smTooltip]="'models.actions.viewInTable' | translate" data-id="experimentDetailsView">
             <mat-icon fontSet="al" fontIcon="al-ico-info-min"></mat-icon>
           </button>
         }

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, computed, effect, input, output, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, effect, inject, input, output, signal} from '@angular/core';
 import {TIME_FORMAT_STRING} from '@common/constants';
 import {FilterMetadata, PrimeTemplate} from 'primeng/api';
 import {get, parseInt} from 'lodash-es';
@@ -32,7 +32,8 @@ import {ColGetterPipe} from '@common/shared/pipes/col-getter.pipe';
 import {DurationPipe} from '@common/shared/pipes/duration.pipe';
 import {IsRowSelectedPipe} from '@common/shared/ui-components/data/table/is-rwo-selected.pipe';
 import {FilterPipe} from '@common/shared/pipes/filter.pipe';
-import {DecimalPipe} from '@angular/common';
+import {LocalizedNumberPipe} from '@common/shared/pipes/localized-format.pipe';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'sm-serving-table',
@@ -54,10 +55,12 @@ import {DecimalPipe} from '@angular/common';
     DurationPipe,
     IsRowSelectedPipe,
     FilterPipe,
-    DecimalPipe,
+    LocalizedNumberPipe,
+    TranslatePipe,
   ]
 })
 export class ServingTableComponent extends BaseTableView {
+  private translate = inject(TranslateService);
   override entitiesKey = 'endpoints';
 
   readonly endpointsTableColFields = servingTableColFields;
@@ -192,7 +195,7 @@ export class ServingTableComponent extends BaseTableView {
     ),
     ...Object.entries(this.metadataValuesOptions() || {}).reduce((acc, [id, values]) => {
       acc![id] = values === null ? null : [{
-        label: '(No Value)',
+        label: this.translate.instant('shared.noValue'),
         value: null
       }].concat(values.map(value => ({
         label: value,

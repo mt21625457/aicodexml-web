@@ -4,15 +4,12 @@ import {
   EventEmitter,
   inject,
   Input,
-  LOCALE_ID,
   Output,
   viewChild
 } from '@angular/core';
 import {get} from 'lodash-es';
 import {SelectedModel} from '../../shared/models.model';
-import {NA} from '~/app.constants';
 import {TAGS} from '@common/tasks/tasks.constants';
-import {formatDate} from '@angular/common';
 import {TIME_FORMAT_STRING} from '@common/constants';
 import {Store} from '@ngrx/store';
 import {activateModelEdit, cancelModelEdit} from '../../actions/models-info.actions';
@@ -27,6 +24,8 @@ import {RouterLink} from '@angular/router';
 import {MatIconButton} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {NAPipe} from '@common/shared/pipes/na.pipe';
+import {LocaleFormatService} from '~/shared/services/locale-format.service';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'sm-model-general-info',
@@ -42,13 +41,15 @@ import {NAPipe} from '@common/shared/pipes/na.pipe';
     MatIconModule,
     RouterLink,
     MatIconButton,
-    NAPipe
+    NAPipe,
+    TranslatePipe
   ]
 })
 export class ModelGeneralInfoComponent {
   private store = inject(Store);
   private adminService = inject(AdminService);
-  private locale = inject(LOCALE_ID);
+  private localeFormat = inject(LocaleFormatService);
+  private translate = inject(TranslateService);
 
   public kpis: { label: string; value: string; downloadable?: boolean; href?: string; task?: string }[];
   private _model: SelectedModel;
@@ -63,28 +64,29 @@ export class ModelGeneralInfoComponent {
       this.description().inlineCanceled();
     }
     this._model = model;
+    const unavailable = this.translate.instant('shared.notAvailable');
     if (model) {
       this.isLocalFile = this.adminService.isLocalFile(model.uri);
       this.kpis = [
-        {label: 'CREATED AT', value: model.created ? (formatDate(model.created, TIME_FORMAT_STRING, this.locale)) : 'NA'},
-        {label: 'UPDATED AT', value: model.last_update ? (formatDate(model.last_update, TIME_FORMAT_STRING, this.locale)) : 'NA'},
-        {label: 'FRAMEWORK', value: model.framework || NA},
-        {label: 'STATUS', value: (model.ready !== undefined) ? (model.ready ? 'Published' : 'Draft') : NA},
-        {label: 'MODEL URL', value: model.uri || NA, downloadable: true},
-        {label: 'USER', value: get( model,'user.name', NA)},
-        {label: 'ARCHIVED', value: model && model.system_tags && model.system_tags.includes(TAGS.HIDDEN) ? 'Yes' : 'No'},
-        {label: 'PROJECT', value: get(model, 'project.name', NA)},
+        {label: this.translate.instant('models.generalInfo.createdAt'), value: this.localeFormat.formatDate(model.created, TIME_FORMAT_STRING) || this.translate.instant('shared.notAvailable')},
+        {label: this.translate.instant('models.generalInfo.updatedAt'), value: this.localeFormat.formatDate(model.last_update, TIME_FORMAT_STRING) || this.translate.instant('shared.notAvailable')},
+        {label: this.translate.instant('models.generalInfo.framework'), value: model.framework || unavailable},
+        {label: this.translate.instant('models.generalInfo.status'), value: (model.ready !== undefined) ? (model.ready ? this.translate.instant('models.values.published') : this.translate.instant('models.values.draft')) : unavailable},
+        {label: this.translate.instant('models.generalInfo.modelUrl'), value: model.uri || unavailable, downloadable: true},
+        {label: this.translate.instant('models.generalInfo.user'), value: get( model,'user.name', unavailable)},
+        {label: this.translate.instant('models.generalInfo.archived'), value: model && model.system_tags && model.system_tags.includes(TAGS.HIDDEN) ? this.translate.instant('shared.yes') : this.translate.instant('shared.no')},
+        {label: this.translate.instant('models.generalInfo.project'), value: get(model, 'project.name', unavailable)},
       ];
     } else {
       this.kpis = [
-        {label: 'CREATED AT', value: '-'},
-        {label: 'UPDATED AT', value: '-'},
-        {label: 'FRAMEWORK', value: '-'},
-        {label: 'STATUS', value: '-'},
-        {label: 'MODEL URL', value: '-'},
-        {label: 'USER', value: '-'},
-        {label: 'ARCHIVED', value: '-'},
-        {label: 'PROJECT', value: '-'},
+        {label: this.translate.instant('models.generalInfo.createdAt'), value: '-'},
+        {label: this.translate.instant('models.generalInfo.updatedAt'), value: '-'},
+        {label: this.translate.instant('models.generalInfo.framework'), value: '-'},
+        {label: this.translate.instant('models.generalInfo.status'), value: '-'},
+        {label: this.translate.instant('models.generalInfo.modelUrl'), value: '-'},
+        {label: this.translate.instant('models.generalInfo.user'), value: '-'},
+        {label: this.translate.instant('models.generalInfo.archived'), value: '-'},
+        {label: this.translate.instant('models.generalInfo.project'), value: '-'},
       ];
     }
   }

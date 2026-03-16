@@ -7,7 +7,7 @@
                      (cancelClicked)="cancelModelMetaDataChange()"
                      (saveClicked)="saveFormData()"
                      (activateEditClicked)="activateEditChanged('metadata')">
-  <sm-section-header label="Metadata"></sm-section-header>
+  <sm-section-header [label]="'models.metadata.title' | translate"></sm-section-header>
   @if (inEdit()) {
       <ng-form #metadataForm="ngForm" smUniqueInListSyncValidator2 prefix2="metadataItemKey-"
       >
@@ -15,10 +15,10 @@
           <div class="d-flex align-items-start me-3 mb-2">
             <mat-form-field [hintLabel]="metadataItemKey.invalid && metadataItemKey?.errors?.required? '*Required': ''" appearance="outline" class="w-100">
               @if ($index === 0) {
-                <mat-label>Key</mat-label>
+                <mat-label>{{ 'models.metadata.key' | translate }}</mat-label>
               }
               <input #metadataItemKey="ngModel"
-                     placeholder="Key"
+                     [placeholder]="'models.metadata.key' | translate"
                      required
                      pattern="^(\s+\S+\s*)*(?!\s).*$"
                      [(ngModel)]="metadataItem.key"
@@ -26,49 +26,49 @@
                      matInput>
               @if (metadataItemKey?.errors?.required) {
                 <mat-error>
-                  Required
+                  {{ 'models.metadata.errors.required' | translate }}
                 </mat-error>
               }
               @if (metadataItemKey?.errors?.pattern) {
                 <mat-error>
-                  Key can't be empty
+                  {{ 'models.metadata.errors.keyEmpty' | translate }}
                 </mat-error>
               }
               @if (metadataForm?.errors?.uniqueName2 && metadataForm?.errors?.uniqueName2[$index]) {
-                <span class="outside-error">Key must be unique.
+                <span class="outside-error">{{ 'models.metadata.errors.keyUnique' | translate }}
               </span>
               }
             </mat-form-field>
             <mat-form-field [hintLabel]="metadataItemType.invalid && metadataItemType?.errors?.required? '*Required': ''"
                             appearance="outline" class="strength w-100">
               @if ($index === 0) {
-                <mat-label>Type</mat-label>
+                <mat-label>{{ 'models.metadata.type' | translate }}</mat-label>
               }
               <input #metadataItemType="ngModel"
                      [(ngModel)]="metadataItem.type"
-                     placeholder="Type"
+                     [placeholder]="'models.metadata.type' | translate"
                      required
                      pattern="^(\s+\S+\s*)*(?!\s).*$"
                      [name]="'metadataItemType-' | uuid"
                      matInput>
               @if (metadataItemType?.errors?.required) {
                 <mat-error>
-                  Required
+                  {{ 'models.metadata.errors.required' | translate }}
                 </mat-error>
               }
               @if (metadataItemType?.errors?.pattern) {
                 <mat-error>
-                  Type can't be empty
+                  {{ 'models.metadata.errors.typeEmpty' | translate }}
                 </mat-error>
               }
             </mat-form-field>
             <mat-form-field appearance="outline" class="w-100">
               @if ($index === 0) {
-                <mat-label>Value</mat-label>
+                <mat-label>{{ 'models.metadata.value' | translate }}</mat-label>
               }
               <input #metadataItemKey="ngModel"
                      [(ngModel)]="metadataItem.value"
-                     placeholder="Value"
+                     [placeholder]="'models.metadata.value' | translate"
                      [name]="'metadataItemValue-'| uuid"
                      matInput>
             </mat-form-field>

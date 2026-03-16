@@ -23,15 +23,15 @@
           data-id="New Report"
           (click)="openCreateReportDialog(projectId)">
     <mat-icon fontSet="al" fontIcon="al-ico-add"></mat-icon>
-    NEW REPORT
+    {{ 'reports.actions.newReport' | translate }}
   </button>
 
   <div empty-state class="empty-state justify-content-center">
     <mat-icon fontSet="al" fontIcon="al-ico-reports" class="xxl"></mat-icon>
-    <h4 class="title">NO REPORTS TO SHOW</h4>
+    <h4 class="title">{{ 'reports.empty.title' | translate }}</h4>
     <div class="sub-title">
       <button mat-flat-button (click)="openCreateReportDialog(projectId)">
-        NEW REPORT
+        {{ 'reports.actions.newReport' | translate }}
       </button>
     </div>
   </div>
@@ -42,14 +42,13 @@
 <ng-template #cardContent let-project>
   <sm-circle-counter
     [counter]="project.stats?.active?.total_tasks ?? '0'"
-    label="REPORTS"
+    [label]="'reports.labels.reports' | translate"
     [type]="circleTypeEnum.empty"></sm-circle-counter>
   <sm-circle-counter
     [counter]="project.stats?.active?.status_count?.published ?? '0'"
-    label="PUBLISHED"
+    [label]="'reports.labels.published' | translate"
     [type]="project.stats?.active?.status_count?.published ===0 ? circleTypeEnum.empty :
             circleTypeEnum.published"
   ></sm-circle-counter>
 </ng-template>
-
 

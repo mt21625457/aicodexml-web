@@ -8,36 +8,36 @@
         (remove)="removeTag($event)"
       ></sm-tag-list>
       <div class="g-btns">
-        <button mat-icon-button smTooltip="Copy report markdown to clipboard" (click)="copyMarkdown()">
+        <button mat-icon-button [smTooltip]="'reports.tooltips.copyMarkdown' | translate" (click)="copyMarkdown()">
           <mat-icon fontSet="al" fontIcon="al-ico-copy-to-clipboard"></mat-icon>
         </button>
-        <button mat-icon-button smTooltip="Export to PDF" (click)="printReport()">
+        <button mat-icon-button [smTooltip]="'reports.tooltips.exportPdf' | translate" (click)="printReport()">
           <mat-icon fontSet="al" fontIcon="al-ico-pdf"></mat-icon>
         </button>
         <button #printHiddenButton  class="hidden" ngxPrint printSectionId="print-element-temp" [printDelay]="3000" [useExistingCss]="true" [printStyle]="printStyle">
         </button>
-        <button mat-icon-button (click)="share()" smTooltip="Share">
+        <button mat-icon-button (click)="share()" [smTooltip]="'shared.share' | translate">
           <mat-icon fontSet="al" fontIcon="al-ico-shared-item"></mat-icon>
         </button>
-        <button mat-icon-button (click)="moveToProject()" smTooltip="Move to Project">
+        <button mat-icon-button (click)="moveToProject()" [smTooltip]="'reports.tooltips.moveToProject' | translate">
           <mat-icon fontSet="al" fontIcon="al-ico-move-to"></mat-icon>
         </button>
-        <button mat-icon-button (click)="archive()" [smTooltip]="archived() ? 'Restore' : 'Archive'">
+        <button mat-icon-button (click)="archive()" [smTooltip]="archived() ? ('shared.restore' | translate) : ('shared.archive' | translate)">
           <mat-icon fontSet="al" [fontIcon]="archived() ? icons.RESTORE : icons.ARCHIVE"></mat-icon>
         </button>
         @if (archived()) {
-          <button mat-icon-button (click)="deleteReport()" smTooltip="Delete">
+          <button mat-icon-button (click)="deleteReport()" [smTooltip]="'shared.delete' | translate">
             <mat-icon fontSet="al" fontIcon="al-ico-trash"></mat-icon>
           </button>
         }
         @if (draft()) {
           <button mat-flat-button
             [disabled]="!this.report()?.report?.trim()"
-            [smTooltip]="!this.report()?.report?.trim() ? 'Can\'t publish an empty report' : ''"
+            [smTooltip]="!this.report()?.report?.trim() ? ('reports.tooltips.publishDisabled' | translate) : ''"
             (click)="publish()"
             >
             <mat-icon fontSet="al" fontIcon="al-ico-publish"></mat-icon>
-            PUBLISH
+            {{ 'shared.publish' | translate }}
           </button>
           }
         </div>
@@ -66,7 +66,7 @@
         <div class="hover-button">
           <button mat-stroked-button class="description-button" (click)="showDescription = !showDescription">
             <mat-icon fontSet="al" fontIcon="al-ico-caret-right" [class.open]="drawer.opened"></mat-icon>
-            Description
+            {{ 'reports.description.title' | translate }}
             <mat-icon iconPositionEnd fontSet="al" fontIcon="al-ico-caret-right" [class.open]="drawer.opened"></mat-icon>
           </button>
         </div>
@@ -83,19 +83,19 @@
               <button mat-stroked-button
                 class="edit-button"
                 (click)="editReportDesc(descElement)"
-                >EDIT
+                >{{ 'shared.edit' | translate }}
               </button>
             }
             <textarea
-              placeholder="Report description"
+              [placeholder]="'reports.placeholders.description' | translate"
               #descElement
               [disabled]="!editDesc"
               (keyup)="cdr.detectChanges()"
             >{{report()?.comment || ''}}</textarea>
             @if (editDesc) {
               <div class="buttons">
-                <button mat-stroked-button (click)="descElement.value = orgDesc; editDesc = false">CANCEL</button>
-                <button mat-flat-button [disabled]="orgDesc === descElement.value" (click)="saveDesc(descElement.value)">SAVE</button>
+                <button mat-stroked-button (click)="descElement.value = orgDesc; editDesc = false">{{ 'shared.cancel' | translate }}</button>
+                <button mat-flat-button [disabled]="orgDesc === descElement.value" (click)="saveDesc(descElement.value)">{{ 'shared.save' | translate }}</button>
               </div>
             }
           </div>
@@ -119,9 +119,9 @@
             @if (!example() && report() && draft()) {
               <div no-data class="flex-middle empty-state">
                 <i class="al-icon al-ico-reports xxl"></i>
-                <div class="no-data-title">THERE'S NOTHING HERE YET…</div>
+                <div class="no-data-title">{{ 'reports.empty.editorTitle' | translate }}</div>
                 <button mat-flat-button (click)="editor.editClicked()">
-                  <span>START EDITING THE REPORT</span>
+                  <span>{{ 'reports.actions.startEditing' | translate }}</span>
                 </button>
               </div>
             }

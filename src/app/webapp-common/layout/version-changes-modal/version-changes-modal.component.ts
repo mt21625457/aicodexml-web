@@ -9,6 +9,7 @@ import {SaferPipe} from '@common/shared/pipes/safe.pipe';
 import {FormsModule} from '@angular/forms';
 import {Change} from '@common/shared/services/changes.service';
 import {MatButton} from '@angular/material/button';
+import {TranslateService} from '@ngx-translate/core';
 
 export interface ChangesModalData {
   changes: Change[];
@@ -35,6 +36,7 @@ export interface ChangesModalData {
 export class VersionChangesModalComponent {
   protected matDialogRef = inject(MatDialogRef<VersionChangesModalComponent>);
   private store = inject(Store);
+  private translate = inject(TranslateService);
   private data = inject<ChangesModalData>(MAT_DIALOG_DATA)
 
   public changes = signal<Change[]>(this.data.changes);
@@ -51,7 +53,7 @@ export class VersionChangesModalComponent {
   }
 
   copyToClipboardSuccess() {
-    this.store.dispatch(addMessage(MESSAGES_SEVERITY.SUCCESS, 'URL copied successfully'));
+    this.store.dispatch(addMessage(MESSAGES_SEVERITY.SUCCESS, this.translate.instant('shared.urlCopied')));
   }
 
   prev() {

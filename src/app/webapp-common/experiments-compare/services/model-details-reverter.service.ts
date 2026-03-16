@@ -1,14 +1,13 @@
-
-import {Inject, Injectable, LOCALE_ID} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {TAGS} from '../../tasks/tasks.constants';
 import {IModelInfo} from '../../experiments/shared/common-experiment-model.model';
 import {ITask} from '~/business-logic/model/al-task';
-import {formatDate} from '@angular/common';
 import {TIME_FORMAT_STRING} from '@common/constants';
 import {NA} from '~/app.constants';
 import {DurationPipe} from '@common/shared/pipes/duration.pipe';
 import {ModelDetail} from '@common/experiments-compare/shared/experiments-compare-details.model';
 import parseHocon from 'hocon-parser';
+import {LocaleFormatService} from '~/shared/services/locale-format.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +15,10 @@ import parseHocon from 'hocon-parser';
 export class ModelDetailsReverterService {
 
   private durationPipe: DurationPipe;
+  private localeFormat = inject(LocaleFormatService);
 
-  constructor(@Inject(LOCALE_ID) public locale: string) {
+  constructor() {
     this.durationPipe = new DurationPipe();
-    this.locale = locale;
   }
 
   revertModels(modelIds: string[], models: IModelInfo[], tasks: ITask[]): ModelDetail[] {
@@ -60,8 +59,8 @@ export class ModelDetailsReverterService {
   }
   public revertGeneral(model: IModelInfo) {
     return {
-      'created at': model.created && formatDate(model.created, TIME_FORMAT_STRING, this.locale) || NA,
-      'update at': model.last_update && formatDate(model.last_update, TIME_FORMAT_STRING, this.locale) || NA,
+      'created at': this.localeFormat.formatDate(model.created, TIME_FORMAT_STRING) || NA,
+      'update at': this.localeFormat.formatDate(model.last_update, TIME_FORMAT_STRING) || NA,
       framework: model.framework,
       'model url':{
         dataDictionary: true,

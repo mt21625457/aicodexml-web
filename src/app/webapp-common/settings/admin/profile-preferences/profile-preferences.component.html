@@ -5,14 +5,14 @@
       (change)="statsChange($event)"
       [checked]="show()"
       color="accent"
-      ><span class="d-flex-center">Show Hidden Projects<i class="al-icon al-ico-ghost sm ms-3"></i></span>
+      ><span class="d-flex-center">{{ 'preferences.showHiddenProjects' | translate }}<i class="al-icon al-ico-ghost sm ms-3"></i></span>
     </mat-slide-toggle>
   }
   <mat-slide-toggle
     (change)="toggleExamples($event)"
     [checked]="hideExamples()"
     color="accent"
-    >Don't show ClearML examples
+    >{{ 'preferences.dontShowExamples' | translate }}
   </mat-slide-toggle>
   @if (supportReScaling) {
     <mat-slide-toggle
@@ -20,12 +20,12 @@
       [checked]="disableHidpi"
     >
       <div class="d-flex-center">
-        Disable HiDPI browser scale override
+        {{ 'preferences.disableHidpi' | translate }}
         <mat-icon fontSet="al" fontIcon="al-ico-info-circle" class="sm info ms-3"
                   data-id="hidpiInfoIcon"
-                  smTooltip="ClearML dynamically sets the browser scaling factor for an optimal page layout. Disable for default desktop scale."
+                  [smTooltip]="'preferences.hidpiTooltip' | translate"
         ></mat-icon>
-        <a href="#" class="reload hidden ms-3" [class.hidden]="!disableHidpiChanged" (click)="$event.preventDefault(); reload($event)">Reload to apply</a>
+        <a href="#" class="reload hidden ms-3" [class.hidden]="!disableHidpiChanged" (click)="$event.preventDefault(); reload($event)">{{ 'preferences.reloadToApply' | translate }}</a>
       </div>
     </mat-slide-toggle>
   }
@@ -34,7 +34,7 @@
       (change)="setNeverShowTipsAgain($event)"
       [checked]="neverShowTipsAgain()?.includes(popupId)"
       color="accent"
-      >Don't show pro tips periodically
+      >{{ 'preferences.dontShowProTips' | translate }}
     </mat-slide-toggle>
   }
   @if (!this.config.configuration().enterpriseServer) {
@@ -42,7 +42,7 @@
       (change)="toggleEnterpriseFeatures($event.checked)"
       [checked]="hideEnterpriseFeatures()"
       color="accent"
-    >Don't show Enterprise Features</mat-slide-toggle>
+    >{{ 'preferences.dontShowEnterprise' | translate }}</mat-slide-toggle>
   }
   <mat-slide-toggle
     (change)="toggleBlockUserScript($event)"
@@ -50,7 +50,7 @@
     [disabled]="config.configuration().blockUserScript"
   >
     <div class="d-flex-center">
-      Block running user's scripts in the browser
+      {{ 'preferences.blockUserScripts' | translate }}
       <mat-icon fontSet="al" fontIcon="al-ico-info-circle" class="sm info ms-3"
                 data-id="blockScriptsInfoIcon"
                 [smTooltip]="blockScriptNotice()"
@@ -62,12 +62,12 @@
       [checked]="!!hideRedactedArguments()"
     >
       <div class="d-flex-center">
-        Hide specific container arguments
+        {{ 'preferences.hideContainerArgs' | translate }}
         <mat-icon fontSet="al" fontIcon="al-ico-info-circle" class="sm info ms-3"
                   data-id="hideSpecificargInfoIcon"
-                  smTooltip="Redact the values for the specified container environment variables in the task execution page"
+                  [smTooltip]="'preferences.hideContainerArgsTooltip' | translate"
         ></mat-icon>
-        <button class="ms-2" mat-button data-id="editButton" (click)="editHideSpecificContainerArguments()">Edit</button>
+        <button class="ms-2" mat-button data-id="editButton" (click)="editHideSpecificContainerArguments()">{{ 'preferences.edit' | translate }}</button>
       </div>
     </mat-slide-toggle>
 </div>

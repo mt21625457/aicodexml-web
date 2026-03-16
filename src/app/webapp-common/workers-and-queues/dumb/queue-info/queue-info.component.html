@@ -3,9 +3,9 @@
 </button>
 
 <mat-tab-group [mat-stretch-tabs]="false" mat-align-tabs="center" class="h-100">
-  <mat-tab label="TASKS" class="tab-link">
+  <mat-tab [label]="'queues.info.tabs.tasks' | translate" class="tab-link">
     @if (selectedQueue()?.entries?.length === 0) {
-      <div class="empty-state">No tasks currently enqueued</div>
+      <div class="empty-state">{{ 'queues.info.empty.noTasks' | translate }}</div>
     }
     @else {
       <sm-simple-table-2
@@ -31,9 +31,9 @@
       </sm-simple-table-2>
     }
   </mat-tab>
-  <mat-tab label="WORKERS" class="tab-link">
+  <mat-tab [label]="'queues.info.tabs.workers' | translate" class="tab-link">
     @if (selectedQueue()?.workers?.length === 0) {
-      <div class="empty-state">No workers currently assigned to this queue</div>
+      <div class="empty-state">{{ 'queues.info.empty.noWorkers' | translate }}</div>
     }
     @else {
       <sm-simple-table-2
@@ -69,22 +69,22 @@
   [showOverlay]="false"
   [openOnInit]="true"
 >
-  <sm-menu-item itemLabel="Move to top"
+  <sm-menu-item itemLabel="queues.actions.moveToTop"
                 [disabled]="selectedQueue().entries.length <= 0"
       (itemClicked)="moveToTop()"
       iconClass="al-ico-arrow-to-top">
     </sm-menu-item>
-    <sm-menu-item itemLabel="Move to bottom"
+    <sm-menu-item itemLabel="queues.actions.moveToBottom"
       [disabled]="selectedQueue().entries.length <= 0"
       (itemClicked)="moveToBottom()"
       iconClass="al-ico-arrow-to-bottom">
     </sm-menu-item>
-    <sm-menu-item itemLabel="Move to queue..."
+    <sm-menu-item itemLabel="queues.actions.moveToQueue"
       [disabled]="selectedQueue().entries.length <= 0"
       (itemClicked)="moveToQueue()"
       iconClass="al-ico-arrow-from-left">
     </sm-menu-item>
-    <sm-menu-item itemLabel="Remove from queue"
+    <sm-menu-item itemLabel="queues.actions.removeFromQueue"
       [disabled]="selectedQueue().entries.length <= 0"
       (itemClicked)="removeFromQueue()"
       iconClass="al-ico-trash">

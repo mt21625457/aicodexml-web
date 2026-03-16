@@ -1,4 +1,4 @@
-import {Inject, Injectable, LOCALE_ID} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {ExperimentReverterService} from '~/features/experiments/shared/services/experiment-reverter.service';
 import {ExecutionDetails, ModelDetails} from '../shared/experiments-compare-details.model';
 import {Task} from '~/business-logic/model/tasks/task';
@@ -11,10 +11,10 @@ import {crc32} from '../../shared/utils/shared-utils';
 import {TaskModelItem} from '~/business-logic/model/tasks/taskModelItem';
 import {CompareIModelInfo} from '../../experiments/shared/common-experiment-model.model';
 import {ITask} from '~/business-logic/model/al-task';
-import {formatDate} from '@angular/common';
 import {TIME_FORMAT_STRING} from '@common/constants';
 import {NA} from '~/app.constants';
 import {DurationPipe} from '@common/shared/pipes/duration.pipe';
+import {LocaleFormatService} from '~/shared/services/locale-format.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,24 +22,24 @@ import {DurationPipe} from '@common/shared/pipes/duration.pipe';
 export class ExperimentDetailsReverterService extends ExperimentDetailsReverterServiceBase {
 
   private durationPipe: DurationPipe;
+  private localeFormat = inject(LocaleFormatService);
 
-  constructor(experimentReverter: ExperimentReverterService, @Inject(LOCALE_ID) public locale: string) {
+  constructor(experimentReverter: ExperimentReverterService) {
     super(experimentReverter);
     this.durationPipe = new DurationPipe();
-    this.locale = locale;
   }
 
   public revertInfo(experiment: ITask) {
     return {
       archive: experiment.system_tags.includes(TAGS.HIDDEN) ? 'Yes' : 'No',
-      'changed at': experiment.last_change && formatDate(experiment.last_change, TIME_FORMAT_STRING, this.locale) || NA,
+      'changed at': this.localeFormat.formatDate(experiment.last_change, TIME_FORMAT_STRING) || NA,
       'last iteration': experiment.last_iteration || NA,
       'status message': experiment.status_message || NA,
       'status reason': experiment.status_reason || NA,
-      'created at': experiment.created && formatDate(experiment.created, TIME_FORMAT_STRING, this.locale) || NA,
-      'started at': experiment.started && formatDate(experiment.started, TIME_FORMAT_STRING, this.locale) || NA,
-      'last update at': experiment.last_update && formatDate(experiment.last_update, TIME_FORMAT_STRING, this.locale) || NA,
-      'completed at': experiment.completed && formatDate(experiment.completed, TIME_FORMAT_STRING, this.locale) || NA,
+      'created at': this.localeFormat.formatDate(experiment.created, TIME_FORMAT_STRING) || NA,
+      'started at': this.localeFormat.formatDate(experiment.started, TIME_FORMAT_STRING) || NA,
+      'last update at': this.localeFormat.formatDate(experiment.last_update, TIME_FORMAT_STRING) || NA,
+      'completed at': this.localeFormat.formatDate(experiment.completed, TIME_FORMAT_STRING) || NA,
       'run time': this.durationPipe.transform(experiment.active_duration) || NA,
       'queue': experiment.execution.queue?.display_name || experiment.execution.queue?.name || NA,
       'worker': experiment.last_worker || NA,

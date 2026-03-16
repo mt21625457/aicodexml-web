@@ -42,7 +42,7 @@
     @if (project.last_update) {
       <span
         class="last-run"
-        [smTooltip]="project.last_update | date: timeFormatString"
+        [smTooltip]="project.last_update | smDate: timeFormatString"
         matTooltipPosition="after"
       >Updated {{project.last_update | timeAgo}}</span>
     } @else {

@@ -30,6 +30,7 @@ import {MatInput} from '@angular/material/input';
 import {StringIncludedInArrayPipe} from '@common/shared/pipes/string-included-in-array.pipe';
 import {SlicePipe} from '@angular/common';
 import {minLengthTrimmed} from '@common/shared/validators/minLengthTrimmed';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
 export interface CloneDialogData {
   type: string;
@@ -59,7 +60,8 @@ export interface CloneDialogData {
     MatButton,
     MatInput,
     StringIncludedInArrayPipe,
-    SlicePipe
+    SlicePipe,
+    TranslatePipe
   ]
 })
 export class CloneDialogComponent {
@@ -68,6 +70,7 @@ export class CloneDialogComponent {
   protected data = inject<CloneDialogData>(MAT_DIALOG_DATA);
   private readonly builder = inject(FormBuilder);
   private readonly naming = inject(CloneNamingService);
+  private readonly translate = inject(TranslateService);
 
   public reference: string;
   public header: string;
@@ -75,7 +78,7 @@ export class CloneDialogComponent {
 
   protected extraToggles = this.data.extraToggles?.reduce((acc, toggle) => {
     const key = camelCase(toggle);
-    acc[key] = capitalize(toggle);
+    acc[key] = this.translate.instant(`experiments.clone.toggles.${key}`) || capitalize(toggle);
     return acc;
   }, {});
   protected toggleKeys = Object.keys(this.extraToggles ?? {});
@@ -107,7 +110,9 @@ export class CloneDialogComponent {
 
   constructor() {
     this.defaultProjectId = this.data.defaultProject;
-    this.header = `${this.data.extend ? 'Extend' : 'Clone'} ${this.data.type}`;
+    this.header = this.translate.instant(
+      this.data.extend ? 'experiments.clone.headers.extendTask' : 'experiments.clone.headers.cloneTask'
+    );
     this.type = this.data.type.toLowerCase();
     this.reference = this.data.defaultName;
     this.extend = this.data.extend;

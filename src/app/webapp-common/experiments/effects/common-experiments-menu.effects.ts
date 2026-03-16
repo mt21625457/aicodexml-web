@@ -57,6 +57,7 @@ import * as projectsActions from '@common/core/actions/projects.actions';
 import {PipelinesStartPipelineResponse} from '~/business-logic/model/pipelines/pipelinesStartPipelineResponse';
 import {selectSelectedProjectId} from '@common/core/reducers/projects.reducer';
 import {TasksGetByIdExResponse} from '~/business-logic/model/tasks/tasksGetByIdExResponse';
+import {TranslateService} from '@ngx-translate/core';
 
 export const getChildrenExperiments = (tasksApi, parents, filters?: Record<string, any>): Observable<Task[]> =>
   tasksApi.tasksGetAllEx({
@@ -80,7 +81,8 @@ export class CommonExperimentsMenuEffects {
               private apiTasks: ApiTasksService,
               private pipelineApi: ApiPipelinesService,
               private router: Router,
-              private dialog: MatDialog
+              private dialog: MatDialog,
+              private translate: TranslateService
   ) {}
 
   activeLoader = createEffect(() => this.actions$.pipe(
@@ -249,7 +251,7 @@ export class CommonExperimentsMenuEffects {
             }),
             catchError(error => [
               deactivateLoader(action.type),
-              setServerError(error, null, 'Clone Task failed'),
+              setServerError(error, null, this.translate.instant('experiments.clone.messages.failed')),
               requestFailed(error)
             ])
           )
@@ -294,7 +296,7 @@ export class CommonExperimentsMenuEffects {
           confirmed ? stopClicked({selectedEntities: action.experiments, includePipelineSteps: isPipeline }) : emptyAction(),
           deactivateLoader(action.type)
         ]),
-        catchError(error => [deactivateLoader(action.type), requestFailed(error), addMessage(MESSAGES_SEVERITY.ERROR, 'Failed to fetch tasks running children')])
+        catchError(error => [deactivateLoader(action.type), requestFailed(error), addMessage(MESSAGES_SEVERITY.ERROR, this.translate.instant('experiments.menu.messages.fetchChildrenFailed'))])
       )),
   ));
 

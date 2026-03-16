@@ -1,10 +1,10 @@
-<sm-dialog-template [header]="'Select compared '+ data.entityType + 's'">
+<sm-dialog-template [header]="data.entityType === entityTypes.model ? 'experiments.compare.selectComparedModels' : 'experiments.compare.selectComparedTasks'">
   <div class="select-experiments-container light-theme" (click)="closeSearch()">
     <div class="search-experiment-for-compare d-flex justify-content-between mb-3">
       <sm-search
         #search
         class="search outline"
-        placeholder="Start typing task name or ID to add to your comparison"
+        placeholder="experiments.compare.searchPlaceholder"
         [value]="searchTerm()"
         (valueChanged)="searchTermChanged($event)">
       </sm-search>
@@ -13,7 +13,7 @@
           class="me-2"
           [checked]="showArchived$ | ngrxPush"
           (change)="showArchived($event)"
-        >Include Archived</mat-slide-toggle>
+        >{{ 'experiments.compare.includeArchived' | translate }}</mat-slide-toggle>
         <sm-clear-filters-button
           [tableFilters]="(tableFilters$ | ngrxPush)"
           (clearTableFilters)="clearTableFilters()"
@@ -63,12 +63,12 @@
       type="submit"
             (click)="applyChanges()"
             class="yes-button" data-id="ApplyButton">
-      APPLY
+      {{ 'shared.apply' | translate }}
     </button>
     <button
       mat-stroked-button
       (click)="closeDialog()" data-id ="CancelButton">
-      CANCEL
+      {{ 'shared.cancel' | translate }}
     </button>
   </div>
 </sm-dialog-template>

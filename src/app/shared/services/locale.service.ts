@@ -5,14 +5,27 @@ import {
   MissingTranslationHandlerParams,
   TranslateService
 } from '@ngx-translate/core';
+import {Locale} from 'date-fns';
+import {enUS, zhCN} from 'date-fns/locale';
 import {Observable, of} from 'rxjs';
 import {map, switchMap, tap} from 'rxjs/operators';
 import {ConfigurationService} from '@common/shared/services/configuration.service';
 
 export const APP_LANGUAGE_STORAGE_KEY = '_APP_LANGUAGE_';
+export const APP_LANGUAGE_PREFERENCE_PATH = 'views.language';
 export const DEFAULT_APP_LANGUAGE = 'en';
 export const SUPPORTED_APP_LANGUAGES = ['en', 'zh-CN'] as const;
 export type AppLanguage = typeof SUPPORTED_APP_LANGUAGES[number];
+
+const APP_LANGUAGE_TO_ANGULAR_LOCALE: Record<AppLanguage, string> = {
+  en: 'en',
+  'zh-CN': 'zh-CN'
+};
+
+const APP_LANGUAGE_TO_DATE_FNS_LOCALE: Record<AppLanguage, Locale> = {
+  en: enUS,
+  'zh-CN': zhCN
+};
 
 @Injectable()
 export class FriendlyMissingTranslationHandler implements MissingTranslationHandler {
@@ -38,6 +51,9 @@ export class LocaleService {
 
   readonly currentLanguage = this.currentLanguageState.asReadonly();
   readonly supportedLanguages = computed(() => this.getConfiguredSupportedLanguages());
+  readonly angularLocale = computed(() => APP_LANGUAGE_TO_ANGULAR_LOCALE[this.currentLanguage()]);
+  readonly intlLocale = computed(() => this.currentLanguage());
+  readonly dateFnsLocale = computed(() => APP_LANGUAGE_TO_DATE_FNS_LOCALE[this.currentLanguage()]);
 
   init(): Observable<AppLanguage> {
     const language = this.resolveInitialLanguage();
@@ -65,6 +81,16 @@ export class LocaleService {
 
   languageLabel(language: AppLanguage): string {
     return language === 'zh-CN' ? '简体中文' : 'English';
+  }
+
+  getPersistedLanguage(preferences?: Record<string, any>): AppLanguage | undefined {
+    const persistedLanguage = preferences?.views?.language;
+    return persistedLanguage ? this.normalizeLanguage(persistedLanguage) : undefined;
+  }
+
+  reconcilePersistedLanguage(preferences?: Record<string, any>): Observable<AppLanguage> {
+    const persistedLanguage = this.getPersistedLanguage(preferences);
+    return persistedLanguage ? this.setLanguage(persistedLanguage) : of(this.currentLanguage());
   }
 
   private applyLanguage(language: AppLanguage): void {

@@ -39,6 +39,7 @@ import {RefreshService} from '@common/core/services/refresh.service';
 import {EntityTypeEnum} from '~/shared/constants/non-common-consts';
 import {getSignedUrl} from '@common/core/actions/common-auth.actions';
 import {selectSignedUrl} from '@common/core/reducers/common-auth-reducer';
+import {TranslateService} from '@ngx-translate/core';
 
 export type NextDiffDirectionEnum = 'down' | 'up';
 
@@ -58,6 +59,7 @@ export abstract class ExperimentCompareBase extends ExperimentCompareDetailsBase
   protected activeRoute = inject(ActivatedRoute);
   private refresh = inject(RefreshService);
   private cdr = inject(ChangeDetectorRef);
+  private translate = inject(TranslateService);
 
   public hasDataFeature$: Observable<boolean>;
   private hasDataFeature: boolean;
@@ -536,7 +538,7 @@ export abstract class ExperimentCompareBase extends ExperimentCompareDetailsBase
   }
 
   copyIdToClipboard() {
-    this.store.dispatch(addMessage('success', 'Copied to clipboard'));
+    this.store.dispatch(addMessage('success', this.translate.instant('shared.idCopied')));
   }
 
   public resetComponentState(experiments) {

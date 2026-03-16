@@ -9,6 +9,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {ClickStopPropagationDirective} from '@common/shared/ui-components/directives/click-stop-propagation.directive';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatIconButton} from '@angular/material/button';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'sm-menu-item',
@@ -22,7 +23,8 @@ import {MatIconButton} from '@angular/material/button';
     MatIconModule,
     ClickStopPropagationDirective,
     MatCheckboxModule,
-    MatIconButton
+    MatIconButton,
+    TranslatePipe
   ]
 })
 export class MenuItemComponent {

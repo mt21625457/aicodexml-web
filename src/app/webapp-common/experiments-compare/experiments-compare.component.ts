@@ -8,7 +8,6 @@ import {resetSelectCompareHeader, setShowGlobalLegend} from './actions/compare-h
 import {EntityTypeEnum} from '~/shared/constants/non-common-consts';
 import {getCompanyTags, setBreadcrumbsOptions, setSelectedProject} from '@common/core/actions/projects.actions';
 import {selectSelectedProject} from '@common/core/reducers/projects.reducer';
-import {TitleCasePipe} from '@angular/common';
 import {resetSelectModelState} from '@common/select-model/select-model.actions';
 import {ALL_PROJECTS_OBJECT} from '@common/core/effects/projects.effects';
 import {trackById} from '@common/shared/utils/forms-track-by';
@@ -77,7 +76,6 @@ export class ExperimentsCompareComponent implements OnInit, OnDestroy {
   public experimentsColor: Record<string, string>;
   private ids: string[];
   public duplicateNamesObject: Record<string, boolean>;
-  private titleCasePipe = new TitleCasePipe();
   protected readonly entityType = this.activatedRoute.snapshot.data.entityType;
   protected readonly modelsFeature = this.activatedRoute.snapshot.data?.setAllProject;
   protected selectedProject$ = this.store.select(selectSelectedProject);
@@ -157,13 +155,21 @@ export class ExperimentsCompareComponent implements OnInit, OnDestroy {
         datasets: 'datasets/simple',
         pipelines: 'pipelines'
       };
+      const featureKey = {
+        projects: 'projects.breadcrumb',
+        datasets: 'datasets.breadcrumb',
+        pipelines: 'pipelines.breadcrumb'
+      }[projectType] ?? 'projects.breadcrumb';
+      const compareKey = this.entityType === EntityTypeEnum.model ? 'experiments.compare.compareModels' : 'experiments.compare.compareTasks';
+      const allSelectedKey = this.entityType === EntityTypeEnum.model ? 'experiments.compare.allModels' : 'experiments.compare.allTasks';
       if (this.modelsFeature) {
         this.store.dispatch(setBreadcrumbsOptions({
           breadcrumbOptions: {
             showProjects: false,
-            featureBreadcrumb: {name: 'Models', url: 'models'},
+            featureBreadcrumb: {name: 'models.breadcrumb', url: 'models', translate: true},
             subFeatureBreadcrumb: {
-              name: `Compare ${this.titleCasePipe.transform(this.entityType)}s`
+              name: compareKey,
+              translate: true
             },
           }
         }));
@@ -172,11 +178,13 @@ export class ExperimentsCompareComponent implements OnInit, OnDestroy {
           breadcrumbOptions: {
             showProjects: !!selectedProject,
             featureBreadcrumb: {
-              name: this.titleCasePipe.transform(projectType),
-              url: projectType
+              name: featureKey,
+              url: projectType,
+              translate: true
             },
             subFeatureBreadcrumb: {
-              name: `Compare ${this.titleCasePipe.transform(this.entityType)}s`
+              name: compareKey,
+              translate: true
             },
             projectsOptions: {
               basePath: projectTypeBasePath[projectType],
@@ -185,8 +193,9 @@ export class ExperimentsCompareComponent implements OnInit, OnDestroy {
               showSelectedProject: selectedProject && selectedProject?.id !== '*',
               ...(selectedProject && {
                 selectedProjectBreadcrumb: {
-                  name: selectedProject?.id === '*' ? `All ${this.titleCasePipe.transform(this.entityType)}s` : selectedProject?.basename,
-                  url: `${projectTypeBasePath[projectType]}/${selectedProject?.id}/${this.entityType === 'model' ? 'model' : 'task'}s`
+                  name: selectedProject?.id === '*' ? allSelectedKey : selectedProject?.basename,
+                  url: `${projectTypeBasePath[projectType]}/${selectedProject?.id}/${this.entityType === 'model' ? 'model' : 'task'}s`,
+                  ...(selectedProject?.id === '*' && {translate: true})
                 }
               })
             }
@@ -216,7 +225,7 @@ export class ExperimentsCompareComponent implements OnInit, OnDestroy {
         data: {
           selectionMode: 'multiple',
           selectedModels: selectedIds,
-          header: 'Select compared model'
+          header: 'experiments.compare.selectComparedModels'
         },
         panelClass: 'full-screen',
       }).afterClosed().pipe(filter(ids => !!ids)).subscribe(ids => this.updateUrl(ids));

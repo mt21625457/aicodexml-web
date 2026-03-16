@@ -27,13 +27,13 @@
         </div>
       }
       @if (kpi.href && (!kpi.value) ) {
-        <div>N/A</div>
+        <div>{{ 'shared.notAvailable' | translate }}</div>
       }
     </sm-labeled-row>
   </div>
 }
 
-<sm-labeled-row label="DESCRIPTION:" labelClass="align-self-start">
+<sm-labeled-row [label]="('models.generalInfo.description' | translate) + ':'" labelClass="align-self-start">
   <sm-inline-edit
     [originalText]="model?.comment"
     [editable]="model?.company?.id"

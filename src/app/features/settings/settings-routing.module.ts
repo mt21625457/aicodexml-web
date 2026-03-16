@@ -3,9 +3,10 @@ import {RouterModule, Routes} from '@angular/router';
 import {CrumbTypeEnum} from '@common/layout/breadcrumbs/breadcrumbs.component';
 
 const settingsBreadcrumb = {
-  name: 'Settings',
+  name: 'shell.settings.title',
   url: 'settings',
-  type: CrumbTypeEnum.Feature
+  type: CrumbTypeEnum.Feature,
+  translate: true
 };
 
 const routes: Routes = [
@@ -22,7 +23,8 @@ const routes: Routes = [
         loadComponent: () => import('./containers/admin/profile-name/profile-name.component').then(m => m.ProfileNameComponent),
         data: {
         staticBreadcrumb:[[settingsBreadcrumb, {
-            name: 'Profile',
+            name: 'shell.settings.profile',
+            translate: true,
             type: CrumbTypeEnum.SubFeature
           }]]},
       },
@@ -30,7 +32,8 @@ const routes: Routes = [
         path: 'webapp-configuration',
         loadComponent: () => import('~/features/settings/containers/webapp-configuration/webapp-configuration.component').then(m => m.WebappConfigurationComponent),
         data: {workspaceNeutral: true, staticBreadcrumb:[[settingsBreadcrumb, {
-            name: 'Configuration',
+            name: 'shell.settings.configuration',
+            translate: true,
             type: CrumbTypeEnum.SubFeature
           }]]},
       },
@@ -38,7 +41,8 @@ const routes: Routes = [
         path: 'workspace-configuration',
         loadComponent: () => import('@common/settings/workspace-configuration/workspace-configuration.component').then(m => m.WorkspaceConfigurationComponent),
         data: {workspaceNeutral: true, staticBreadcrumb:[[settingsBreadcrumb, {
-            name: 'Workspace',
+            name: 'shell.settings.workspace',
+            translate: true,
             type: CrumbTypeEnum.SubFeature
           }]]},
       },
@@ -49,7 +53,8 @@ const routes: Routes = [
           workspaceNeutral: true,
           route: '/settings/storage-credentials',
           staticBreadcrumb: [[settingsBreadcrumb, {
-            name: 'Storage Cleanup',
+            name: 'shell.settings.storageCleanup',
+            translate: true,
             type: CrumbTypeEnum.SubFeature
           }]]
         }
@@ -63,4 +68,3 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class SettingsRoutingModule {}
-

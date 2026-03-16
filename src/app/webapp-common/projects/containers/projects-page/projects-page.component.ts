@@ -43,6 +43,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {PushPipe} from '@ngrx/component';
 import {CommonModule} from '@angular/common';
+import {TranslatePipe} from '@ngx-translate/core';
 
 
 @Component({
@@ -56,6 +57,7 @@ import {CommonModule} from '@angular/common';
     MatButtonModule,
     MatIconModule,
     PushPipe,
+    TranslatePipe,
   ]
 })
 export class ProjectsPageComponent implements OnDestroy {
@@ -230,8 +232,9 @@ export class ProjectsPageComponent implements OnDestroy {
           breadcrumbOptions: {
             showProjects: !!selectedProject,
             featureBreadcrumb: {
-              name: 'PROJECTS',
-              url: 'projects'
+              name: 'projects.breadcrumb',
+              url: 'projects',
+              translate: true
             },
             projectsOptions: {
               basePath: 'projects',
@@ -299,7 +302,15 @@ export class ProjectsPageComponent implements OnDestroy {
   }
 
   syncAppSearch() {
-    this.store.dispatch(initSearch({payload: `Search for ${this.getName()}s`}));
+    const searchPlaceholder = {
+      project: 'projects.searchPlaceholder',
+      pipeline: 'pipelines.searchPlaceholder',
+      dataset: 'datasets.searchPlaceholder',
+      version: 'datasets.searchPlaceholder',
+      report: 'reports.searchPlaceholder'
+    }[this.getName()] ?? 'shared.typeToSearch';
+
+    this.store.dispatch(initSearch({payload: searchPlaceholder}));
     this.searchQuery$
       .pipe(
         takeUntilDestroyed(),

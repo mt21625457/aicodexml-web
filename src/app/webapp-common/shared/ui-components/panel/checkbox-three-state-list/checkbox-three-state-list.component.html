@@ -20,7 +20,7 @@
   </span>
   }
   @if (options?.length === 0) {
-    <div class="empty-menu flex-middle">No item found</div>
+    <div class="empty-menu flex-middle">{{ 'shared.noItemFound' | translate }}</div>
   }
   @if (options === null) {
     <div class="flex-middle mt-5">

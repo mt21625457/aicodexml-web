@@ -24,6 +24,7 @@ import {
 import {MatButton} from '@angular/material/button';
 import {SlicePipe} from '@angular/common';
 import {toSignal} from '@angular/core/rxjs-interop';
+import {TranslatePipe} from '@ngx-translate/core';
 
 export interface SelectQueueDialogData {
   taskIds?: string[];
@@ -51,7 +52,8 @@ export interface SelectQueueDialogData {
     MatButton,
     SlicePipe,
     MatError,
-    MatLabel
+    MatLabel,
+    TranslatePipe
   ]
 })
 export class SelectQueueComponent {

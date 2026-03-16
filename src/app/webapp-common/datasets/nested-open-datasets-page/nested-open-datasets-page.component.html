@@ -19,18 +19,17 @@
 
   <button mat-flat-button create-button (click)="createExamples()">
     <mat-icon fontSet="al" fontIcon="al-ico-add"></mat-icon>
-    NEW DATASET
+    {{ 'datasets.actions.newDataset' | translate }}
   </button>
 
   <div empty-state class="empty-state">
     <div class="title-icon">
       <mat-icon fontSet="al" fontIcon="al-ico-datasets" class="xxl"></mat-icon>
     </div>
-    <div class="title">NO DATASETS TO SHOW</div>
-    <div class="sub-title">Run your first dataset to see it displayed here
+    <div class="title">{{ 'datasets.empty.title' | translate }}</div>
+    <div class="sub-title">{{ 'datasets.empty.subtitle' | translate }}
       @if (allExamples) {
-        or <a href="" (click)="$event.preventDefault(); createExamples()" class="link">generate
-        example
+        {{ 'datasets.empty.or' | translate }} <a href="" (click)="$event.preventDefault(); createExamples()" class="link">{{ 'datasets.empty.generateExample' | translate }}
       </a>
     }
   </div>
@@ -42,9 +41,9 @@
 <ng-template #cardContent let-project>
   <sm-circle-counter
     [counter]="project.id === '*' ? '∞' : project.stats?.datasets?.count ?? '0'"
-    [label]="'DATASETS'"
+    [label]="'datasets.labels.datasets' | translate"
   [type]="project.stats?.datasets?.count===0 ? circleTypeEnum.empty : circleTypeEnum.pending"></sm-circle-counter>
-  <sm-circle-counter label="TAGS IN USE" [counter]="[]">
+  <sm-circle-counter [label]="'datasets.labels.tagsInUse' | translate" [counter]="[]">
     @if (!hideMenu) {
       <sm-tag-list
         class="tags-list-counter"
@@ -59,5 +58,4 @@
     }
   </sm-circle-counter>
 </ng-template>
-
 

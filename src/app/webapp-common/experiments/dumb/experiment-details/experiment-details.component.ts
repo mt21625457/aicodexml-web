@@ -12,7 +12,9 @@ import {RouterLink} from '@angular/router';
 import {DurationPipe} from '@common/shared/pipes/duration.pipe';
 import {NAPipe} from '@common/shared/pipes/na.pipe';
 import {FilterInternalPipe} from '@common/shared/pipes/filter-internal.pipe';
-import {DatePipe, KeyValuePipe} from '@angular/common';
+import {KeyValuePipe} from '@angular/common';
+import {LocalizedDatePipe} from '@common/shared/pipes/localized-format.pipe';
+import {TranslatePipe} from '@ngx-translate/core';
 
 
 export const EXPERIMENT_COMMENT = 'ExperimentComment';
@@ -31,8 +33,9 @@ export const EXPERIMENT_COMMENT = 'ExperimentComment';
     DurationPipe,
     NAPipe,
     FilterInternalPipe,
-    DatePipe,
-    KeyValuePipe
+    LocalizedDatePipe,
+    KeyValuePipe,
+    TranslatePipe
   ]
 })
 export class ExperimentDetailsComponent {

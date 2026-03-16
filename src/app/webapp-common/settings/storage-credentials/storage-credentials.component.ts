@@ -2,7 +2,6 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, inject, s
 import {CredentialsSettingsActions} from '~/features/settings/settings.actions';
 import {Store} from '@ngrx/store';
 import {selectCredentials} from '~/features/settings/settings.selectors';
-import {UpperCasePipe} from '@angular/common';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -12,6 +11,7 @@ import {GoogleStorageCredentialsComponent} from '@common/settings/storage-creden
 import {AwsStorageCredentialsComponent} from '@common/settings/storage-credentials/aws-storage-credentials/aws-storage-credentials.component';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
     selector: 'sm-storage-credentials',
@@ -26,10 +26,10 @@ import {MatIcon} from '@angular/material/icon';
         AzureStorageCredentialsComponent,
         GoogleStorageCredentialsComponent,
         AwsStorageCredentialsComponent,
-        UpperCasePipe,
         MatIconButton,
         MatIcon,
         MatButton,
+        TranslatePipe,
     ]
 })
 export class StorageCredentialsComponent {
@@ -39,6 +39,11 @@ export class StorageCredentialsComponent {
  private cdr = inject(ChangeDetectorRef);
   protected credentials = this.store.selectSignal(selectCredentials);
   protected selectedStorage = signal<'google' | 'azure' | 'aws'>(null);
+  protected readonly storageLabelKeys = {
+    google: 'settings.storage.providers.google',
+    aws: 'settings.storage.providers.aws',
+    azure: 'settings.storage.providers.azure'
+  } as const;
 
   storageForm = this.fb.group({
     aws: this.fb.group({

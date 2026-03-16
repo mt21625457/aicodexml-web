@@ -8,6 +8,7 @@ import {ConfigurationService} from '@common/shared/services/configuration.servic
 import {InlineEditComponent} from '@common/shared/ui-components/inputs/inline-edit/inline-edit.component';
 import {IdBadgeComponent} from '@common/shared/components/id-badge/id-badge.component';
 import {setAllProjectUsers} from '@common/core/actions/projects.actions';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'sm-profile-name',
@@ -16,11 +17,13 @@ import {setAllProjectUsers} from '@common/core/actions/projects.actions';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     InlineEditComponent,
-    IdBadgeComponent
+    IdBadgeComponent,
+    TranslatePipe
   ]
 })
 export class ProfileNameComponent {
   private store = inject(Store);
+  private translate = inject(TranslateService);
   protected readonly config = inject(ConfigurationService);
 
   currentUser = this.store.selectSignal(selectCurrentUser);
@@ -33,6 +36,6 @@ export class ProfileNameComponent {
     this.store.dispatch(setAllProjectUsers({users: []}));
   }
   copyToClipboard() {
-    this.store.dispatch(addMessage('success', 'Copied to clipboard'));
+    this.store.dispatch(addMessage('success', this.translate.instant('shared.idCopied')));
   }
 }

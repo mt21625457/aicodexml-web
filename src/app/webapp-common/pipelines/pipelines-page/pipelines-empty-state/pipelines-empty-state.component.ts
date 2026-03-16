@@ -4,6 +4,7 @@ import {ConfigurationService} from '@common/shared/services/configuration.servic
 import {CodeEditorComponent} from '@common/shared/ui-components/data/code-editor/code-editor.component';
 import {DialogTemplateComponent} from '@common/shared/ui-components/overlay/dialog-template/dialog-template.component';
 import {NgTemplateOutlet} from '@angular/common';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'sm-pipelines-empty-state',
@@ -14,7 +15,8 @@ import {NgTemplateOutlet} from '@angular/common';
     CodeEditorComponent,
     CodeEditorComponent,
     DialogTemplateComponent,
-    NgTemplateOutlet
+    NgTemplateOutlet,
+    TranslatePipe
   ]
 })
 export class PipelinesEmptyStateComponent{

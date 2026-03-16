@@ -29,10 +29,10 @@
         </div>
       }
       @case (RECENT_TASKS_TABLE_COL_FIELDS.STARTED) {
-        {{experiment.started | date : TIME_FORMAT_STRING}}
+        {{experiment.started | smDate : TIME_FORMAT_STRING}}
       }
       @case (RECENT_TASKS_TABLE_COL_FIELDS.LAST_UPDATE) {
-        {{experiment.last_update | date : TIME_FORMAT_STRING}}
+        {{experiment.last_update | smDate : TIME_FORMAT_STRING}}
       }
       @case (RECENT_TASKS_TABLE_COL_FIELDS.USER) {
         {{experiment.user?.name}}

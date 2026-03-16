@@ -16,14 +16,14 @@
   </mat-drawer>
   <mat-drawer-content class="overflow-hidden">
     <div class="header">
-      <button mat-flat-button class="icon-only" (click)="drawer.open()" smTooltip="Toggle Graphs" data-id="eyeIcon">
+      <button mat-flat-button class="icon-only" (click)="drawer.open()" [smTooltip]="'shared.toggleGraphs' | translate" data-id="eyeIcon">
         <mat-icon fontSet="al" fontIcon="al-ico-eye-outline"></mat-icon>
       </button>
       <mat-form-field appearance="outline" subscriptSizing="dynamic" class="time-selector">
         <mat-select [ngModel]="currentTimeFrame()" (ngModelChange)="timeFrameChange($event)" name="time-frame">
           @for (timeFrame of timeFrameOptions; track timeFrame.label) {
             <mat-option [value]="timeFrame.value">
-              {{ timeFrame.label }}
+              {{ timeFrame.label | translate }}
             </mat-option>
           }
         </mat-select>

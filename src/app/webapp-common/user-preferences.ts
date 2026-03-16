@@ -1,9 +1,13 @@
 import {ApiUsersService} from '~/business-logic/api-services/users.service';
 import {Observable, of} from 'rxjs';
-import {catchError, map, tap} from 'rxjs/operators';
+import {catchError, map, switchMap, tap} from 'rxjs/operators';
 import {cloneDeep, isEqual, get, set} from 'lodash-es';
 import {UsersSetPreferencesRequest} from '~/business-logic/model/users/usersSetPreferencesRequest';
-import {inject, Injectable} from '@angular/core';
+import {inject, Injectable, Injector} from '@angular/core';
+import {
+  APP_LANGUAGE_PREFERENCE_PATH,
+  LocaleService
+} from '~/shared/services/locale.service';
 
 const USER_PREFERENCES_STORAGE_KEY = '_USER_PREFERENCES_';
 
@@ -17,6 +21,7 @@ export const enum USER_PREFERENCES_KEY {
 })
 export class UserPreferences {
   private userService = inject(ApiUsersService);
+  private injector = inject(Injector);
 
   private preferences: Record<string, Record<string, any>>;
   private timer: number;
@@ -24,6 +29,10 @@ export class UserPreferences {
 
   constructor() {
     this.removeFromLocalStorage();
+  }
+
+  private get localeService(): LocaleService {
+    return this.injector.get(LocaleService);
   }
 
   loadPreferences(): Observable<Record<string, any>> {
@@ -40,6 +49,14 @@ export class UserPreferences {
           pref = JSON.parse(prefsString);
           return pref;
         }),
+        switchMap(pref => this.localeService.reconcilePersistedLanguage(pref).pipe(
+          tap(activeLanguage => {
+            if (!this.localeService.getPersistedLanguage(pref)) {
+              this.setPreferences(APP_LANGUAGE_PREFERENCE_PATH, activeLanguage);
+            }
+          }),
+          map(() => pref)
+        )),
         catchError((err) => {
           // in case of 401 we have login logic in other places - throw it
           if (err.status !== 401) {

@@ -10,6 +10,7 @@ import {AdminCredentialTableComponent} from '@common/settings/admin/admin-creden
 import {TooltipDirective} from '@common/shared/ui-components/indicators/tooltip/tooltip.directive';
 import {MatButton} from '@angular/material/button';
 import {KeyValuePipe} from '@common/shared/pipes/key-value.pipe';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'sm-user-credentials',
@@ -20,7 +21,8 @@ import {KeyValuePipe} from '@common/shared/pipes/key-value.pipe';
     AdminCredentialTableComponent,
     TooltipDirective,
     MatButton,
-    KeyValuePipe
+    KeyValuePipe,
+    TranslatePipe
   ]
 })
 export class UserCredentialsComponent {

@@ -15,7 +15,7 @@
   @if (selectedDisableAvailable()[menuItems.publish]) {
     @if (tableMode()) {
       <button mat-menu-item (click)="toggleDetails()">
-        <mat-icon fontSet="al" [fontIcon]="icons.DETAILS"></mat-icon>Details
+        <mat-icon fontSet="al" [fontIcon]="icons.DETAILS"></mat-icon>{{ 'shared.details' | translate }}
       </button>
     }
     @if (tableMode()) {
@@ -31,10 +31,10 @@
         {{selectedDisableAvailable()[menuItems.delete].available | menuItemText : 'Delete' : selectedDisableAvailableIsMultiple()}}
       </button>
     }
-    <button mat-menu-item (click)="archiveClicked()"
+      <button mat-menu-item (click)="archiveClicked()"
             [disabled]="selectedDisableAvailable()[menuItems.archive].disable" data-id="archiveOption">
       <mat-icon fontSet="al" [fontIcon]="isArchive() ? icons.RESTORE : icons.ARCHIVE"></mat-icon>
-      {{selectedDisableAvailable()[menuItems.archive].available | menuItemText : isArchive() ? 'Restore from Archive' : 'Archive' : selectedDisableAvailableIsMultiple()}}
+      {{selectedDisableAvailable()[menuItems.archive].available | menuItemText : (isArchive() ? ('shared.restoreFromArchive' | translate) : ('shared.archive' | translate)) : selectedDisableAvailableIsMultiple()}}
     </button>
     <hr>
     <button mat-menu-item
@@ -45,7 +45,7 @@
             data-id="addTagOption"
     >
       <mat-icon fontSet="al" [fontIcon]="icons.TAG"></mat-icon>
-      <span>{{numSelected() | menuItemText : 'Add Tag'  : selectedDisableAvailableIsMultiple()}}</span>
+      <span>{{numSelected() | menuItemText : ('shared.addTag' | translate)  : selectedDisableAvailableIsMultiple()}}</span>
     </button>
     <sm-tags-menu
       #tagsMenu
@@ -58,11 +58,11 @@
     <hr>
     <button mat-menu-item (click)="downloadModelFileClicked()" [disabled]="isLocalFile()" data-id="downloadOption">
       <mat-icon fontSet="al" [fontIcon]="icons.DOWNLOAD"></mat-icon>
-      Download
+      {{ 'shared.download' | translate }}
     </button>
     <button mat-menu-item (click)="moveToProjectPopup()" [disabled]="isExample()" data-id="moveToProjectOption">
       <mat-icon fontSet="al" [fontIcon]="icons.MOVE_TO"></mat-icon>
-      {{selectedDisableAvailable()[menuItems.moveTo].available | menuItemText : 'Move to Project' : selectedDisableAvailableIsMultiple()}}
+      {{selectedDisableAvailable()[menuItems.moveTo].available | menuItemText : ('shared.moveToProject' | translate) : selectedDisableAvailableIsMultiple()}}
     </button>
     <ng-content select="[extended]"></ng-content>
   }

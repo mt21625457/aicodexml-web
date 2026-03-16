@@ -20,6 +20,7 @@ import {MatButton} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {DashboardProjectsComponent} from '@common/dashboard/containers/dashboard-projects/dashboard-projects.component';
 import {DashboardExperimentsComponent} from '@common/dashboard/containers/dashboard-experiments/dashboard-experiments.component';
+import {TranslatePipe} from '@ngx-translate/core';
 
 
 @Component({
@@ -33,7 +34,8 @@ import {DashboardExperimentsComponent} from '@common/dashboard/containers/dashbo
     MatButton,
     MatIconModule,
     DashboardProjectsComponent,
-    DashboardExperimentsComponent
+    DashboardExperimentsComponent,
+    TranslatePipe
   ]
 })
 export class DashboardComponent {
@@ -46,7 +48,7 @@ export class DashboardComponent {
 
   constructor() {
     this.store.dispatch(setDeep({deep: false}));
-    this.store.dispatch(initSearch({payload: 'Search for all'}));
+    this.store.dispatch(initSearch({payload: 'dashboard.searchPlaceholder'}));
 
     this.store.select(selectActiveSearch)
       .pipe(

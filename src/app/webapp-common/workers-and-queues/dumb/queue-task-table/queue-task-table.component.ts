@@ -7,8 +7,8 @@ import {ITableExperiment} from '@common/experiments/shared/common-experiment-mod
 import {TableComponent} from '@common/shared/ui-components/data/table/table.component';
 import {TooltipDirective} from '@common/shared/ui-components/indicators/tooltip/tooltip.directive';
 import {TimeAgoPipe} from '@common/shared/pipes/timeAgo';
-import {DatePipe} from '@angular/common';
 import {PrimeTemplate} from 'primeng/api';
+import {LocalizedDatePipe} from '@common/shared/pipes/localized-format.pipe';
 
 @Component({
   selector: 'sm-queue-task-table',
@@ -18,7 +18,7 @@ import {PrimeTemplate} from 'primeng/api';
     TableComponent,
     TooltipDirective,
     TimeAgoPipe,
-    DatePipe,
+    LocalizedDatePipe,
     PrimeTemplate
   ]
 })

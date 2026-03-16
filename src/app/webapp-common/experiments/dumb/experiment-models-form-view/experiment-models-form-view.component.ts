@@ -14,6 +14,7 @@ import {IdBadgeComponent} from '@common/shared/components/id-badge/id-badge.comp
 import {TooltipDirective} from '@common/shared/ui-components/indicators/tooltip/tooltip.directive';
 import {MatIconButton} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import {TranslateService} from '@ngx-translate/core';
 
 
 @Component({
@@ -31,6 +32,7 @@ import {MatIconModule} from '@angular/material/icon';
 })
 export class ExperimentModelsFormViewComponent extends BaseClickableArtifactComponent implements OnDestroy{
   private dialog = inject(MatDialog);
+  private translate = inject(TranslateService);
 
   projectId = input<string>();
   editable = input<boolean>();
@@ -47,7 +49,7 @@ export class ExperimentModelsFormViewComponent extends BaseClickableArtifactComp
   public chooseModel() {
     this.dialog.open<SelectModelComponent, SelectModelData, string>(SelectModelComponent, {
       data: {
-        header: 'Select a published model',
+        header: 'models.select.selectPublishedModel',
         hideShowArchived: true
       },
       panelClass: 'full-screen',
@@ -63,7 +65,7 @@ export class ExperimentModelsFormViewComponent extends BaseClickableArtifactComp
   }
 
   copySuccess() {
-    this.store.dispatch(addMessage(MESSAGES_SEVERITY.SUCCESS, 'Copied to clipboard'));
+    this.store.dispatch(addMessage(MESSAGES_SEVERITY.SUCCESS, this.translate.instant('shared.idCopied')));
   }
 
   ngOnDestroy(): void {

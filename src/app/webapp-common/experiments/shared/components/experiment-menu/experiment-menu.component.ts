@@ -71,6 +71,7 @@ import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
 import {MatIconButton} from '@angular/material/button';
 import {MenuItemTextPipe} from '@common/shared/pipes/menu-item-text.pipe';
 import {SelectQueueModule} from '@common/experiments/shared/components/select-queue/select-queue.module';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
 
 @Component({
@@ -87,7 +88,8 @@ import {SelectQueueModule} from '@common/experiments/shared/components/select-qu
     MatMenu,
     MatIconButton,
     MenuItemTextPipe,
-    SelectQueueModule
+    SelectQueueModule,
+    TranslatePipe
   ]
 })
 export class ExperimentMenuComponent extends BaseContextMenuComponent {
@@ -98,6 +100,7 @@ export class ExperimentMenuComponent extends BaseContextMenuComponent {
   protected route = inject(ActivatedRoute);
   private queueApi = inject(ApiQueuesService);
   private colorHash = inject(ColorHashService);
+  private translate = inject(TranslateService);
 
 
   protected readonly icons = ICONS;
@@ -137,6 +140,10 @@ export class ExperimentMenuComponent extends BaseContextMenuComponent {
   }>>('dequeueTemplate');
   publishTemplate = viewChild.required<TemplateRef<{ $implicit: ISelectedExperiment[] }>>('publishTemplate ');
 
+  private t(key: string, params?: Record<string, unknown>) {
+    return this.translate.instant(key, params);
+  }
+
   public restoreArchive(entityType?: EntityTypeEnum) {
     // info header case
     const selectedExperiments = this.selectedExperiments() ? selectionDisabledArchive(this.selectedExperiments()).selectedFiltered : [this.experiment()];
@@ -158,8 +165,9 @@ export class ExperimentMenuComponent extends BaseContextMenuComponent {
           if (showShareWarningDialog) {
             this.showConfirmArchiveExperiments(selectedExperiments, entityType);
           } else if (showRunningWarningDialog) {
-            this.showConfirmArchiveExperiments(selectedExperiments, entityType, 'ARCHIVE A RUNNING TASK',
-              'Some of the tasks you are about to archive are running or queued.<br>Archiving running tasks will also <b>RESET</b> them.<br>Archive tasks?',
+            this.showConfirmArchiveExperiments(selectedExperiments, entityType,
+              this.t('experiments.menu.dialogs.archiveRunning.title'),
+              this.t('experiments.menu.dialogs.archiveRunning.body'),
               false);
           } else {
             this.store.dispatch(commonMenuActions.archiveSelectedExperiments({
@@ -226,14 +234,14 @@ export class ExperimentMenuComponent extends BaseContextMenuComponent {
             queueName?: string
           }>, boolean>(ConfirmDialogComponent, {
             data: {
-              title: 'Dequeue Task',
+              title: this.t('experiments.menu.dialogs.dequeue.title'),
               template: this.dequeueTemplate(),
               templateContext: {
                 $implicit: selectedExperiments,
                 ...(queues && {queueName: queue.display_name || queue.name})
               },
-              yes: 'Dequeue',
-              no: 'Cancel',
+              yes: this.t('shared.dequeue'),
+              no: this.t('shared.cancel'),
               iconClass: 'al-ico-alert',
               iconColor: 'var(--color-warning)'
             }
@@ -295,11 +303,11 @@ export class ExperimentMenuComponent extends BaseContextMenuComponent {
       $implicit: ISelectedExperiment[]
     }>, boolean>(ConfirmDialogComponent, {
       data: {
-        title: 'ABORT',
+        title: this.t('shared.abort'),
         template: this.stopTemplate(),
         templateContext: {$implicit: selectedExperiments},
-        yes: 'Abort',
-        no: 'Cancel',
+        yes: this.t('shared.abort'),
+        no: this.t('shared.cancel'),
         iconClass: 'al-ico-abort',
       }
     }).afterClosed()
@@ -317,11 +325,11 @@ export class ExperimentMenuComponent extends BaseContextMenuComponent {
       $implicit: ISelectedExperiment[]
     }>, boolean>(ConfirmDialogComponent, {
       data: {
-        title: 'PUBLISH TASKS',
+        title: this.t('experiments.menu.dialogs.publish.title'),
         template: this.publishTemplate(),
         templateContext: {$implicit: selectedExperiments},
-        yes: 'Publish',
-        no: 'Cancel',
+        yes: this.t('shared.publish'),
+        no: this.t('shared.cancel'),
         iconClass: 'al-ico-publish',
       }
     }).afterClosed().subscribe((confirmed) => {
@@ -338,7 +346,7 @@ export class ExperimentMenuComponent extends BaseContextMenuComponent {
   shareExperimentPopup() {
     this.dialog.open(ShareDialogComponent, {
       data: {
-        title: 'SHARE TASK PUBLICLY',
+        title: this.t('experiments.menu.dialogs.share.title'),
         link: `${window.location.origin}/projects/${this.experiment().project.id}/experiments/${this.experiment().id}/output/execution`,
         alreadyShared: this.experiment()?.system_tags.includes('shared'),
         task: this.experiment()?.id
@@ -449,11 +457,10 @@ export class ExperimentMenuComponent extends BaseContextMenuComponent {
       neverShowAgain: boolean
     }>(ConfirmDialogComponent, {
       data: {
-        title: title ?? 'ARCHIVE A PUBLICLY SHARED TASK',
-        body: body ?? `This task is accessible through a public access link.
-            Archiving will disable public access`,
-        yes: 'OK',
-        no: 'Cancel',
+        title: title ?? this.t('experiments.menu.dialogs.archiveShared.title'),
+        body: body ?? this.t('experiments.menu.dialogs.archiveShared.body'),
+        yes: this.t('shared.ok'),
+        no: this.t('shared.cancel'),
         iconClass: 'al-ico-archive',
         showNeverShowAgain
       }
@@ -462,7 +469,7 @@ export class ExperimentMenuComponent extends BaseContextMenuComponent {
         if (confirmed) {
           this.store.dispatch(archiveSelectedExperiments({selectedEntities: selectedExperiments, entityType}));
           if (confirmed.neverShowAgain) {
-            this.store.dispatch(neverShowPopupAgain({popupId: title ?? 'archive-shared-task'}));
+            this.store.dispatch(neverShowPopupAgain({popupId: 'archive-shared-task'}));
           }
         }
       });

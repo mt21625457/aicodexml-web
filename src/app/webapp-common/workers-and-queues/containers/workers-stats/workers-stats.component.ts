@@ -24,6 +24,8 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatIconModule} from '@angular/material/icon';
 import {LineChartComponent, Topic} from '@common/shared/components/charts/line-chart/line-chart.component';
 import {TooltipDirective} from '@common/shared/ui-components/indicators/tooltip/tooltip.directive';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
+import {LocaleService} from '~/shared/services/locale.service';
 
 @Component({
   selector: 'sm-workers-graph',
@@ -36,12 +38,15 @@ import {TooltipDirective} from '@common/shared/ui-components/indicators/tooltip/
     MatSelectModule,
     MatIconModule,
     LineChartComponent,
-    TooltipDirective
+    TooltipDirective,
+    TranslatePipe
   ]
 })
 export class WorkersStatsComponent {
   private store = inject(Store);
   private destroyRef = inject(DestroyRef);
+  private translate = inject(TranslateService);
+  private localeService = inject(LocaleService);
 
   protected statsError = this.store.selectSignal(selectStatsErrorNotice);
   protected currentTimeFrame = this.store.selectSignal<string>(selectStatsTimeFrame);
@@ -54,7 +59,13 @@ export class WorkersStatsComponent {
     chart: this.chartData(),
     refreshChart: signal(!this.chartData())
   }))
-  public yAxisLabel = computed(() => this.activeWorker() ? this.yAxisLabels[this.currentParam()] : 'Count');
+  public yAxisLabel = computed(() => {
+    this.localeService.currentLanguage();
+    const key = this.activeWorker()
+      ? this.yAxisLabels[this.currentParam()]
+      : 'workers.stats.yAxis.count';
+    return this.translate.instant(key);
+  });
 
   formatY = computed(() => {
     // Capture the dependencies
@@ -96,18 +107,18 @@ export class WorkersStatsComponent {
 
   timeFrameOptions = timeFrameOptions;
   public chartParamOptions: IOption[] = [
-    {label: 'CPU and GPU Usage', value: 'cpu_usage;gpu_usage'},
-    {label: 'Memory Usage', value: 'memory_used'},
-    {label: 'GPU Memory', value: 'gpu_memory_used'},
-    {label: 'Network Usage', value: 'network_rx;network_tx'}
+    {label: 'workers.stats.params.cpuAndGpuUsage', value: 'cpu_usage;gpu_usage'},
+    {label: 'workers.stats.params.memoryUsage', value: 'memory_used'},
+    {label: 'workers.stats.params.gpuMemory', value: 'gpu_memory_used'},
+    {label: 'workers.stats.params.networkUsage', value: 'network_rx;network_tx'}
     //    {label: 'Frames Processed', value: 'frames'},
   ];
 
   public yAxisLabels = {
-    'cpu_usage;gpu_usage': 'Usage %',
-    memory_used: 'Bytes',
-    gpu_memory_used: 'Bytes',
-    'network_rx;network_tx': 'Bytes/sec'
+    'cpu_usage;gpu_usage': 'workers.stats.yAxis.usagePercent',
+    memory_used: 'workers.stats.yAxis.bytes',
+    gpu_memory_used: 'workers.stats.yAxis.bytes',
+    'network_rx;network_tx': 'workers.stats.yAxis.bytesPerSecond'
   };
 
   chartParamChange(event: string) {

@@ -8,7 +8,7 @@ import {ExperimentTypeIconLabelComponent} from '@common/shared/experiment-type-i
 import {StatusIconLabelComponent} from '@common/shared/experiment-status-icon-label/status-icon-label.component';
 import {TooltipDirective} from '@common/shared/ui-components/indicators/tooltip/tooltip.directive';
 import {PrimeTemplate} from 'primeng/api';
-import {DatePipe} from '@angular/common';
+import {LocalizedDatePipe} from '@common/shared/pipes/localized-format.pipe';
 
 @Component({
   selector: 'sm-recent-tasks-table',
@@ -24,8 +24,7 @@ import {DatePipe} from '@angular/common';
     TooltipDirective,
     TooltipDirective,
     PrimeTemplate,
-    DatePipe,
-    DatePipe
+    LocalizedDatePipe
   ]
 })
 export class RecentExperimentTableComponent {

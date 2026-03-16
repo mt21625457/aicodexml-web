@@ -2,19 +2,19 @@
 <sm-search [value]="searchText()"
            [minimumChars]="0"
            [debounceTime]="0"
-           placeholder="Search parameters"
+           placeholder="shared.searchParameters"
            data-id="searchParameterField"
            class="underline-search"
            (valueChanged)="searchQ($event)"></sm-search>
 <div class="actions">
   @if (selectedItemsList()?.length > 0) {
-    <a href="" data-id="Clear Selection" class="pointer" (click)="$event.preventDefault(); onClearSelection()">Clear Selection</a>
+    <a href="" data-id="Clear Selection" class="pointer" (click)="$event.preventDefault(); onClearSelection()">{{ 'shared.clearSelection' | translate }}</a>
   }
   <ng-content></ng-content>
 
 </div>
 @if (itemsList() && Object.keys(itemsList())?.length === 0) {
-  <div class="empty-state">No data to show</div>
+  <div class="empty-state">{{ 'shared.noData' | translate }}</div>
 }
 <div class="list">
   @for (category of (itemsObjectListFiltered() | keyvalue: compareByKey); track category.key) {
@@ -31,7 +31,7 @@
         @for (item of category.value; track item.value) {
           <div class="item pointer"
                [class.disabled]="selectionLimitReached() && !item.checked"
-               [smTooltip]="!item.checked && selectionLimitReached()? 'You can only select up to ' + limitSelection() + ' parameters' : ''"
+               [smTooltip]="!item.checked && selectionLimitReached()? ('shared.selectionLimit' | translate: {count: limitSelection()}) : ''"
                customClass="parameter-tooltip"
                (click)="(!selectionLimitReached() || item.checked) && toggleParamToDisplay(category.key, item.value, item.checked)">
             <mat-checkbox smClickStopPropagation [checked]="item.checked" (change)="(!selectionLimitReached() || item.checked) && toggleParamToDisplay(category.key, item.value, item.checked)">

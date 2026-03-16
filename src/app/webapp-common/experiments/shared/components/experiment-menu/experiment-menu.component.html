@@ -16,34 +16,34 @@
   </div>
 }
 <mat-menu #experimentMenu="matMenu" [hasBackdrop]="backdrop()" class="entity-context-menu">
-  @if (selectedDisableAvailable()[menuItems.queue]) {
-    @if (tableMode() || isCompare()) {
+    @if (selectedDisableAvailable()[menuItems.queue]) {
+      @if (tableMode() || isCompare()) {
       <button mat-menu-item (click)="toggleDetails()" data-id="Details Option">
         <mat-icon fontSet="al" [fontIcon]="icons.DETAILS"></mat-icon>
-        <span>Details</span>
+        <span>{{ 'shared.details' | translate }}</span>
       </button>
     }
     <button mat-menu-item (click)="toggleFullScreen(minimizedView())" [disabled]="isSharedNotInWorkspaces()"
             data-id="View Full Screen Option">
       <mat-icon fontSet="al" [fontIcon]="icons.CHART"></mat-icon>
-      {{minimizedView() ? 'View Full Screen' : 'View in Task Table'}}
+      {{minimizedView() ? ('shared.viewFullScreen' | translate) : ('shared.viewInTaskTable' | translate)}}
     </button>
     @if (isCompare()) {
       <button mat-menu-item (click)="openColorPicker($event)" data-id="Palette Option">
         <mat-icon fontSet="al" [fontIcon]="icons.PALETTE"></mat-icon>
-        <span>Edit Color</span>
+        <span>{{ 'shared.editColor' | translate }}</span>
       </button>
     }
     <hr>
     <button mat-menu-item (click)="manageQueueClicked()"
             [disabled]="selectedDisableAvailable()[menuItems.queue].disable" data-id="Manage Queue Option">
       <mat-icon fontSet="al" [fontIcon]="icons.QUEUED"></mat-icon>
-      Manage Queue
+      {{ 'shared.manageQueue' | translate }}
     </button>
     <button mat-menu-item (click)="viewWorkerClicked()"
             [disabled]="selectedDisableAvailable()[menuItems.viewWorker].disable" data-id="View Worker Option">
       <mat-icon fontSet="al" [fontIcon]="icons.WORKER"></mat-icon>
-      View Worker
+      {{ 'shared.viewWorker' | translate }}
     </button>
     <hr>
     @if (isCommunity()) {
@@ -60,10 +60,10 @@
         {{selectedDisableAvailable()[menuItems.delete].available | menuItemText : 'Delete' : selectedDisableAvailableIsMultiple()}}
       </button>
     }
-    <button mat-menu-item (click)="restoreArchive()" data-id="Archive Option"
+      <button mat-menu-item (click)="restoreArchive()" data-id="Archive Option"
             [disabled]="selectedDisableAvailable()[menuItems.archive].disable">
       <mat-icon fontSet="al" [fontIcon]="isArchive() ? icons.RESTORE : icons.ARCHIVE"></mat-icon>
-      {{selectedDisableAvailable()[menuItems.archive].available | menuItemText : isArchive() ? 'Restore from Archive' : 'Archive' : selectedDisableAvailableIsMultiple()}}
+      {{selectedDisableAvailable()[menuItems.archive].available | menuItemText : (isArchive() ? ('shared.restoreFromArchive' | translate) : ('shared.archive' | translate)) : selectedDisableAvailableIsMultiple()}}
     </button>
     @if (!selectedDisableAvailable()[menuItems.enqueue].disable && !isArchive()) {
       <button mat-menu-item (click)="enqueuePopup()" data-id="Enqueue Option"
@@ -76,30 +76,30 @@
       <button mat-menu-item (click)="retryPopup()" data-id="Enqueue Option"
               [disabled]="selectedDisableAvailable()[menuItems.retry].disable">
         <mat-icon fontSet="al" [fontIcon]="icons.RETRY"></mat-icon>
-        {{selectedDisableAvailable()[menuItems.retry]?.available | menuItemText : 'Retry' : selectedDisableAvailableIsMultiple()}}
+        {{selectedDisableAvailable()[menuItems.retry]?.available | menuItemText : ('shared.retry' | translate) : selectedDisableAvailableIsMultiple()}}
       </button>
     }
     @if (!selectedDisableAvailable()[menuItems.dequeue].disable) {
       <button mat-menu-item (click)="dequeuePopup()" data-id="Dequeue Option"
               [disabled]="selectedDisableAvailable()[menuItems.dequeue]?.disable">
         <mat-icon fontSet="al" [fontIcon]="icons.DEQUEUE"></mat-icon>
-        {{selectedDisableAvailable()[menuItems.dequeue]?.available | menuItemText : 'Dequeue' : selectedDisableAvailableIsMultiple()}}
+        {{selectedDisableAvailable()[menuItems.dequeue]?.available | menuItemText : ('shared.dequeue' | translate) : selectedDisableAvailableIsMultiple()}}
       </button>
     }
     <button mat-menu-item (click)="resetPopup()" data-id="Reset Option"
             [disabled]="selectedDisableAvailable()[menuItems.reset].disable">
       <mat-icon fontSet="al" [fontIcon]="icons.RESET"></mat-icon>
-      {{selectedDisableAvailable()[menuItems.reset].available | menuItemText : 'Reset' : selectedDisableAvailableIsMultiple()}}
+      {{selectedDisableAvailable()[menuItems.reset].available | menuItemText : ('shared.reset' | translate) : selectedDisableAvailableIsMultiple()}}
     </button>
     <button mat-menu-item (click)="stopPopup()" data-id="Abort Option"
             [disabled]="selectedDisableAvailable()[menuItems.abort].disable">
       <mat-icon fontSet="al" [fontIcon]="icons.STOPPED"></mat-icon>
-      {{selectedDisableAvailable()[menuItems.abort].available | menuItemText : 'Abort' : selectedDisableAvailableIsMultiple() }}
+      {{selectedDisableAvailable()[menuItems.abort].available | menuItemText : ('shared.abort' | translate) : selectedDisableAvailableIsMultiple() }}
     </button>
     @if (!selectedDisableAvailable()[menuItems.abortAllChildren]?.disable) {
       <button mat-menu-item (click)="stopAllChildrenPopup()">
         <mat-icon fontSet="al" [fontIcon]="icons.STOPPED_ALL"></mat-icon>
-        {{selectedDisableAvailable()[menuItems.abortAllChildren]?.available | menuItemText : 'Abort All Children' : selectedDisableAvailableIsMultiple() }}
+        {{selectedDisableAvailable()[menuItems.abortAllChildren]?.available | menuItemText : ('shared.abortAllChildren' | translate) : selectedDisableAvailableIsMultiple() }}
       </button>
     }
     <button
@@ -116,17 +116,17 @@
             (menuOpened)="tagMenuOpened()"
             (menuClosed)="tagMenuClosed()">
       <mat-icon fontSet="al" [fontIcon]="icons.TAG"></mat-icon>
-      <span>{{selectedDisableAvailable()[menuItems.tags]?.available | menuItemText : 'Add Tag' : selectedDisableAvailableIsMultiple() }}</span>
+      <span>{{selectedDisableAvailable()[menuItems.tags]?.available | menuItemText : ('shared.addTag' | translate) : selectedDisableAvailableIsMultiple() }}</span>
     </button>
     <hr>
     <button mat-menu-item (click)="clonePopup()" data-id="Clone Option">
       <mat-icon fontSet="al" [fontIcon]="icons.CLONE"></mat-icon>
-      Clone
+      {{ 'shared.clone' | translate }}
     </button>
     <button mat-menu-item (click)="moveToProjectPopup()" data-id="Move To Project Option"
             [disabled]="selectedDisableAvailable()[menuItems.moveTo].disable">
       <mat-icon fontSet="al" [fontIcon]="icons.MOVE_TO"></mat-icon>
-      {{selectedDisableAvailable()[menuItems.moveTo].available | menuItemText : 'Move to Project' : selectedDisableAvailableIsMultiple()}}
+      {{selectedDisableAvailable()[menuItems.moveTo].available | menuItemText : ('shared.moveToProject' | translate) : selectedDisableAvailableIsMultiple()}}
     </button>
     <ng-content select="[extended]"></ng-content>
   }
@@ -152,9 +152,9 @@
         smShowTooltipIfEllipsis
       >{{selectedExperiments[0]?.name}}</span>
     } @else {
-      <span class="font-weight-bold me-1">{{selectedExperiments.length}} tasks</span>
+      <span class="font-weight-bold me-1">{{ 'experiments.menu.tasksCount' | translate:{count: selectedExperiments.length} }}</span>
     }
-    <span>will be stopped and additional model updates will not be allowed.</span>
+    <span>{{ 'experiments.menu.stopWarning' | translate }}</span>
   </div>
 </ng-template>
 
@@ -168,9 +168,9 @@
         smShowTooltipIfEllipsis
       >{{selectedExperiments[0]?.name}}</span>
     } @else {
-      <span class="font-weight-bold">{{selectedExperiments.length}} tasks</span>
+      <span class="font-weight-bold">{{ 'experiments.menu.tasksCount' | translate:{count: selectedExperiments.length} }}</span>
     }
-    will be removed from the
+    {{ 'experiments.menu.dequeuePrompt' | translate }}
     @if (queueName) {
       <span
         class="ellipsis inline font-weight-bold"
@@ -179,7 +179,7 @@
         smShowTooltipIfEllipsis
       >{{queueName}}</span>
     }
-    execution queue.
+    {{ 'experiments.menu.executionQueue' | translate }}
   </div>
 </ng-template>
 
@@ -193,11 +193,11 @@
         smShowTooltipIfEllipsis
       >{{selectedExperiments[0]?.name}}</span>
     } @else {
-      <span class="font-weight-bold me-1">{{selectedExperiments.length}} tasks</span>
+      <span class="font-weight-bold me-1">{{ 'experiments.menu.tasksCount' | translate:{count: selectedExperiments.length} }}</span>
     }
-    <span>status will be set to Published.</span>
+    <span>{{ 'experiments.menu.publishStatus' | translate }}</span>
   </div>
   <div>
-    Published tasks are read-only and cannot be reset. The task's output, including models will also be published so that other tasks can use it.
+    {{ 'experiments.menu.publishNotice' | translate }}
   </div>
 </ng-template>

@@ -3,7 +3,7 @@
     <sm-search
       #search
       class="outline"
-      placeholder="Start typing model name or ID to add to your comparison"
+      placeholder="models.select.searchPlaceholder"
       [value]="searchValue()"
       (valueChanged)="onSearchValueChanged($event)"
       (focusout)="onSearchFocusOut()">
@@ -15,7 +15,7 @@
         class="me-2"
         [checked]="isShowArchived()"
         (change)="isArchivedChanged.emit($event.checked)"
-      >Include Archived</mat-slide-toggle>
+      >{{ 'experiments.compare.includeArchived' | translate }}</mat-slide-toggle>
     }
     <sm-clear-filters-button
       [tableFilters]="tableFilters()"

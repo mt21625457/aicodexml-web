@@ -10,8 +10,8 @@
     <sm-button-toggle
       left-items
       [options]="[
-              {value: false, icon: 'al-ico-flat-view',  label: 'List view'},
-              {value: true, icon:'al-ico-project-path', label: 'Project view'}
+              {value: false, icon: 'al-ico-flat-view',  label: ('pipelines.views.list' | translate)},
+              {value: true, icon:'al-ico-project-path', label: ('pipelines.views.project' | translate)}
             ]"
       [ngModel]="!!projectId"
       (ngModelChange)="!(!!projectId && $event) && toggleNestedView($any($event))"
@@ -19,7 +19,7 @@
     <div class="d-flex">
       <button mat-flat-button (click)="createPipeline()" data-id="New Pipeline">
         <mat-icon fontSet="al" fontIcon="al-ico-add"></mat-icon>
-        NEW PIPELINE
+        {{ 'pipelines.actions.newPipeline' | translate }}
       </button>
     </div>
   </sm-projects-header>
@@ -42,10 +42,10 @@
       <div class="title-icon">
         <mat-icon fontSet="al" fontIcon="al-ico-pipelines" class="xxl"></mat-icon>
       </div>
-      <div class="title">NO PIPELINES TO SHOW</div>
-      <div class="sub-title">Run your first pipeline to see it displayed here
+      <div class="title">{{ 'pipelines.empty.title' | translate }}</div>
+      <div class="sub-title">{{ 'pipelines.empty.subtitle' | translate }}
         @if (allExamples) {
-          or <a href="" (click)="$event.preventDefault(); createExamples()">generate example</a>
+          {{ 'pipelines.empty.or' | translate }} <a href="" (click)="$event.preventDefault(); createExamples()">{{ 'pipelines.empty.generateExample' | translate }}</a>
         }
       </div>
       <sm-pipelines-empty-state [initPipelineCode]="initPipelineCode" [createButton]="true"></sm-pipelines-empty-state>
@@ -62,4 +62,3 @@
     </div>
   }
 </div>
-

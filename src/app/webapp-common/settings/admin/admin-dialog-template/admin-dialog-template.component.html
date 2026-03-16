@@ -2,16 +2,16 @@
   <div class="credentials">
     @if (serviceUserMode && credentialName) {
       <div class="cred-row">
-        <div class="label">Name</div>
+        <div class="label">{{ 'credentials.name' | translate }}</div>
         <div class="value">{{credentialName}}</div>
       </div>
     }
     <div class="cred-row">
-      <div class="label">Access key</div>
+      <div class="label">{{ 'credentials.accessKey' | translate }}</div>
       <div class="value">{{newCredential?.access_key}}</div>
     </div>
     <div class="cred-row">
-      <div class="label">Secret key</div>
+      <div class="label">{{ 'credentials.secretKey' | translate }}</div>
       <div class="value">{{newCredential?.secret_key}}</div>
     </div>
 
@@ -19,16 +19,16 @@
   <div [class.mt-4]="serviceUserMode">
     @if (!serviceUserMode) {
       <mat-tab-group [(selectedIndex)]="selectedIndex" mat-stretch-tabs="false" mat-align-tabs="center">
-        <mat-tab label="LOCAL PYTHON" ></mat-tab>
-        <mat-tab label="JUPYTER NOTEBOOK" ></mat-tab>
+        <mat-tab [label]="'credentials.localPython' | translate" ></mat-tab>
+        <mat-tab [label]="'credentials.jupyterNotebook' | translate" ></mat-tab>
       </mat-tab-group>
     }
     <div class="code-container" [class.jupyter]="isJupyter()">
       @if (!isJupyter()) {
         @if (serviceUserMode){
-          <div class="instructions mt-2 mb-2">Copy the below configuration to the ClearML Agents clearml.conf file</div>
+          <div class="instructions mt-2 mb-2">{{ 'credentials.copyAgentConfig' | translate }}</div>
         } @else {
-          <div class="instructions mt-2 mb-2">Copy the below info for input to 'clearml-init' configuration request, or modify your existing clearml.conf</div>
+          <div class="instructions mt-2 mb-2">{{ 'credentials.copyInitConfig' | translate }}</div>
         }
         <div class="mt-2 w-100 code">
           <div class="content">
@@ -76,7 +76,7 @@
       }
     </div>
   } @else {
-    <div class="instructions mt-2 mb-2">Add the below to your notebook to configure ClearML</div>
+    <div class="instructions mt-2 mb-2">{{ 'credentials.addToNotebook' | translate }}</div>
     <div class="code">
       <div class="content">
         <div>
@@ -107,7 +107,7 @@
   }
 </div>
 <ng-template #jupyter>
-  <div class="instructions">Add the below to your notebook to configure ClearML</div>
+  <div class="instructions">{{ 'credentials.addToNotebook' | translate }}</div>
   <div class="code">
     <div class="content" #jupyterCodeEl>{{jupyterCode}}</div>
     <sm-copy-clipboard
@@ -121,8 +121,8 @@
 @if (!serviceUserMode) {
   <form (submit)="onUpdateLabel()">
     <mat-form-field appearance="outline" class="label-input no-bottom">
-      <input matInput [(ngModel)]="label" placeholder="Credentials label" name="credentials" [value]="newCredential?.label || ''">
+      <input matInput [(ngModel)]="label" [placeholder]="'credentials.credentialsLabel' | translate" name="credentials" [value]="newCredential?.label || ''">
     </mat-form-field>
-    <button mat-stroked-button class="label-button" type="submit" [disabled]="label === newCredential?.label">UPDATE LABEL</button>
+    <button mat-stroked-button class="label-button" type="submit" [disabled]="label === newCredential?.label">{{ 'credentials.updateLabel' | translate }}</button>
   </form>
 }

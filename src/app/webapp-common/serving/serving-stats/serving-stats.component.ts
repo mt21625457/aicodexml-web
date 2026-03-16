@@ -11,6 +11,8 @@ import {selectAppVisible, selectAutoRefresh} from '@common/core/reducers/view.re
 import {EndpointStats} from '~/business-logic/model/serving/endpointStats';
 import {presetColorsDark} from '@common/shared/ui-components/inputs/color-picker/color-picker-wrapper.component';
 import {takeUntilDestroyed, toObservable} from '@angular/core/rxjs-interop';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
+import {LocaleService} from '~/shared/services/locale.service';
 
 const REFRESH_INTERVAL = 45000;
 
@@ -21,11 +23,14 @@ const REFRESH_INTERVAL = 45000;
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [
         FormsModule,
-        LineChartComponent
+        LineChartComponent,
+        TranslatePipe
     ]
 })
 export class ServingStatsComponent {
   private store = inject(Store);
+  private translate = inject(TranslateService);
+  private localeService = inject(LocaleService);
 
   public metricType = input<{ label: string; value: ServingGetEndpointMetricsHistoryRequest.MetricTypeEnum }>();
   public currentTimeFrame = input<string>();
@@ -45,10 +50,10 @@ export class ServingStatsComponent {
   protected presetColors = computed(() => this.legends()?.map(series => presetColorsDark[this.allSeriesLegends().findIndex(leg => leg === series)]));
 
   protected yAxisLabels = {
-    'cpu_usage;gpu_usage': 'Usage %',
-    memory_used: 'Bytes',
-    gpu_memory_used: 'Bytes',
-    'network_rx;network_tx': 'Bytes/sec'
+    'cpu_usage;gpu_usage': 'workers.stats.yAxis.usagePercent',
+    memory_used: 'workers.stats.yAxis.bytes',
+    gpu_memory_used: 'workers.stats.yAxis.bytes',
+    'network_rx;network_tx': 'workers.stats.yAxis.bytesPerSecond'
   };
   private previousEndpoint: EndpointStats;
   private previousTimeFrame: string;
@@ -57,17 +62,19 @@ export class ServingStatsComponent {
 
   constructor() {
     effect(() => {
+      this.localeService.currentLanguage();
       if (this.selectedEndpoint()?.id !== this.selectedWorkerId) {
         if (this.selectedEndpoint()) {
-          this.yAxisLabel.update(label => label?.[this.metricType().value]);
+          this.yAxisLabel.set(this.translate.instant(this.yAxisLabels[this.metricType().value]));
         }
       }
       this.selectedWorkerId = this.selectedEndpoint()?.id;
     });
 
     effect(() => {
+      this.localeService.currentLanguage();
       if (!!this.currentTimeFrame() && !!this.metricType() && this.selectedEndpoint()) {
-        this.yAxisLabel.set(this.yAxisLabels[this.metricType().value]);
+        this.yAxisLabel.set(this.translate.instant(this.yAxisLabels[this.metricType().value]));
         if (this.selectedEndpoint()?.id !== this.previousEndpoint?.id || this.currentTimeFrame() !== this.previousTimeFrame) {
           this.chartChanged();
         }

@@ -3,7 +3,7 @@
   [isExample]="!['All Tasks'].includes(project.name) && !isRootProject && (!project.company || ! project.company.id)"
   [showFolder]="false"
   [oneTabMode]="true"
-  [subFolderTitle]="project?.sub_projects?.length + ' sub projects'"
+  [subFolderTitle]="project?.sub_projects?.length + ' ' + ('pipelines.card.subProjects' | translate)"
   >
   <div secondTab class="sub-projects-list">
     <cdk-virtual-scroll-viewport [itemSize]="30" [minBufferPx]="440" [maxBufferPx]="660" class="h-100">
@@ -57,33 +57,33 @@
     @if (project.stats?.active?.last_task_run) {
       <span
         class="last-run"
-        [smTooltip]="project.stats?.active?.last_task_run | date: timeFormatString"
+        [smTooltip]="project.stats?.active?.last_task_run | smDate: timeFormatString"
         matTooltipPosition="after"
-      >Last run {{project.stats?.active?.last_task_run | timeAgo}}</span>
+      >{{ 'pipelines.card.lastRun' | translate }} {{project.stats?.active?.last_task_run | timeAgo}}</span>
     } @else {
-      <div class="last-run">No pipeline runs yet</div>
+      <div class="last-run">{{ 'pipelines.empty.noRunsYet' | translate }}</div>
     }
   </div>
   <div class="d-flex justify-content-around w-100">
     <ng-template></ng-template>
     <sm-circle-counter
       [counter]="project.stats?.active?.status_count.in_progress"
-      label="RUNNING"
+      [label]="'pipelines.labels.running' | translate"
       [type]="project.stats?.active?.status_count.in_progress? circleTypeEnum.running : circleTypeEnum.empty"
     ></sm-circle-counter>
     <sm-circle-counter
       [counter]="project.stats?.active?.status_count.queued"
-      label="PENDING"
+      [label]="'pipelines.labels.pending' | translate"
       [type]="project.stats?.active?.status_count.queued ? circleTypeEnum.pending : circleTypeEnum.empty"
     ></sm-circle-counter>
     <sm-circle-counter
       [counter]="project.stats?.active?.status_count?.completed"
-      label="COMPLETED"
+      [label]="'pipelines.labels.completed' | translate"
       [type]="project.stats?.active?.status_count?.completed? circleTypeEnum.completed : circleTypeEnum.empty"
     ></sm-circle-counter>
     <sm-circle-counter
       [counter]="project.stats?.active?.status_count.failed"
-      label="FAILED"
+      [label]="'pipelines.labels.failed' | translate"
       [type]="project.stats?.active?.status_count.failed ? circleTypeEnum.failed : circleTypeEnum.empty"
     ></sm-circle-counter>
   </div>

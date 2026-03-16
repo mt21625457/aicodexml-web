@@ -9,6 +9,7 @@ import {
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import {MatMenuModule} from '@angular/material/menu';
+import {TranslatePipe} from '@ngx-translate/core';
 
 
 const separateValueAndExcludeFromFilters=(filters: string[])=> filters.reduce((state, currentFilter) => {
@@ -37,7 +38,8 @@ export enum CheckboxState {
         TooltipDirective,
         ShowTooltipIfEllipsisDirective,
         MatProgressSpinnerModule,
-        MatMenuModule
+        MatMenuModule,
+        TranslatePipe
     ]
 })
 export class CheckboxThreeStateListComponent {
@@ -133,5 +135,4 @@ export class CheckboxThreeStateListComponent {
     return;
   }
 }
-
 

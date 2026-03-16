@@ -47,6 +47,7 @@ import {MatIcon} from '@angular/material/icon';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {MultiLineTooltipComponent} from '@common/shared/components/multi-line-tooltip/multi-line-tooltip.component';
 import {injectResize} from 'ngxtension/resize';
+import {TranslatePipe} from '@ngx-translate/core';
 
 export interface TableContextMenuSelectEventExt extends Omit<TableContextMenuSelectEvent, 'index'> {
   single?: boolean;
@@ -68,7 +69,8 @@ export interface TableContextMenuSelectEventExt extends Omit<TableContextMenuSel
     DotsLoadMoreComponent,
     MatIcon,
     MatButton,
-    MultiLineTooltipComponent
+    MultiLineTooltipComponent,
+    TranslatePipe
   ]
 })
 export class TableComponent<D extends { id: string }> implements AfterContentInit, OnDestroy {

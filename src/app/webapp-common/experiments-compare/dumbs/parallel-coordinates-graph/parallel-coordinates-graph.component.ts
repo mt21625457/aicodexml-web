@@ -36,6 +36,7 @@ import {
 import {MatIconButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 import {ChooseColorDirective} from '@common/shared/ui-components/directives/choose-color/choose-color.directive';
+import {LocaleFormatService} from '~/shared/services/locale-format.service';
 
 
 declare let Plotly;
@@ -84,6 +85,7 @@ interface ParaPlotData {
 export class ParallelCoordinatesGraphComponent extends PlotlyGraphBaseComponent implements OnInit, OnChanges {
   private colorHash = inject(ColorHashService);
   private cdr = inject(ChangeDetectorRef);
+  private localeFormat = inject(LocaleFormatService);
 
   private metricVariantToPathPipe = new MetricVariantToPathPipe();
   private metricVariantToNamePipe = new MetricVariantToNamePipe();
@@ -407,14 +409,8 @@ export class ParallelCoordinatesGraphComponent extends PlotlyGraphBaseComponent 
   }
 
   private naturalCompare(myArray) {
-    const collator = new Intl.Collator(undefined, {numeric: true, sensitivity: 'base'});
     const compare = (a: string, b: string) => {
-      const aFloat = parseFloat(a);
-      const bFloat = parseFloat(b);
-      if (!Number.isNaN(a) && !Number.isNaN(b)) {
-        return aFloat - bFloat;
-      }
-      return collator.compare(a, b);
+      return this.localeFormat.naturalCompare(a, b);
     };
 
     return (myArray.sort(compare));

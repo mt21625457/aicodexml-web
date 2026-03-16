@@ -79,10 +79,10 @@
                   }
                   @default {
                     <div class="col-header" [class.text-center]="col.textCenter">
-                      {{ col.header }}
+                      {{ col.header | translate }}
                       @if (col.infoTooltip) {
                         <sm-multi-line-tooltip [smallIcon]="true">
-                          {{col.infoTooltip}}
+                          {{col.infoTooltip | translate}}
                         </sm-multi-line-tooltip>
                       }
                     </div>
@@ -96,17 +96,17 @@
             <th>
               <div class="table-header" style="flex-basis:100%">
                 <ng-container *ngTemplateOutlet="checkboxTemplate; context: {$implicit: visibleColumns()?.[0]}"></ng-container>
-                <div class="table-header-title ellipsis" data-id="tableHeader">{{ minimizedTableHeader() }}</div>
+                <div class="table-header-title ellipsis" data-id="tableHeader">{{ minimizedTableHeader() | translate }}</div>
                 <div class="collapse-button al-icon al-ico-compact-view sm-md"
                      [class.active]="cardsCollapsed()"
                      (click)="cardsCollapsedToggle.emit()"></div>
                 <div class="table-actions">
                   <div class="recent-title">
                     @if (sortableCols.length > 0) {
-                      <sm-menu header="SORTED BY " class="menu" data-id="sortedByFilter">
+                      <sm-menu [header]="'shared.sortedBy' | translate" class="menu" data-id="sortedByFilter">
                         @for (col of sortableCols; track col.id) {
                           <div>
-                            <sm-menu-item [itemLabel]="col.header" [sortOrder]="getOrder(col.id)"
+                            <sm-menu-item [itemLabel]="col.header | translate" [sortOrder]="getOrder(col.id)"
                                           (itemClicked)="sortItemClick($event, col.id)"></sm-menu-item>
                           </div>
                         }

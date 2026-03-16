@@ -12,6 +12,7 @@ import {
 } from '@common/shared/ui-components/indicators/tooltip/show-tooltip-if-ellipsis.directive';
 import {FilterOutPipe} from '@common/shared/pipes/filterOut.pipe';
 import {decodeURIComponentSafe} from '@common/shared/utils/tableParamEncode';
+import {TranslatePipe} from '@ngx-translate/core';
 
 export type HyperParams<T> = ReadonlyMap<string, T[]>;
 
@@ -29,7 +30,8 @@ export type HyperParams<T> = ReadonlyMap<string, T[]>;
         MatRadioModule,
         ClickStopPropagationDirective,
         ShowTooltipIfEllipsisDirective,
-        FilterOutPipe
+        FilterOutPipe,
+        TranslatePipe
     ]
 })
 export class GroupedCheckedFilterListComponent {

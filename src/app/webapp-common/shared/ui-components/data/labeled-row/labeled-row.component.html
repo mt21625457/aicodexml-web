@@ -1,9 +1,8 @@
 @if (showRow) {
   <div class="labeled-row">
-    <div class="label-container" data-id="artifactsFieldId" [class]="labelClass">{{label}}</div>
+    <div class="label-container" data-id="artifactsFieldId" [class]="labelClass">{{label | translate}}</div>
     <div class="content">
       <ng-content></ng-content>
     </div>
   </div>
 }
-

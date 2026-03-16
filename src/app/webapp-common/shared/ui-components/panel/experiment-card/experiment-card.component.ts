@@ -6,9 +6,9 @@ import {CardComponent} from '@common/shared/ui-components/panel/card/card.compon
 import {TooltipDirective} from '@common/shared/ui-components/indicators/tooltip/tooltip.directive';
 import {CopyClipboardComponent} from '@common/shared/ui-components/indicators/copy-clipboard/copy-clipboard.component';
 import {CircleStatusComponent} from '@common/shared/ui-components/indicators/circle-status/circle-status.component';
-import {DatePipe} from '@angular/common';
 import {TimeAgoPipe} from '@common/shared/pipes/timeAgo';
 import {ShowTooltipIfEllipsisDirective} from '@common/shared/ui-components/indicators/tooltip/show-tooltip-if-ellipsis.directive';
+import {LocalizedDatePipe} from '@common/shared/pipes/localized-format.pipe';
 
 
 @Component({
@@ -21,7 +21,7 @@ import {ShowTooltipIfEllipsisDirective} from '@common/shared/ui-components/indic
         TooltipDirective,
         CopyClipboardComponent,
         CircleStatusComponent,
-        DatePipe,
+        LocalizedDatePipe,
         TimeAgoPipe,
         ShowTooltipIfEllipsisDirective
     ]

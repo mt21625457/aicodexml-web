@@ -17,6 +17,7 @@ import {debounce, filter, tap} from 'rxjs/operators';
 import {MatIcon} from '@angular/material/icon';
 import {MatIconButton} from '@angular/material/button';
 import {HesitateDirective} from '@common/shared/ui-components/directives/hesitate.directive';
+import {TranslatePipe} from '@ngx-translate/core';
 
 
 @Component({
@@ -28,6 +29,7 @@ import {HesitateDirective} from '@common/shared/ui-components/directives/hesitat
     MatIcon,
     MatIconButton,
     HesitateDirective,
+    TranslatePipe,
   ]
 })
 export class SearchComponent implements OnInit, OnChanges, OnDestroy {
@@ -39,7 +41,7 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
 
   minimumChars = input(3);
   debounceTime = input(300);
-  placeholder = input<string>('Type to search');
+  placeholder = input<string>('shared.typeToSearch');
   hideIcons = input<boolean>(false);
   expandOnHover = input(false);
   disabled = input(false);

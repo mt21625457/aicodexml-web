@@ -2,6 +2,7 @@ import {Component, ContentChild, TemplateRef, input, output} from '@angular/core
 import {CdkDrag, CdkDragDrop, CdkDropList} from '@angular/cdk/drag-drop';
 import {FormsTrackBy} from '../../../utils/forms-track-by';
 import { NgTemplateOutlet } from '@angular/common';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
     selector: 'sm-simple-table-2',
@@ -10,7 +11,8 @@ import { NgTemplateOutlet } from '@angular/common';
     imports: [
         CdkDropList,
         NgTemplateOutlet,
-        CdkDrag
+        CdkDrag,
+        TranslatePipe
     ]
 })
 export class SimpleTableComponent extends FormsTrackBy {

@@ -1,5 +1,6 @@
-import {Pipe, PipeTransform} from '@angular/core';
+import {inject, Pipe, PipeTransform} from '@angular/core';
 import {sortByField} from '../../tasks/tasks.utils';
+import {LocaleFormatService} from '~/shared/services/locale-format.service';
 
 @Pipe({
   name: 'sort',
@@ -15,14 +16,15 @@ export class SortPipe implements PipeTransform {
   name: 'sortHumanize',
 })
 export class SortHumanizePipe implements PipeTransform {
-  private collator = new Intl.Collator(undefined, {numeric: true, sensitivity: 'base'});
+  private localeFormat = inject(LocaleFormatService);
 
   transform(array: any[], field?: string): any[] {
     const arr = [...array];
+    const collator = this.localeFormat.createCollator({numeric: true, sensitivity: 'base'});
     if(field) {
-      arr.sort((a, b) => this.collator.compare(a[field], b[field]));
+      arr.sort((a, b) => collator.compare(a[field], b[field]));
     } else {
-      arr.sort((a, b) => this.collator.compare(a, b));
+      arr.sort((a, b) => collator.compare(a, b));
     }
     return arr;
   }

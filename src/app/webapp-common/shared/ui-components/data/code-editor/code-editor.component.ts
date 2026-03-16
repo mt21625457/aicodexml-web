@@ -16,6 +16,7 @@ import {MatIcon} from '@angular/material/icon';
 import {TooltipDirective} from '@common/shared/ui-components/indicators/tooltip/tooltip.directive';
 import {fromEvent} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {TranslateService} from '@ngx-translate/core';
 declare const ace;
 
 @Component({
@@ -33,6 +34,7 @@ declare const ace;
 export class CodeEditorComponent {
   private zone = inject(NgZone);
   private store = inject(Store);
+  private translate = inject(TranslateService);
 
   mode = input('python');
   readonly = input(false);
@@ -146,7 +148,7 @@ export class CodeEditorComponent {
   }
 
   copySuccess() {
-    this.store.dispatch(addMessage(MESSAGES_SEVERITY.SUCCESS, 'Code copied to clipboard'));
+    this.store.dispatch(addMessage(MESSAGES_SEVERITY.SUCCESS, this.translate.instant('shared.codeCopied')));
   }
 
   openSearch() {

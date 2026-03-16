@@ -4,6 +4,7 @@ import {CdkScrollableModule} from '@angular/cdk/scrolling';
 import {SaferPipe} from '@common/shared/pipes/safe.pipe';
 import {MatIcon} from '@angular/material/icon';
 import {MatIconButton} from '@angular/material/button';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
     selector: 'sm-dialog-template',
@@ -13,7 +14,8 @@ import {MatIconButton} from '@angular/material/button';
         CdkScrollableModule,
         SaferPipe,
         MatIcon,
-        MatIconButton
+        MatIconButton,
+        TranslatePipe
     ]
 })
 export class DialogTemplateComponent {
@@ -40,4 +42,3 @@ export class DialogTemplateComponent {
     this.xClicked.emit();
   }
 }
-

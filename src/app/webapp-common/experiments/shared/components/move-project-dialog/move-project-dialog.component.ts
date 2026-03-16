@@ -19,6 +19,7 @@ import {exampleProjectAsyncValidator} from '@common/experiments/shared/component
 import {ProjectsGetAllResponseSingle} from '~/business-logic/model/projects/projectsGetAllResponseSingle';
 import {projectsRoot} from '@common/experiments/shared/common-experiments.const';
 import {minLengthTrimmed} from '@common/shared/validators/minLengthTrimmed';
+import {TranslatePipe} from '@ngx-translate/core';
 
 export interface MoveProjectData {
   currentProjects: Project['id'][];
@@ -49,7 +50,8 @@ export interface MoveProjectData {
     SlicePipe,
     DialogTemplateComponent,
     MatButton,
-    MatDialogClose
+    MatDialogClose,
+    TranslatePipe
   ]
 })
 export class MoveProjectDialogComponent {

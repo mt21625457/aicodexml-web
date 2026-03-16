@@ -16,6 +16,7 @@ import {ProjectCardComponent} from '@common/shared/ui-components/panel/project-c
 import {PlusCardComponent} from '@common/shared/ui-components/panel/plus-card/plus-card.component';
 import {MatButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'sm-dashboard-projects',
@@ -26,7 +27,8 @@ import {MatIcon} from '@angular/material/icon';
     ProjectCardComponent,
     PlusCardComponent,
     MatIcon,
-    MatButton
+    MatButton,
+    TranslatePipe
   ]
 })
 export class DashboardProjectsComponent {

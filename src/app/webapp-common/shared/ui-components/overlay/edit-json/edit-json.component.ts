@@ -8,6 +8,7 @@ import {DialogTemplateComponent} from '@common/shared/ui-components/overlay/dial
 import {orderJson} from '@common/shared/utils/shared-utils';
 import {MatButton} from '@angular/material/button';
 import {CodeEditorComponent} from '@common/shared/ui-components/data/code-editor/code-editor.component';
+import {TranslateService} from '@ngx-translate/core';
 
 export interface EditJsonData {
   textData?: string | object;
@@ -36,6 +37,7 @@ export class EditJsonComponent {
   private dialogRef = inject<MatDialogRef<EditJsonComponent, string | null>>(MatDialogRef<EditJsonComponent, string | null>);
   private jsonPipe = inject(JsonPipe);
   private store = inject(Store);
+  private translate = inject(TranslateService);
   protected errors: Map<string, boolean>;
   protected textData: string;
   protected showErrors: boolean;
@@ -72,7 +74,7 @@ export class EditJsonComponent {
     this.typeJson = this.data.format === 'json';
     let defaultPlaceHolder: string;
     if (this.typeJson) {
-      defaultPlaceHolder = `e.g.:
+      defaultPlaceHolder = `${this.translate.instant('shared.examplePrefix')}:
 
 {
   "location" : "london",
@@ -120,7 +122,7 @@ export class EditJsonComponent {
         this.textData = text;
         this.dialogRef.close(text ? (this.typeJson ? JSON.parse(text) : text) : '');
       } catch {
-        this.store.dispatch(addMessage('warn', 'Not a valid JSON'));
+        this.store.dispatch(addMessage('warn', this.translate.instant('shared.invalidJson')));
         // this.showErrors = true; // shows warning message bellow texterea
       }
     } else {

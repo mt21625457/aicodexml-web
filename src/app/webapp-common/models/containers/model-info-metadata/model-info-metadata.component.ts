@@ -27,6 +27,7 @@ import {
   ShowTooltipIfEllipsisDirective
 } from '@common/shared/ui-components/indicators/tooltip/show-tooltip-if-ellipsis.directive';
 import {TooltipDirective} from '@common/shared/ui-components/indicators/tooltip/tooltip.directive';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
 export type IModelMetadataMap = Record<string, IModelMetadataItem>;
 
@@ -57,11 +58,13 @@ export interface IModelMetadataItem {
     MatIconButton,
     PushPipe,
     ShowTooltipIfEllipsisDirective,
-    TooltipDirective
+    TooltipDirective,
+    TranslatePipe
   ]
 })
 export class ModelInfoMetadataComponent {
   private store = inject(Store);
+  private translate = inject(TranslateService);
   private resize$ = injectResize({emitInitialResult: true});
   metadataForm = viewChild(NgForm);
 
@@ -75,18 +78,18 @@ export class ModelInfoMetadataComponent {
 
   public inEdit = signal(false);
   public cols = [
-    {id : 'key', header: 'Key', style: {width: '200px', maxWidth: '200px'}},
-    {id : 'type', header: 'Type', style: {width: '200px', maxWidth: '200px'}},
-    {id : 'value', header: 'Value', style: {width: '200px', maxWidth: '200px'}}
+    {id : 'key', header: this.translate.instant('models.metadata.key'), style: {width: '200px', maxWidth: '200px'}},
+    {id : 'type', header: this.translate.instant('models.metadata.type'), style: {width: '200px', maxWidth: '200px'}},
+    {id : 'value', header: this.translate.instant('models.metadata.value'), style: {width: '200px', maxWidth: '200px'}}
   ] as ISmCol[];
   protected calcCols$ = this.resize$
     .pipe(
       startWith({width: 500}),
       map(res => res.width),
       map(width => [
-        {id : 'key', header: 'Key', style: {width: `${(width - 64) / 3}px`, maxWidth: `${(width - 64) / 3}px`}},
-        {id : 'type', header: 'Type', style: {width: `${(width - 64) / 3}px`, maxWidth: `${(width - 64) / 3}px`}},
-        {id : 'value', header: 'Value', style: {width: `${(width - 64) / 3}px`, maxWidth: `${(width - 64) / 3}px`}}
+        {id : 'key', header: this.translate.instant('models.metadata.key'), style: {width: `${(width - 64) / 3}px`, maxWidth: `${(width - 64) / 3}px`}},
+        {id : 'type', header: this.translate.instant('models.metadata.type'), style: {width: `${(width - 64) / 3}px`, maxWidth: `${(width - 64) / 3}px`}},
+        {id : 'value', header: this.translate.instant('models.metadata.value'), style: {width: `${(width - 64) / 3}px`, maxWidth: `${(width - 64) / 3}px`}}
       ])
     );
   public metadata = null as IModelMetadataItem[];

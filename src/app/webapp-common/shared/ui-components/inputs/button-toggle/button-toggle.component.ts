@@ -5,6 +5,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {TooltipDirective} from '@common/shared/ui-components/indicators/tooltip/tooltip.directive';
 import {AppendComponentOnTopElementDirective} from '@common/shared/directive/append-component-on-top-element.directive';
 import {MatIcon} from '@angular/material/icon';
+import {TranslatePipe} from '@ngx-translate/core';
 
 
 export interface Option<D> {
@@ -25,7 +26,8 @@ export interface Option<D> {
         TooltipDirective,
         ReactiveFormsModule,
         AppendComponentOnTopElementDirective,
-        MatIcon
+        MatIcon,
+        TranslatePipe
     ],
     providers: [
       {

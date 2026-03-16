@@ -46,6 +46,7 @@ import {selectShowOnlyUserWork} from '@common/core/reducers/users-reducer';
 import {ReportsListComponent} from '@common/reports/reports-list/reports-list.component';
 import {ReportsHeaderComponent} from '@common/reports/reports-filters/reports-header.component';
 import {PushPipe} from '@ngrx/component';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'sm-reports-page',
@@ -59,6 +60,7 @@ import {PushPipe} from '@ngrx/component';
 })
 export class ReportsPageComponent extends ProjectsPageComponent implements OnInit, OnDestroy {
   private _clipboardService = inject(ClipboardService);
+  private translate = inject(TranslateService);
 
   protected reports$ = this.store.select(selectReports);
   protected reportsTags$ = this.store.select(selectReportsTags);
@@ -159,7 +161,7 @@ export class ReportsPageComponent extends ProjectsPageComponent implements OnIni
   share(report: IReport) {
     this._clipboardService.copyResponse$
       .pipe(take(1))
-      .subscribe(() => this.store.dispatch(addMessage(MESSAGES_SEVERITY.SUCCESS, 'Report link copied to clipboard'))
+      .subscribe(() => this.store.dispatch(addMessage(MESSAGES_SEVERITY.SUCCESS, this.translate.instant('reports.messages.linkCopied')))
       );
     this._clipboardService.copy(`${window.location.origin}/reports/${report.project.id}/${report.id}`);
   }
@@ -215,9 +217,10 @@ export class ReportsPageComponent extends ProjectsPageComponent implements OnIni
         breadcrumbOptions: {
           showProjects: !!selectedProject,
           featureBreadcrumb: {
-            name: 'REPORTS',
+            name: 'reports.breadcrumb',
             url: defaultNestedModeForFeature['reports'] ? 'reports/*/projects' : 'reports',
-            linkLast: !this.nested && selectedProject?.id === '*'
+            linkLast: !this.nested && selectedProject?.id === '*',
+            translate: true
           },
           projectsOptions: {
             basePath: 'reports',

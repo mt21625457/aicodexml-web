@@ -1,4 +1,4 @@
-import {Component, DestroyRef, forwardRef, inject, input} from '@angular/core';
+import {Component, DestroyRef, effect, forwardRef, inject, input} from '@angular/core';
 import {ControlValueAccessor, FormControl, FormGroup, NG_VALUE_ACCESSOR, ReactiveFormsModule} from '@angular/forms';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {format, isValid, parseISO} from 'date-fns';
@@ -8,12 +8,12 @@ import {MatOption, MatSelect} from '@angular/material/select';
 import {MatDivider} from '@angular/material/list';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
-import {enGB} from 'date-fns/locale';
 import {DateFnsAdapter, MAT_DATE_FNS_FORMATS, provideDateFnsAdapter} from '@angular/material-date-fns-adapter';
 import {ClickStopPropagationDirective} from '@common/shared/ui-components/directives/click-stop-propagation.directive';
 import {MatIconModule} from '@angular/material/icon';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {ActivatedRoute, Router} from "@angular/router";
+import {LocaleService} from '~/shared/services/locale.service';
 
 // ... other imports (MatSelect, MatDatepicker, etc.)
 
@@ -38,7 +38,7 @@ import {ActivatedRoute, Router} from "@angular/router";
       useExisting: forwardRef(() => PeriodSelectorComponent),
       multi: true
     },
-    {provide: MAT_DATE_LOCALE, useValue: enGB},
+    {provide: MAT_DATE_LOCALE, useFactory: () => inject(LocaleService).dateFnsLocale()},
     {provide: DateAdapter, useClass: DateFnsAdapter, deps: [MAT_DATE_LOCALE]},
     {provide: MAT_DATE_FORMATS, useValue: MAT_DATE_FNS_FORMATS},
     provideDateFnsAdapter()  ],
@@ -50,6 +50,8 @@ export class PeriodSelectorComponent implements ControlValueAccessor {
   private destroyRef = inject(DestroyRef);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
+  private localeService = inject(LocaleService);
+  private dateAdapter = inject(DateAdapter);
   timeFrameOptions = input([
     { label: 'Current month', value: 'currentMonth' },
     { label: 'Last 7 days', value: 'week' },
@@ -70,6 +72,10 @@ export class PeriodSelectorComponent implements ControlValueAccessor {
 
 
   constructor() {
+    effect(() => {
+      this.dateAdapter.setLocale(this.localeService.dateFnsLocale());
+    });
+
     this.rangeControl.get('period').valueChanges
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(period => {

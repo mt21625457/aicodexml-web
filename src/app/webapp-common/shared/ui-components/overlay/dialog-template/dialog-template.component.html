@@ -7,7 +7,7 @@
 
       @if (pageHeader()) {
         <div class="stick-to-corner left">
-          <div [innerText]="pageHeader()"></div>
+          <div [innerText]="pageHeader() | translate"></div>
         </div>
       }
     </div>
@@ -26,12 +26,12 @@
     }
     @if (header()) {
       <div class="d-flex flex-column">
-        <div class="create-title mx-auto ellipsis {{headerClass() ?? ''}}">{{header()}}</div>
+        <div class="create-title mx-auto ellipsis {{headerClass() ?? ''}}">{{ header() | translate }}</div>
       </div>
     }
     @if (subHeader()) {
       <div class="d-flex flex-column">
-        <p class="sub-header mx-auto" [innerHTML]="subHeader() | purify"></p>
+        <p class="sub-header mx-auto" [innerHTML]="(subHeader() | translate) | purify"></p>
       </div>
     }
     <ng-content></ng-content>

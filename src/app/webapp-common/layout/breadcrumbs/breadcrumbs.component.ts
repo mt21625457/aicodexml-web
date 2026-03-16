@@ -39,6 +39,7 @@ import {MatIcon} from '@angular/material/icon';
 import {MatIconButton} from '@angular/material/button';
 import {MatBadgeModule} from '@angular/material/badge';
 import {selectRouterConfig} from '@common/core/reducers/router-reducer';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
 export enum CrumbTypeEnum {
   Workspace = 'Workspace',
@@ -65,6 +66,7 @@ export interface IBreadcrumbsLink {
   badgeWarn?: boolean;
   badgeTooltip?: string;
   onlyWithProject?: boolean;
+  translate?: boolean;
 }
 
 export interface IBreadcrumbsOptions {
@@ -97,13 +99,15 @@ export interface IBreadcrumbsOptions {
     IdBadgeComponent,
     MatIcon,
     MatIconButton,
-    MatBadgeModule
+    MatBadgeModule,
+    TranslatePipe
   ]
 })
 export class BreadcrumbsComponent {
   private store = inject(Store);
   public route = inject(ActivatedRoute);
   private configService = inject(ConfigurationService);
+  private translate = inject(TranslateService);
   private cd = inject(ChangeDetectorRef);
   public currentUrl: string;
   public showShareButton = false;
@@ -157,7 +161,7 @@ export class BreadcrumbsComponent {
   }
 
   copyToClipboardSuccess() {
-    this.store.dispatch(addMessage(MESSAGES_SEVERITY.SUCCESS, 'URL copied successfully'));
+    this.store.dispatch(addMessage(MESSAGES_SEVERITY.SUCCESS, this.translate.instant('shared.urlCopied')));
   }
 
 
@@ -166,6 +170,6 @@ export class BreadcrumbsComponent {
   }
 
   copyToClipboard() {
-    this.store.dispatch(addMessage(MESSAGES_SEVERITY.SUCCESS, 'ID copied to clipboard'));
+    this.store.dispatch(addMessage(MESSAGES_SEVERITY.SUCCESS, this.translate.instant('shared.idCopied')));
   }
 }

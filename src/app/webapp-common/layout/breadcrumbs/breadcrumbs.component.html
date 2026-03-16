@@ -18,19 +18,19 @@
                [queryParams]="breadcrumb.urlParams"
                [queryParamsHandling]="breadcrumb.queryParamsHandling"
             >
-            {{breadcrumb.name}}</a>
+            {{ breadcrumb.translate ? (breadcrumb.name | translate) : breadcrumb.name }}</a>
             @if (breadcrumb.badge) {
               <span class="badge" [smTooltip]="breadcrumb.badgeTooltip" customClass="break-line" [matTooltipShowDelay]="300">{{breadcrumb.badge}}</span>
             }
           } @else {
             <div #crumb class="crumb" [class.last]="lastGroup && lastCrumb" [class.first]="firstGroup && firstCrumb">
               @if (lastGroup && lastCrumb && breadcrumb.linkLast){
-                <a class="ellipsis name" [smTooltip]="breadcrumb.name" smShowTooltipIfEllipsis [routerLink]="breadcrumb.linkLast && breadcrumb.url"
+                <a class="ellipsis name" [smTooltip]="breadcrumb.translate ? (breadcrumb.name | translate) : breadcrumb.name" smShowTooltipIfEllipsis [routerLink]="breadcrumb.linkLast && breadcrumb.url"
                    [queryParamsHandling]="breadcrumb.queryParamsHandling"
-                >{{breadcrumb.name}}{{breadcrumb.example ? ' (example)' : ''}}</a>
+                >{{ breadcrumb.translate ? (breadcrumb.name | translate) : breadcrumb.name }}{{ breadcrumb.example ? ('shell.breadcrumbs.exampleSuffix' | translate) : '' }}</a>
               } @else {
-                <div class="ellipsis name" [smTooltip]="breadcrumb.name" smShowTooltipIfEllipsis
-                >{{breadcrumb.name}}{{breadcrumb.example ? ' (example)' : ''}}</div>
+                <div class="ellipsis name" [smTooltip]="breadcrumb.translate ? (breadcrumb.name | translate) : breadcrumb.name" smShowTooltipIfEllipsis
+                >{{ breadcrumb.translate ? (breadcrumb.name | translate) : breadcrumb.name }}{{ breadcrumb.example ? ('shell.breadcrumbs.exampleSuffix' | translate) : '' }}</div>
               }
 
               @if (breadcrumb.id) {
@@ -68,14 +68,14 @@
         @for (breadcrumb of breadcrumbGroup; track breadcrumb) {
           <span mat-menu-item
             class="sub-project-menu-item"
-            [smTooltip]="breadcrumb.name"
+            [smTooltip]="breadcrumb.translate ? (breadcrumb.name | translate) : breadcrumb.name"
             smShowTooltipIfEllipsis
             [routerLink]="breadcrumb.url!=='projects/*/projects'? breadcrumb.url: 'projects/*'"
             >
             @if (breadcrumb.hidden) {
               <mat-icon fontSet="al" fontIcon="al-ico-ghost"></mat-icon>
             }
-            {{breadcrumb.name}}
+            {{ breadcrumb.translate ? (breadcrumb.name | translate) : breadcrumb.name }}
             </span>
           }
         </mat-menu>
@@ -88,18 +88,18 @@
         (menuOpened)="openShareModal()"
         >
         @if (showShareButton && !isCommunity()) {
-          <mat-icon fontSet="al" fontIcon="al-ico-shared-item" class="share pointer" smTooltip="Share"></mat-icon>
+          <mat-icon fontSet="al" fontIcon="al-ico-shared-item" class="share pointer" [smTooltip]="'shell.breadcrumbs.share' | translate"></mat-icon>
         }
       </div>
       <mat-menu #shareModal="matMenu">
         <div class="share-menu-container" smClickStopPropagation>
           <div class="d-flex align-items-center justify-content-between top">
-            <div class="share-title">SHARE VIEW</div>
+            <div class="share-title">{{ 'shell.breadcrumbs.shareView' | translate }}</div>
             <button mat-icon-button (click)="menuTrigger.closeMenu()" smClickStopPropagation>
               <mat-icon fontSet="al" fontIcon="al-ico-dialog-x"></mat-icon>
             </button>
           </div>
-          <div class="copy-title">Copy the following URL to share this view with others</div>
+          <div class="copy-title">{{ 'shell.breadcrumbs.shareCopy' | translate }}</div>
 
           <div class="share-link-container" [class.hidden]="!(currentUrl)">
             <div class="ellipsis share-link">
@@ -116,7 +116,7 @@
       </mat-menu>
     </div>
     @if (showArchive()) {
-      <div data-id="Archive Label" class="archive"><mat-icon fontSet="al" fontIcon="al-ico-archive" class="xs me-1"></mat-icon>Archive
+      <div data-id="Archive Label" class="archive"><mat-icon fontSet="al" fontIcon="al-ico-archive" class="xs me-1"></mat-icon>{{ 'shell.breadcrumbs.archive' | translate }}
     </div>
   }
 </div>

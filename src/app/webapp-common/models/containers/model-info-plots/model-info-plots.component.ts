@@ -25,6 +25,7 @@ import {TooltipDirective} from '@common/shared/ui-components/indicators/tooltip/
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {PushPipe} from '@ngrx/component';
 import {MatIconModule} from '@angular/material/icon';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'sm-model-info-plot',
@@ -44,7 +45,8 @@ import {MatIconModule} from '@angular/material/icon';
     TooltipDirective,
     MatIconButton,
     MatButton,
-    PushPipe
+    PushPipe,
+    TranslatePipe
   ]
 })
 export class ModelInfoPlotsComponent implements OnInit, OnDestroy {
@@ -53,6 +55,7 @@ export class ModelInfoPlotsComponent implements OnInit, OnDestroy {
   private activeRoute = inject(ActivatedRoute);
   private reportEmbed = inject(ReportCodeEmbedService);
   private route = inject(ActivatedRoute);
+  private translate = inject(TranslateService);
 
   public graphs: Record<string, any[]>;
   public plotsList$ = new Subject<GroupedList>();
@@ -143,7 +146,7 @@ export class ModelInfoPlotsComponent implements OnInit, OnDestroy {
         const {graphs, parsingError} = convertPlots({plots: groupedPlots, id: this.modelId});
         this.graphs = graphs;
         if (parsingError) {
-          this.store.dispatch(addMessage('warn', `Couldn't read all plots. Please make sure all plots are properly formatted (NaN & Inf aren't supported).`, [], true));
+          this.store.dispatch(addMessage('warn', this.translate.instant('models.plots.parseWarning'), [], true));
         }
         this.cdr.detectChanges();
       })

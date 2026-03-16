@@ -5,6 +5,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatIconButton} from '@angular/material/button';
 import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
 import {MenuItemTextPipe} from '@common/shared/pipes/menu-item-text.pipe';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'sm-model-menu-extended',
@@ -17,7 +18,8 @@ import {MenuItemTextPipe} from '@common/shared/pipes/menu-item-text.pipe';
     MatMenuTrigger,
     MatMenuItem,
     MatMenu,
-    MenuItemTextPipe
+    MenuItemTextPipe,
+    TranslatePipe
   ]
 })
 export class ModelMenuExtendedComponent extends ModelMenuComponent {

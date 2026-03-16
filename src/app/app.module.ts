@@ -1,4 +1,9 @@
-import {inject, NgModule, provideAppInitializer} from '@angular/core';
+import {
+  inject,
+  LOCALE_ID,
+  NgModule,
+  provideAppInitializer
+} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {PreloadAllModules, RouteReuseStrategy, RouterModule} from '@angular/router';
@@ -35,8 +40,26 @@ import {TranslateModule, MissingTranslationHandler} from '@ngx-translate/core';
 import {provideTranslateHttpLoader} from '@ngx-translate/http-loader';
 import {
   DEFAULT_APP_LANGUAGE,
+  APP_LANGUAGE_STORAGE_KEY,
   FriendlyMissingTranslationHandler
 } from '~/shared/services/locale.service';
+import {registerLocaleData} from '@angular/common';
+import localeEn from '@angular/common/locales/en';
+import localeEnExtra from '@angular/common/locales/extra/en';
+import localeZh from '@angular/common/locales/zh';
+import localeZhExtra from '@angular/common/locales/extra/zh';
+
+registerLocaleData(localeEn, 'en', localeEnExtra);
+registerLocaleData(localeZh, 'zh-CN', localeZhExtra);
+
+const provideAppLocale = () => {
+  const storedLanguage = globalThis.localStorage?.getItem(APP_LANGUAGE_STORAGE_KEY)?.toLowerCase();
+  if (storedLanguage?.startsWith('zh')) {
+    return 'zh-CN';
+  }
+
+  return DEFAULT_APP_LANGUAGE;
+};
 
 @NgModule({
   declarations   : [AppComponent, AppRootComponent],
@@ -88,6 +111,7 @@ import {
   ],
   providers: [
     UserPreferences,
+    {provide: LOCALE_ID, useFactory: provideAppLocale},
   {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {floatLabel: 'always',  appearance: 'outline'}},
     provideAppInitializer(() => loadUserAndPreferences()),
     ColorHashService,

@@ -1,7 +1,7 @@
 <div class="logo">
   <img
     [ngSrc]="darkTheme() ? environment().branding.logoSmall : environment().branding.logoSmall.replace('-white', '')"
-    [priority]="true" alt="clearML" class="logo-a" width="64" height="64">
+    [priority]="true" [alt]="'header.logoAlt' | translate" class="logo-a" width="64" height="64">
 </div>
 
 @if (currentUser()) {
@@ -9,34 +9,34 @@
     <a class="item al-ico-queues"
        routerLink="/workers-and-queues"
        routerLinkActive="active"
-       smTooltip="WORKERS & QUEUES"
+       [smTooltip]="'shell.sideNav.workersAndQueues' | translate"
     ></a>
     <a class="item al-ico-model-endpoints"
        [routerLink]="'/endpoints/active'"
        [class.active]="baseRouteConfig() ==='endpoints'"
-       smTooltip="MODEL ENDPOINTS"
+       [smTooltip]="'shell.sideNav.modelEndpoints' | translate"
        data-id="modelEndpointsIcon"
     ></a>
     <a class="item al-ico-datasets"
        [routerLink]="defaultNestedModeForFeature()?.['datasets']? '/datasets/simple/*/projects' : '/datasets'"
        [class.active]="baseRouteConfig() ==='datasets'"
-       smTooltip="DATASETS"
+       [smTooltip]="'shell.sideNav.datasets' | translate"
     ></a>
     <a class="item al-ico-projects"
-       smTooltip="PROJECTS"
+       [smTooltip]="'shell.sideNav.projects' | translate"
        routerLink="/dashboard"
        [class.active]="['dashboard','reports', 'projects'].includes(baseRouteConfig())"
     ></a>
     <a class="item al-ico-pipelines"
        [routerLink]="defaultNestedModeForFeature()?.['pipelines']? '/pipelines/*/projects' : '/pipelines'"
        [class.active]="baseRouteConfig() ==='pipelines'"
-       smTooltip="PIPELINES"
+       [smTooltip]="'shell.sideNav.pipelines' | translate"
     ></a>
     @if (!hideEnterpriseFeatures()) {
       <a class="item al-ico-enterprise-rocket lm"
          routerLink="enterprise"
          routerLinkActive="active"
-         smTooltip="EXPLORE CLEARML ENTERPRISE"
+         [smTooltip]="'shell.sideNav.enterprise' | translate"
       ></a>
     }
   </div>
@@ -46,7 +46,7 @@
     @if (environment().slackLink) {
       <a class="item" [href]="environment().slackLink"
          target="_blank"
-         smTooltip="Community support on Slack"
+         [smTooltip]="'shell.sideNav.communitySlack' | translate"
       >
         <i class="i-slack-mark-color"></i>
       </a>

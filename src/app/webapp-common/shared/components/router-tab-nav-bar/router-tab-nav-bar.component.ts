@@ -5,6 +5,7 @@ import {Store} from '@ngrx/store';
 import {selectRouterConfig} from '@common/core/reducers/router-reducer';
 import {RouterLink, RouterLinkActive} from '@angular/router';
 import {Link} from '~/features/experiments/experiments.consts';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'sm-router-tab-nav-bar',
@@ -16,6 +17,7 @@ import {Link} from '~/features/experiments/experiments.consts';
     RouterLink,
     UpperCasePipe,
     RouterLinkActive,
+    TranslatePipe,
   ]
 })
 export class RouterTabNavBarComponent {

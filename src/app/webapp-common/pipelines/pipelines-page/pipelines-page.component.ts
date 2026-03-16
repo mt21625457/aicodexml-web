@@ -39,6 +39,7 @@ import {PushPipe} from '@ngrx/component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButton} from '@angular/material/button';
 import {FormsModule} from '@angular/forms';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'sm-pipelines-page',
@@ -53,7 +54,8 @@ import {FormsModule} from '@angular/forms';
     PushPipe,
     MatButton,
     FormsModule,
-    PipelinesEmptyStateComponent
+    PipelinesEmptyStateComponent,
+    TranslatePipe
   ]
 })
 export class PipelinesPageComponent extends ProjectsPageComponent implements OnInit, OnDestroy {
@@ -182,8 +184,9 @@ if __name__ == '__main__':
         breadcrumbOptions: {
           showProjects: !!selectedProject,
           featureBreadcrumb: {
-            name: 'PIPELINES',
-            url: defaultNestedModeForFeature['pipelines'] ? 'pipelines/*/projects' : 'pipelines'
+            name: 'pipelines.breadcrumb',
+            url: defaultNestedModeForFeature['pipelines'] ? 'pipelines/*/projects' : 'pipelines',
+            translate: true
           },
           projectsOptions: {
             basePath: 'pipelines',

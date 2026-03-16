@@ -1,4 +1,4 @@
-<sm-dialog-template header="UI THEME" iconClass="al-ico-palette">
+<sm-dialog-template header="appearance.title" iconClass="al-ico-palette">
   <mat-selection-list
     [ngModel]="[userTheme()]"
     [multiple]="false"
@@ -14,7 +14,7 @@
       >
         <div class="d-flex flex-column align-content-center" style="width: 88px">
           <img [ngSrc]="'app/webapp-common/assets/icons/theme/theme-scr-' + theme.value + '.svg'" width="88" height="88" [alt]="theme.value">
-          <span class="mt-3">{{theme.name}}</span>
+          <span class="mt-3">{{ theme.nameKey | translate }}</span>
         </div>
       </mat-list-option>
     }

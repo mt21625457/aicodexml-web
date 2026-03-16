@@ -1,5 +1,5 @@
 @if (!showButton()) {
-  <sm-dialog-template iconClass="al-ico-datasets" header="CREATE NEW DATASET">
+  <sm-dialog-template iconClass="al-ico-datasets" header="datasets.actions.createNewDataset">
     <ng-container *ngTemplateOutlet="content"></ng-container>
   </sm-dialog-template>
 } @else {
@@ -9,14 +9,14 @@
   <div class="content">
     <div class="code">
       <p>
-        Use ClearML Data from CLI or in your Python code.<br>
-        Run these code snippets for a quick example (Requires ClearML 1.7 or above).<br>
-        For more details see the <a [class.dark]="showButton()" [href]="confService.configuration().docsLink + '/latest/docs/clearml_data'" target="_blank" data-id="documentationLink">documentation</a>
+        {{ 'datasets.empty.description' | translate }}<br>
+        {{ 'datasets.empty.quickExample' | translate }}<br>
+        {{ 'datasets.empty.moreDetails' | translate }} <a [class.dark]="showButton()" [href]="confService.configuration().docsLink + '/latest/docs/clearml_data'" target="_blank" data-id="documentationLink">{{ 'header.documentation' | translate }}</a>
       </p>
       <div class="navbar">
         <mat-tab-group [(selectedIndex)]="index">
-          <mat-tab label="CLI" data-id="CLITab"></mat-tab>
-          <mat-tab label="SDK" data-id="SDKTab"></mat-tab>
+          <mat-tab [label]="'datasets.tabs.cli' | translate" data-id="CLITab"></mat-tab>
+          <mat-tab [label]="'datasets.tabs.sdk' | translate" data-id="SDKTab"></mat-tab>
         </mat-tab-group>
       </div>
       @if (showCode()) {

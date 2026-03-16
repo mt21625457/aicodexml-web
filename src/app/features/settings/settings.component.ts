@@ -3,6 +3,7 @@ import {MatDrawer, MatDrawerContainer, MatDrawerContent} from '@angular/material
 import {MatListModule} from '@angular/material/list';
 import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {AdminFooterComponent} from '@common/settings/admin/admin-footer/admin-footer.component';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'sm-settings',
@@ -16,7 +17,8 @@ import {AdminFooterComponent} from '@common/settings/admin/admin-footer/admin-fo
     RouterLink,
     MatDrawerContent,
     RouterOutlet,
-    AdminFooterComponent
+    AdminFooterComponent,
+    TranslatePipe
   ]
 })
 export class SettingsComponent {

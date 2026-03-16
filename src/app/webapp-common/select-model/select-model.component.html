@@ -46,11 +46,11 @@
     </sm-models-table>
     <div class="buttons">
       <button mat-stroked-button (click)="closeDialog(null)" data-id ="CancelButton">
-        CANCEL
+        {{ 'shared.cancel' | translate }}
       </button>
       @if (data.selectionMode === 'multiple') {
         <button mat-flat-button type="submit" (click)="closeDialogMultiple()" data-id="ApplyButton">
-          APPLY
+          {{ 'shared.apply' | translate }}
         </button>
       }
     </div>

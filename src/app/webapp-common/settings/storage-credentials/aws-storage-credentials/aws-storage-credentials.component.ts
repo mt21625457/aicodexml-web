@@ -7,6 +7,7 @@ import {TooltipDirective} from '@common/shared/ui-components/indicators/tooltip/
 import {CopyClipboardComponent} from '@common/shared/ui-components/indicators/copy-clipboard/copy-clipboard.component';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
+import {TranslatePipe} from '@ngx-translate/core';
 
 type AWSForm = FormGroup<{
   key: FormControl<string>;
@@ -44,6 +45,7 @@ type AWSForm = FormGroup<{
         MatButton,
         MatIcon,
         MatIconButton,
+        TranslatePipe,
     ],
     templateUrl: './aws-storage-credentials.component.html',
     styleUrls: ['./aws-storage-credentials.component.scss', '../storage-credentials.scss']

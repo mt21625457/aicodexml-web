@@ -70,6 +70,7 @@ import {of} from 'rxjs';
 import {ApiProjectsService} from '~/business-logic/api-services/projects.service';
 import {EntityTypeEnum} from '~/shared/constants/non-common-consts';
 import {Project} from '~/business-logic/model/projects/project';
+import {TranslateService} from '@ngx-translate/core';
 
 @Injectable()
 export class ReportsEffects {
@@ -80,6 +81,7 @@ export class ReportsEffects {
   private projectsApi = inject(ApiProjectsService);
   private http = inject(HttpClient);
   private matDialog = inject(MatDialog);
+  private translate = inject(TranslateService);
 
   activeLoader = createEffect(() => this.actions.pipe(
     ofType(getReports, getReport, createReport, updateReport, restoreReport, archiveReport),
@@ -381,10 +383,10 @@ export class ReportsEffects {
       ConfirmDialogComponent,
       {
         data: {
-          title: 'DELETE',
-          body: '<p class="text-center">Permanently Delete Report</p>',
-          yes: 'DELETE',
-          no: 'Cancel',
+          title: this.translate.instant('shared.delete'),
+          body: `<p class="text-center">${this.translate.instant('reports.deleteDialog.body')}</p>`,
+          yes: this.translate.instant('shared.delete'),
+          no: this.translate.instant('shared.cancel'),
           iconClass: 'al-ico-trash',
           width: 430
         }
@@ -397,7 +399,7 @@ export class ReportsEffects {
           removeReport({id: action.report.id}),
           getReports(),
           deactivateLoader(action.type),
-          addMessage(MESSAGES_SEVERITY.SUCCESS, 'Report deleted successfully')
+          addMessage(MESSAGES_SEVERITY.SUCCESS, this.translate.instant('reports.messages.deleted'))
         ];
       }),
       catchError(error => [
@@ -412,7 +414,7 @@ export class ReportsEffects {
     ofType(deleteResource),
     switchMap(action => this.http.delete(action.resource)
       .pipe(
-        catchError(() => [addMessage(MESSAGES_SEVERITY.ERROR, 'failed to delete resource')]),
+        catchError(() => [addMessage(MESSAGES_SEVERITY.ERROR, this.translate.instant('reports.messages.resourceDeleteFailed'))]),
         concatLatestFrom(() => this.store.select(selectReport)),
         mergeMap(([, report]) => [updateReport({
           id: report.id,

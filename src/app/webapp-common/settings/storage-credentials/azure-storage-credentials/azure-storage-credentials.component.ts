@@ -4,6 +4,7 @@ import {MatFormFieldModule, MatLabel} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
+import {TranslatePipe} from '@ngx-translate/core';
 
 type AzureForm = FormGroup<{
   containers: FormArray<FormGroup<{
@@ -23,7 +24,8 @@ type AzureForm = FormGroup<{
         ReactiveFormsModule,
         MatButton,
         MatIcon,
-        MatIconButton
+        MatIconButton,
+        TranslatePipe
     ],
     templateUrl: './azure-storage-credentials.component.html',
     styleUrls: ['./azure-storage-credentials.component.scss', '../storage-credentials.scss']

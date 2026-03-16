@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {Component, inject, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogActions, MatDialogRef} from '@angular/material/dialog';
 import {IShareDialogConfig} from './share-dialog.model';
 import {addMessage} from '@common/core/actions/layout.actions';
@@ -11,6 +11,7 @@ import {ClickStopPropagationDirective} from '@common/shared/ui-components/direct
 import {SaferPipe} from '@common/shared/pipes/safe.pipe';
 import {MatIcon} from '@angular/material/icon';
 import {MatButton} from '@angular/material/button';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
 
 @Component({
@@ -24,7 +25,8 @@ import {MatButton} from '@angular/material/button';
         SaferPipe,
         MatIcon,
         MatButton,
-        MatDialogActions
+        MatDialogActions,
+        TranslatePipe
     ]
 })
 export class ShareDialogComponent {
@@ -39,13 +41,14 @@ export class ShareDialogComponent {
   public sharedSubtitle: string;
   public privateSubtitle: string;
   private readonly task: string;
+  private translate = inject(TranslateService);
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: IShareDialogConfig,
               public dialogRef: MatDialogRef<ShareDialogComponent>,
               private store: Store) {
     this.title = data.title || '';
-    this.sharedSubtitle =`<b>Any registered user with this link</b> has read-only access to this task and all its contents (Artifacts, Results, etc.)`;
-    this.privateSubtitle =  `Create a shareable link to grant read access to<b> any registered user</b> you provide this link to.`;
+    this.sharedSubtitle = this.translate.instant('shared.shareReadOnly');
+    this.privateSubtitle =  this.translate.instant('shared.shareCreateLink');
     this.task = data.task;
 
     this.link = data.link || '';
@@ -57,7 +60,7 @@ export class ShareDialogComponent {
   }
 
   copyToClipboardSuccess() {
-    this.store.dispatch(addMessage(MESSAGES_SEVERITY.SUCCESS, 'URL copied successfully'));
+    this.store.dispatch(addMessage(MESSAGES_SEVERITY.SUCCESS, this.translate.instant('shared.urlCopied')));
   }
 
   createLink() {

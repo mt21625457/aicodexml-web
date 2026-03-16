@@ -4,6 +4,7 @@ import {Store} from '@ngrx/store';
 import {selectAllowed, selectStatsSupported} from '~/core/reducers/usage-stats.reducer';
 import { updateUsageStats } from '~/core/actions/usage-stats.actions';
 import {ConfigurationService} from '@common/shared/services/configuration.service';
+import {TranslatePipe} from '@ngx-translate/core';
 
 
 @Component({
@@ -11,7 +12,8 @@ import {ConfigurationService} from '@common/shared/services/configuration.servic
     templateUrl: './usage-stats.component.html',
     styleUrls: ['./usage-stats.component.scss'],
     imports: [
-        MatSlideToggle
+        MatSlideToggle,
+        TranslatePipe
     ]
 })
 export class UsageStatsComponent {

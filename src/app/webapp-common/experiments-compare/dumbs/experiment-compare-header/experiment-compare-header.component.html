@@ -6,13 +6,13 @@
         class="add-experiment"
         data-id="entity"
         (click)="showGlobalLegend()"
-      >{{ entityType | uppercase }}S</button>
+      >{{ entityType === 'model' ? ('experiments.compare.models' | translate) : ('experiments.compare.tasks' | translate) }}</button>
       <button
         mat-flat-button
         class="add-experiment plus icon-only"
         [smTooltip]="(allowAddExperiment$ | ngrxPush) ?
-          'Add/Remove ' + entityType + 's to comparison' :
-          compareLimitations + ' or fewer ' + entityType + 's can be compared'"
+          (entityType === 'model' ? ('experiments.compare.tooltips.addRemoveModels' | translate) : ('experiments.compare.tooltips.addRemoveTasks' | translate)) :
+          ('experiments.compare.messages.limitEntity' | translate:{count: compareLimitations, entity: (entityType === 'model' ? ('experiments.compare.modelsLower' | translate) : ('experiments.compare.tasksLower' | translate))})"
         (click)="openAddExperimentSearch()"
       >
         <mat-icon fontSet="al" fontIcon="al-ico-add" data-id="addExperimentButton"></mat-icon>
@@ -31,16 +31,16 @@
             <mat-icon fontSet="al" [fontIcon]="viewModeToIcon[viewMode] ?? 'al-ico-description'" data-id="viewTypeMenuOption" class="me-2"></mat-icon>
             @switch (true) {
               @case (currentPage === 'hyper-params' && viewMode === 'graph') {
-                <span>Parallel Coordinates</span>
+                <span>{{ 'experiments.compare.viewModes.parallelCoordinates' | translate }}</span>
               }
               @case (currentPage === 'hyper-params' && viewMode === 'scatter') {
-                <span>Scatter Plot</span>
+                <span>{{ 'experiments.compare.viewModes.scatterPlot' | translate }}</span>
               }
               @case (currentPage === 'scalars' && viewMode === 'graph') {
-                <span>Graph</span>
+                <span>{{ 'experiments.compare.viewModes.graph' | translate }}</span>
               }
               @case (currentPage === 'scalars' && viewMode === 'values') {
-                <span>Last Values</span>
+                <span>{{ 'experiments.compare.viewModes.lastValues' | translate }}</span>
               }
               @default {
                 <span>{{ (queryParamsViewMode$ | ngrxPush) || viewMode | noUnderscore | titlecase }}</span>
@@ -49,29 +49,29 @@
           </mat-select-trigger>
           @if (currentPage === 'scalars') {
             <mat-option value="values" class="compare-mat-option">
-              <mat-icon fontSet="al" fontIcon="al-ico-description" class="me-2"></mat-icon>Last Values
+              <mat-icon fontSet="al" fontIcon="al-ico-description" class="me-2"></mat-icon>{{ 'experiments.compare.viewModes.lastValues' | translate }}
             </mat-option>
             @if (currentPage === 'scalars') {
               <mat-option value="min-values" class="compare-mat-option">
-                <mat-icon fontSet="al" fontIcon="al-ico-description" class="me-2"></mat-icon>Min Values
+                <mat-icon fontSet="al" fontIcon="al-ico-description" class="me-2"></mat-icon>{{ 'experiments.compare.viewModes.minValues' | translate }}
               </mat-option>
             }
             @if (currentPage === 'scalars') {
               <mat-option value="max-values" class="compare-mat-option">
-                <mat-icon fontSet="al" fontIcon="al-ico-description" class="me-2"></mat-icon>Max Values
+                <mat-icon fontSet="al" fontIcon="al-ico-description" class="me-2"></mat-icon>{{ 'experiments.compare.viewModes.maxValues' | translate }}
               </mat-option>
             }
           } @else {
             <mat-option value="values" class="compare-mat-option">
-              <mat-icon fontSet="al" fontIcon="al-ico-description" class="me-2"></mat-icon>Values
+              <mat-icon fontSet="al" fontIcon="al-ico-description" class="me-2"></mat-icon>{{ 'experiments.compare.viewModes.values' | translate }}
             </mat-option>
           }
           <mat-option value="graph" class="compare-mat-option">
-            <mat-icon fontSet="al" fontIcon="al-ico-charts-view" class="me-2"></mat-icon>{{ currentPage === 'hyper-params' ? 'Parallel Coordinates' : 'Graph' }}
+            <mat-icon fontSet="al" fontIcon="al-ico-charts-view" class="me-2"></mat-icon>{{ currentPage === 'hyper-params' ? ('experiments.compare.viewModes.parallelCoordinates' | translate) : ('experiments.compare.viewModes.graph' | translate) }}
           </mat-option>
           @if (currentPage === 'hyper-params') {
             <mat-option value="scatter" class="compare-mat-option">
-              <mat-icon fontSet="al" fontIcon="al-ico-scatter-view" class="me-2"></mat-icon>Scatter Plot
+              <mat-icon fontSet="al" fontIcon="al-ico-scatter-view" class="me-2"></mat-icon>{{ 'experiments.compare.viewModes.scatterPlot' | translate }}
             </mat-option>
           }
         </mat-select>
@@ -83,14 +83,14 @@
     @if (['hyper-params', 'details', 'models-details', 'network'].includes(currentPage)) {
       <mat-slide-toggle
         (change)="hideIdenticalFieldsToggled($event)"
-        [checked]="selectHideIdenticalFields$ | ngrxPush">Hide Identical {{ (viewMode === 'graph' || viewMode === 'scatter') ? 'Parameters' : 'Fields' }}
+        [checked]="selectHideIdenticalFields$ | ngrxPush">{{ (viewMode === 'graph' || viewMode === 'scatter') ? ('experiments.compare.toggles.hideIdenticalParameters' | translate) : ('experiments.compare.toggles.hideIdenticalFields' | translate) }}
       </mat-slide-toggle>
     }
 
     @if (['scalars'].includes(currentPage) && viewMode !== 'graph') {
       <mat-slide-toggle color="primary"
         (change)="showExtremesToggled($event)"
-        [checked]="selectShowRowExtremes$ | ngrxPush">Show row extremes
+        [checked]="selectShowRowExtremes$ | ngrxPush">{{ 'experiments.compare.toggles.showRowExtremes' | translate }}
       </mat-slide-toggle>
     }
 
@@ -103,7 +103,7 @@
       <button
       mat-icon-button
         (click)="exportCSV()"
-        smTooltip="Export to CSV">
+        [smTooltip]="'experiments.compare.tooltips.exportCsv' | translate">
         <mat-icon fontSet="al" fontIcon="al-ico-download"></mat-icon>
       </button>
     }

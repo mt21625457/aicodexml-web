@@ -16,6 +16,7 @@ import {MatIcon} from '@angular/material/icon';
 import {
   PipelinesEmptyStateComponent
 } from '@common/pipelines/pipelines-page/pipelines-empty-state/pipelines-empty-state.component';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
     selector: 'sm-nested-pipeline-page',
@@ -29,7 +30,8 @@ import {
     MatButton,
     MatIcon,
     PipelinesEmptyStateComponent,
-    NestedProjectViewPageComponent
+    NestedProjectViewPageComponent,
+    TranslatePipe
   ]
 })
 export class NestedPipelinePageComponent extends PipelinesPageComponent {

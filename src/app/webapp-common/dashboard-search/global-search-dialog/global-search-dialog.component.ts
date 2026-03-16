@@ -66,7 +66,7 @@ export class GlobalSearchDialogComponent {
   protected regExp = signal(false);
   protected advanced = signal(false);
   protected activeLink = signal<ActiveSearchLink>(null);
-  protected placeholder = computed(() => this.advanced() ? 'eg.: {"status": ["stopped"], "order_by": ["-last_update"]}' : 'Type to search')
+  protected placeholder = computed(() => this.advanced() ? 'shared.searchExamplePlaceholder' : 'shared.typeToSearch')
   jsonValid = signal(true);
 
   protected regexError = signal(false);

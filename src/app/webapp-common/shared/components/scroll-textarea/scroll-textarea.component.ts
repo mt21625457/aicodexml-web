@@ -4,6 +4,7 @@ import {CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport} fr
 import {CopyClipboardComponent} from '@common/shared/ui-components/indicators/copy-clipboard/copy-clipboard.component';
 import {SearchComponent} from '@common/shared/ui-components/inputs/search/search.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
     selector: 'sm-scroll-textarea',
@@ -17,6 +18,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
         CdkVirtualForOf,
         MatProgressSpinnerModule,
         CdkFixedSizeVirtualScroll,
+        TranslatePipe,
     ]
 })
 export class ScrollTextareaComponent {
@@ -34,7 +36,7 @@ export class ScrollTextareaComponent {
   disabled = input<boolean>();
   showSpinner = input<boolean>();
   forceEmpty = input(false);
-  emptyMessage = input('No changes logged');
+  emptyMessage = input('shared.noChangesLogged');
   minHeight = input('250px');
   freezeForm = output();
   scroll = viewChild(CdkVirtualScrollViewport);

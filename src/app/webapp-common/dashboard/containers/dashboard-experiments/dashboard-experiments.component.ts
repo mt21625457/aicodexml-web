@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {IRecentTask} from '../../common-dashboard.reducer';
 import {ITask} from '~/business-logic/model/al-task';
 import {RecentExperimentTableComponent} from '@common/dashboard/dumb/recent-experiment-table/recent-experiment-table.component';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'sm-dashboard-experiments',
@@ -10,7 +11,8 @@ import {RecentExperimentTableComponent} from '@common/dashboard/dumb/recent-expe
   styleUrls: ['./dashboard-experiments.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    RecentExperimentTableComponent
+    RecentExperimentTableComponent,
+    TranslatePipe
   ]
 })
 export class DashboardExperimentsComponent {

@@ -14,8 +14,8 @@
     <sm-status-icon-label [status]="experiment.status"></sm-status-icon-label>
   @if (experiment.last_iteration !== undefined) {
     <span class="dot"></span>
-    <span class="flex-shrink-0">{{experiment.last_iteration | number | NA}} iterations</span>
+    <span class="flex-shrink-0">{{experiment.last_iteration | smNumber | NA}} {{ 'experiments.compare.generalData.iterations' | translate }}</span>
   }
   <span class="dot"></span>
-  <span class="flex-shrink-1" [smTooltip]="(experiment.last_update | date : timeFormatString) || ''">Last updated {{experiment.last_update | timeAgo | NA}}</span>
+  <span class="flex-shrink-1" [smTooltip]="(experiment.last_update | smDate : timeFormatString) || ''">{{ 'experiments.compare.generalData.lastUpdated' | translate }} {{experiment.last_update | timeAgo | NA}}</span>
 </div>

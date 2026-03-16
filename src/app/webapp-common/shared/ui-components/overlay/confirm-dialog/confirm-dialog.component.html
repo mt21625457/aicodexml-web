@@ -19,7 +19,7 @@
   @if (showNeverShowAgain) {
     <div class="body mt-4" >
       <mat-checkbox [(ngModel)]="neverShowAgain">
-        <span class="chkbx-label">Don't show this message again</span>
+        <span class="chkbx-label">{{ 'shared.dontShowAgain' | translate }}</span>
       </mat-checkbox>
     </div>
   }
@@ -32,7 +32,7 @@
           class="yes-button"
           (click)="closeDialog(false)"
           [id]="no"
-        >{{no}}</button>
+        >{{ no | translate }}</button>
       }
       @if (yes) {
         <button
@@ -40,7 +40,7 @@
           [id]="yes"
           [class.delete-button]="['DELETE', 'DEACTIVATE'].includes(yes)"
           (click)="closeDialog(true)">
-          {{yes}}
+          {{ yes | translate }}
         </button>
       }
     </div>

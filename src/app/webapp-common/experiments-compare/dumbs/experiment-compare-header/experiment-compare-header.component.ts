@@ -31,9 +31,10 @@ import {TooltipDirective} from '@common/shared/ui-components/indicators/tooltip/
 import {RefreshButtonComponent} from '@common/shared/components/refresh-button/refresh-button.component';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {NoUnderscorePipe} from '@common/shared/pipes/no-underscore.pipe';
-import {TitleCasePipe, UpperCasePipe} from '@angular/common';
+import {TitleCasePipe} from '@angular/common';
 import {PushPipe} from '@ngrx/component';
 import {MatIconModule} from '@angular/material/icon';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'sm-experiment-compare-header',
@@ -51,10 +52,10 @@ import {MatIconModule} from '@angular/material/icon';
     MatButton,
     MatIconButton,
     NoUnderscorePipe,
-    UpperCasePipe,
     PushPipe,
     TitleCasePipe,
-    MatSelectTrigger
+    MatSelectTrigger,
+    TranslatePipe
   ]
 })
 export class ExperimentCompareHeaderComponent implements OnInit, OnDestroy {
@@ -138,7 +139,7 @@ export class ExperimentCompareHeaderComponent implements OnInit, OnDestroy {
         data: {
           selectionMode: 'multiple',
           selectedModels: selectedIds,
-          header: 'Select compared model'
+          header: 'experiments.compare.selectComparedModels'
         },
         panelClass: 'full-screen',
       }).afterClosed().pipe(filter(ids => !!ids)).subscribe(ids => this.updateUrl(ids));

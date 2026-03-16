@@ -16,6 +16,7 @@ import {FormsModule} from '@angular/forms';
 import {TooltipDirective} from '@common/shared/ui-components/indicators/tooltip/tooltip.directive';
 import {MatIconButton} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'sm-serving-header',
@@ -30,10 +31,15 @@ import {MatIconModule} from '@angular/material/icon';
     MatIconModule,
     FormsModule,
     TooltipDirective,
-    MatIconButton
+    MatIconButton,
+    TranslatePipe
   ]
 })
 export class ServingHeaderComponent extends BaseEntityHeaderComponent {
+  protected viewModeOptions = [
+    {label: 'serving.views.table', value: 'table', icon: 'al-ico-table-view'},
+    {label: 'serving.views.details', value: 'info', icon: 'al-ico-experiment-view'}
+  ];
 
   minimizedView = input<boolean>();
   tableFilters = input<Record<string, FilterMetadata>>();

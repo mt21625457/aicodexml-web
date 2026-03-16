@@ -1,18 +1,882 @@
 {
   "header": {
     "appearance": "Appearance",
+    "avatarAlt": "User avatar",
+    "codeIcon": "Code",
     "contactUs": "Contact Us",
     "documentation": "Online Documentation",
+    "docsIcon": "Docs",
     "logout": "Logout",
+    "logoAlt": "Logo",
+    "notificationsIcon": "Notifications",
     "proTips": "Pro Tips",
     "pythonPackageSetup": "ClearML Python Package setup",
     "searchAll": "Search all [ctrl + k]",
     "settings": "Settings",
+    "tipsIcon": "Tips",
     "versionNotifications": "Version Notifications",
-    "youtube": "ClearML on Youtube"
+    "youtube": "ClearML on Youtube",
+    "youtubeIcon": "Youtube"
   },
   "locale": {
     "english": "English",
     "simplifiedChinese": "简体中文"
+  },
+  "shell": {
+    "sideNav": {
+      "workersAndQueues": "Workers & Queues",
+      "modelEndpoints": "Model Endpoints",
+      "datasets": "Datasets",
+      "projects": "Projects",
+      "pipelines": "Pipelines",
+      "enterprise": "Explore ClearML Enterprise",
+      "communitySlack": "Community support on Slack"
+    },
+    "settings": {
+      "title": "Settings",
+      "profile": "Profile",
+      "configuration": "Configuration",
+      "workspace": "Workspace",
+      "storageCleanup": "Storage Cleanup",
+      "userPreferences": "User Preferences"
+    },
+    "breadcrumbs": {
+      "login": "Login",
+      "share": "Share",
+      "shareView": "Share View",
+      "shareCopy": "Copy the following URL to share this view with others",
+      "archive": "Archive",
+      "exampleSuffix": " (example)"
+    }
+  },
+  "serving": {
+    "breadcrumb": "Model Endpoints",
+    "views": {
+      "table": "Table view",
+      "details": "Details view"
+    },
+    "actions": {
+      "downloadCsv": "Download table as CSV"
+    },
+    "empty": {
+      "loading": "No model endpoints currently being set up",
+      "noActive": "No active model endpoints",
+      "monitorPrefix": "Monitor models deployed with",
+      "orThe": "or the",
+      "httpRouter": "HttpRouter class"
+    },
+    "routes": {
+      "active": "Active",
+      "loading": "Loading",
+      "details": "Details",
+      "monitor": "Monitor"
+    },
+    "table": {
+      "listHeader": "Endpoints list",
+      "systemTags": "System tags",
+      "uptimePrefix": "Uptime:",
+      "headers": {
+        "endpoint": "Endpoint",
+        "model": "Model",
+        "url": "URL",
+        "instances": "# Instances",
+        "uptime": "Uptime",
+        "requests": "# Requests",
+        "requestsPerMinute": "Request / Min (avg)",
+        "latency": "Latency (avg)"
+      }
+    },
+    "loading": {
+      "headers": {
+        "instanceId": "Instance ID",
+        "age": "Age",
+        "preprocessArtifact": "Preprocess Artifact",
+        "inputType": "Input Type",
+        "inputSize": "Input Size"
+      }
+    },
+    "stats": {
+      "cpuUsage": "CPU Usage",
+      "gpuUsage": "GPU Usage",
+      "memoryUsed": "Memory Used",
+      "gpuMemory": "GPU Memory",
+      "networkReceive": "Network Receive",
+      "networkTransmit": "Network Transmit"
+    },
+    "general": {
+      "modelInstancesList": "Model Instances List",
+      "kpis": {
+        "endpointName": "Endpoint Name",
+        "endpointUrl": "Endpoint URL",
+        "modelName": "Model Name",
+        "preprocessArtifact": "Preprocess Artifact"
+      },
+      "headers": {
+        "requestsPerMinute": "Requests/Min",
+        "cpuCount": "CPU Count",
+        "gpuCount": "GPU Count",
+        "latency": "Latency"
+      }
+    }
+  },
+  "appearance": {
+    "title": "UI Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "auth": {
+    "loginTitle": "Login",
+    "username": "Username",
+    "fullName": "Full Name",
+    "password": "Password",
+    "invalidCredentials": "Invalid User/Password combination",
+    "start": "Start",
+    "loginAction": "Login",
+    "inviteTitle": "Accept {{name}}'s invitation and join their team",
+    "licenseLine": "ClearML server is freely provided according to its <a class=\"link\" href=\"{{url}}\" target=\"_blank\">License</a>.",
+    "securityLine": "The security, configuration, and maintenance of this instance are the responsibility of the deploying organization.",
+    "supportLine": "For commercial support and enterprise features <a class=\"link\" href=\"https://clear.ml/contact-us\" target=\"_blank\">Contact ClearML</a>.",
+    "serverLoginIssue": "Oops, it seems there's an issue with server login at the moment - please contact your administrator or support",
+    "githubCta": "If you love ClearML, star us on <a class=\"link\" href=\"https://github.com/clearml/clearml\">GitHub</a>",
+    "slackCta": "Join our Community on Slack",
+    "contactUs": "Contact Us",
+    "serverUnavailable": "Server Unavailable",
+    "reload": "Reload"
+  },
+  "preferences": {
+    "showHiddenProjects": "Show Hidden Projects",
+    "dontShowExamples": "Don't show ClearML examples",
+    "disableHidpi": "Disable HiDPI browser scale override",
+    "hidpiTooltip": "ClearML dynamically sets the browser scaling factor for an optimal page layout. Disable for default desktop scale.",
+    "reloadToApply": "Reload to apply",
+    "dontShowProTips": "Don't show pro tips periodically",
+    "dontShowEnterprise": "Don't show Enterprise Features",
+    "blockUserScripts": "Block running user's scripts in the browser",
+    "hideContainerArgs": "Hide specific container arguments",
+    "hideContainerArgsTooltip": "Redact the values for the specified container environment variables in the task execution page",
+    "edit": "Edit"
+  },
+  "settings": {
+    "storage": {
+      "credentials": "Storage Credentials",
+      "providersTitle": "Storage Providers",
+      "providersDescription": "Configure storage provider access credentials to enable ClearML to delete artifacts stored in cloud storage when tasks or models are deleted.",
+      "configured": "Configured",
+      "awsCompatiblePrefix": "(Use for",
+      "awsCompatibleSuffix": "as well)",
+      "actions": {
+        "resetChanges": "Reset Changes"
+      },
+      "providers": {
+        "google": "Google Cloud Storage",
+        "aws": "AWS S3 Storage",
+        "azure": "Azure Blob Storage"
+      },
+      "labels": {
+        "defaultCredentials": "Default credentials",
+        "bucketSpecificCredentials": "Bucket specific credentials",
+        "credentialsJson": "Credentials JSON",
+        "credentialsJsonRequired": "Credentials JSON *",
+        "noFileSelected": "No file selected",
+        "showFile": "Show",
+        "uploadFile": "Upload a file",
+        "addCredentials": "Add Credentials",
+        "addAccessKeys": "Add Access Keys"
+      },
+      "fields": {
+        "project": "Project",
+        "bucket": "Bucket",
+        "region": "Region",
+        "host": "Host",
+        "secureHost": "Secure host",
+        "verifySslCertificate": "Verify SSL certificate",
+        "accessKey": "Access key",
+        "accessKeyShort": "Key",
+        "secret": "Secret",
+        "secretOrSas": "Secret / SAS",
+        "accessToken": "Access token",
+        "token": "Token",
+        "awsRegion": "AWS Region",
+        "credentialsChain": "Credentials Chain",
+        "useCredentialsChain": "Use credentials chain",
+        "hostEndpoint": "Host (Endpoint)",
+        "accountName": "Account name",
+        "accountKey": "Account key",
+        "containerName": "Container name"
+      },
+      "validation": {
+        "bucketRequired": "Bucket is required",
+        "keyRequired": "Key is required",
+        "secretRequired": "Secret is required",
+        "accountNameRequired": "Account name is required",
+        "accountKeyRequired": "Account key is required"
+      },
+      "messages": {
+        "loadFailed": "Set storage credentials failed",
+        "updateFailed": "Update storage credentials failed"
+      },
+      "aws": {
+        "tooltips": {
+          "defaultAccessKey": "The default access key for any bucket that is not specified in the buckets list",
+          "defaultSecret": "The default secret access key for any bucket that is not specified in the buckets list",
+          "defaultAccessToken": "The session key for your AWS account. This is only needed when you are using temporary credentials",
+          "defaultRegion": "The default region name for any bucket that is not specified in the buckets list",
+          "credentialsChain": "System looks for credentials in environment variables, a credential file, and metadata service with an IAM role configured",
+          "bucket": "The bucket name for an individual bucket with specifying credentials",
+          "bucketRegion": "The region name for current bucket",
+          "host": "The host URL and port number of the specific bucket. Note that for non-AWS endpoints, port specification is always needed",
+          "secureHost": "Indicates whether the host is secure when specifying credentials for individual buckets by host",
+          "bucketAccessKey": "The access key for current bucket",
+          "bucketSecret": "The secret access key for current bucket",
+          "bucketAccessToken": "The session key for your AWS bucket. This is only needed when you are using temporary credentials",
+          "useCredentialsChain": "System looks for credentials in environment variables, a credential file, and metadata service with an IAM role configured"
+        }
+      },
+      "google": {
+        "bucketTitle": "Bucket {{bucket}}"
+      },
+      "s3Access": {
+        "placeholders": {
+          "region": "us-east-2",
+          "endpoint": "Leave empty for AWS S3"
+        },
+        "insecureWarning": "Embedding images through a non-secure transport (HTTP) in a secure web application might require special configuration of your browser"
+      }
+    },
+    "redactedArguments": {
+      "title": "Redacted Arguments",
+      "required": "Required",
+      "argument": "Argument"
+    },
+    "admin": {
+      "credentials": {
+        "lastUsed": "Last used",
+        "workerIp": "Worker/IP",
+        "never": "Never"
+      },
+      "footer": {
+        "webApp": "WebApp",
+        "server": "Server",
+        "api": "API"
+      },
+      "usageStats": {
+        "toggle": "Send anonymous usage data (Global setting)"
+      }
+    },
+    "profile": {
+      "copyUserId": "Copy user ID",
+      "emailAddress": "Email Address"
+    }
+  },
+  "workers": {
+    "table": {
+      "headers": {
+        "availableWorkers": "Available Workers",
+        "currentlyRunningTask": "Currently Running Task",
+        "taskRunningTime": "Task Running Time",
+        "iteration": "Iteration"
+      }
+    },
+    "stats": {
+      "title": "Workers Utilization",
+      "params": {
+        "cpuAndGpuUsage": "CPU and GPU Usage",
+        "memoryUsage": "Memory Usage",
+        "gpuMemory": "GPU Memory",
+        "networkUsage": "Network Usage"
+      },
+      "series": {
+        "cpu": "CPU",
+        "gpu": "GPU",
+        "usage": "Usage",
+        "memory": "Memory",
+        "memoryUsed": "Memory Used",
+        "networkReceive": "Network Receive",
+        "networkTransmit": "Network Transmit",
+        "totalWorkers": "Total Workers",
+        "activeWorkers": "Active Workers"
+      },
+      "messages": {
+        "fetchFailed": "Failed to fetch worker activity statistics"
+      },
+      "yAxis": {
+        "count": "Count",
+        "usagePercent": "Usage %",
+        "bytes": "Bytes",
+        "bytesPerSecond": "Bytes/sec"
+      }
+    },
+    "info": {
+      "tabs": {
+        "info": "Info",
+        "queues": "Queues"
+      },
+      "labels": {
+        "workerName": "Worker Name",
+        "updateTime": "Update Time",
+        "currentTask": "Current Task",
+        "tasksRunTime": "Tasks Run Time",
+        "tasksIteration": "Tasks Iteration"
+      },
+      "empty": {
+        "noQueues": "No queues currently assigned to this worker"
+      },
+      "queueTable": {
+        "headers": {
+          "queue": "Queue",
+          "nextTask": "Next Task",
+          "inQueue": "In Queue"
+        }
+      },
+      "copyQueueId": "Copy Queue ID"
+    }
+  },
+  "queues": {
+    "searchPlaceholder": "Search for queues",
+    "table": {
+      "headers": {
+        "queue": "Queue",
+        "workers": "Workers",
+        "nextTask": "Next Task",
+        "lastUpdated": "Last Updated",
+        "inQueue": "In Queue"
+      }
+    },
+    "stats": {
+      "taskWaitTime": "Task Wait Time",
+      "queuedTasks": "Queued Tasks",
+      "series": {
+        "queueAverageWaitTime": "Queue Average Wait Time",
+        "queuesAverageLength": "Queues Average Length"
+      }
+    },
+    "info": {
+      "tabs": {
+        "tasks": "Tasks",
+        "workers": "Workers"
+      },
+      "headers": {
+        "name": "Name",
+        "ip": "IP",
+        "currentlyExecuting": "Currently Executing"
+      },
+      "empty": {
+        "noTasks": "No tasks currently enqueued",
+        "noWorkers": "No workers currently assigned to this queue"
+      }
+    },
+    "actions": {
+      "newQueue": "New Queue",
+      "updateQueue": "Update Queue",
+      "moveToTop": "Move to top",
+      "moveToBottom": "Move to bottom",
+      "moveToQueue": "Move to queue...",
+      "removeFromQueue": "Remove from queue"
+    },
+    "menu": {
+      "managedByPrefix": "Queue managed by",
+      "managedBySuffix": "resource policy",
+      "delete": "Delete",
+      "update": "Update",
+      "clear": "Clear"
+    },
+    "messages": {
+      "deleteTitle": "Delete Queue",
+      "deleteBody": "Are you sure you would like to delete the \"{{queue}}\" queue?",
+      "deleteFailed": "Delete Queue failed",
+      "clearTitle": "Clear all pending tasks",
+      "clearBody": "Are you sure you want to dequeue the {{count}} task{{suffix}} currently pending on the {{queue}} queue?",
+      "clearAction": "Clear Queue",
+      "clearFailed": "Clear queue failed",
+      "moveTaskFailed": "Move Task failed",
+      "moveQueueFailed": "Move Queue failed",
+      "removeFromQueueFailed": "Remove Queue failed",
+      "moveToQueueFailed": "Failed to move task, {{error}}",
+      "copied": "Queue {{key}} copied to clipboard"
+    }
+  },
+  "dashboard": {
+    "searchPlaceholder": "Search all",
+    "manageWorkersAndQueues": "Manage Workers and Queues",
+    "recentTasks": "Recent Tasks",
+    "recentProjects": "Recent Projects",
+    "recentReports": "Recent Reports",
+    "viewAll": "View All",
+    "newReport": "New Report"
+  },
+  "projects": {
+    "breadcrumb": "Projects",
+    "actions": {
+      "newProject": "New Project"
+    },
+    "sort": {
+      "recent": "Recent",
+      "name": "Name"
+    },
+    "searchPlaceholder": "Search projects"
+  },
+  "datasets": {
+    "breadcrumb": "Datasets",
+    "actions": {
+      "newDataset": "New Dataset",
+      "createNewDataset": "Create New Dataset"
+    },
+    "views": {
+      "list": "List View",
+      "project": "Project View"
+    },
+    "empty": {
+      "title": "No Datasets to Show",
+      "subtitle": "Run your first dataset to see it displayed here",
+      "or": "or",
+      "generateExample": "generate example",
+      "description": "Use ClearML Data from CLI or in your Python code.",
+      "quickExample": "Run these code snippets for a quick example (requires ClearML 1.7 or above).",
+      "moreDetails": "For more details see the"
+    },
+    "labels": {
+      "datasets": "Datasets",
+      "tagsInUse": "Tags in Use"
+    },
+    "tabs": {
+      "cli": "CLI",
+      "sdk": "SDK"
+    },
+    "searchPlaceholder": "Search datasets"
+  },
+  "pipelines": {
+    "breadcrumb": "Pipelines",
+    "actions": {
+      "newPipeline": "New Pipeline",
+      "createNewPipeline": "Create New Pipeline"
+    },
+    "views": {
+      "list": "List View",
+      "project": "Project View"
+    },
+    "empty": {
+      "title": "No Pipelines to Show",
+      "subtitle": "Run your first pipeline to see it displayed here",
+      "or": "or",
+      "generateExample": "generate example",
+      "quickExample": "Run this code for a quick example (requires ClearML 1.3 or above).",
+      "moreDetails": "For more details see the",
+      "noRunsYet": "No pipeline runs yet"
+    },
+    "labels": {
+      "running": "Running",
+      "pending": "Pending",
+      "completed": "Completed",
+      "failed": "Failed",
+      "last24Hours": "(24 hrs)"
+    },
+    "card": {
+      "lastRun": "Last run",
+      "subProjects": "sub projects"
+    },
+    "searchPlaceholder": "Search pipelines"
+  },
+  "reports": {
+    "breadcrumb": "Reports",
+    "actions": {
+      "newReport": "New Report",
+      "createNewReport": "Create New Report",
+      "createReport": "Create Report",
+      "startEditing": "Start Editing the Report",
+      "restoreFromArchive": "Restore from Archive"
+    },
+    "sort": {
+      "recent": "Recent",
+      "name": "Name"
+    },
+    "views": {
+      "list": "List View",
+      "project": "Project View"
+    },
+    "empty": {
+      "title": "No Reports to Show",
+      "editorTitle": "There's Nothing Here Yet..."
+    },
+    "labels": {
+      "reports": "Reports",
+      "published": "Published",
+      "updated": "Updated"
+    },
+    "description": {
+      "title": "Description"
+    },
+    "placeholders": {
+      "description": "Report description"
+    },
+    "tooltips": {
+      "copyMarkdown": "Copy report markdown to clipboard",
+      "exportPdf": "Export to PDF",
+      "moveToProject": "Move to Project",
+      "publishDisabled": "Can't publish an empty report"
+    },
+    "form": {
+      "reportName": "Report name",
+      "project": "Project",
+      "searchProjectPath": "Search for project path",
+      "description": "Description",
+      "errors": {
+        "nameRequired": "Please add name.",
+        "nameExists": "Report name already exists.",
+        "nameTooShort": "Report name should contain more than 3 characters.",
+        "projectRequired": "Please select project.",
+        "projectSpaces": "Project name can't contain only spaces",
+        "descriptionRequired": "Please add description."
+      }
+    },
+    "messages": {
+      "linkCopied": "Report link copied to clipboard",
+      "invalidFile": "Invalid file",
+      "invalidFileType": "Invalid file type",
+      "uploadFailed": "Upload failed {{message}}",
+      "deleted": "Report deleted successfully",
+      "resourceDeleteFailed": "Failed to delete resource"
+    },
+    "deleteDialog": {
+      "body": "Permanently Delete Report"
+    },
+    "searchPlaceholder": "Search reports"
+  },
+  "models": {
+    "breadcrumb": "Models",
+    "actions": {
+      "viewFullScreen": "View Full Screen",
+      "viewInTable": "View in models table"
+    },
+    "headers": {
+      "createdBy": "Created By",
+      "usedBy": "Used By"
+    },
+    "table": {
+      "name": "Name",
+      "tags": "Tags",
+      "status": "Status",
+      "id": "ID",
+      "tagsExplain": "Click to include tag. Click again to exclude.",
+      "searchTasks": "Search for tasks",
+      "modelList": "Model List",
+      "systemTags": "System tags",
+      "unknownUser": "Unknown User",
+      "updatedBy": "Updated {{time}} by {{user}}"
+    },
+    "generalInfo": {
+      "createdAt": "Created At",
+      "updatedAt": "Updated At",
+      "framework": "Framework",
+      "status": "Status",
+      "modelUrl": "Model URL",
+      "user": "User",
+      "archived": "Archived",
+      "project": "Project",
+      "description": "Description"
+    },
+    "values": {
+      "published": "Published",
+      "draft": "Draft"
+    },
+    "metadata": {
+      "title": "Metadata",
+      "key": "Key",
+      "type": "Type",
+      "value": "Value",
+      "errors": {
+        "required": "Required",
+        "keyEmpty": "Key can't be empty",
+        "keyUnique": "Key must be unique.",
+        "typeEmpty": "Type can't be empty"
+      }
+    },
+    "plots": {
+      "findPlots": "Find plots",
+      "toggleGraphs": "Toggle Graphs",
+      "parseWarning": "Couldn't read all plots. Please make sure all plots are properly formatted (NaN & Inf aren't supported)."
+    },
+    "select": {
+      "searchPlaceholder": "Start typing model name or ID to add to your comparison",
+      "selectPublishedModel": "Select a published model",
+      "messages": {
+        "atLeastOne": "Compare module should include at least one model",
+        "limit": "{{count}} or fewer models can be compared"
+      },
+      "menu": {
+        "selectFromProject": "Select from project",
+        "all": "All",
+        "none": "None",
+        "allMatchingFilter": "All matching filter"
+      }
+    }
+  },
+  "experiments": {
+    "views": {
+      "compare": "Compare view"
+    },
+    "details": {
+      "description": "Description",
+      "taskDetails": "Task Details",
+      "archived": "Archived",
+      "changedAt": "Changed At",
+      "lastIteration": "Last Iteration",
+      "statusMessage": "Status Message",
+      "statusReason": "Status Reason",
+      "createdAt": "Created At",
+      "startedAt": "Started At",
+      "lastUpdatedAt": "Last Updated At",
+      "completedAt": "Completed At",
+      "runTime": "Run Time",
+      "queue": "Queue",
+      "worker": "Worker",
+      "createdBy": "Created By",
+      "parentTask": "Parent Task",
+      "project": "Project",
+      "id": "ID",
+      "copyParentTaskId": "Copy parent task ID to clipboard"
+    },
+    "clone": {
+      "headers": {
+        "cloneTask": "Clone Task",
+        "extendTask": "Extend Task"
+      },
+      "reference": {
+        "draftPrefix": "A draft copy of",
+        "draftSuffix": "will be created.",
+        "extendMiddle": "will be created, with its input model set to the output model of",
+        "extendSuffix": "."
+      },
+      "forceParent": {
+        "prefix": "Set",
+        "asParent": "as parent"
+      },
+      "toggles": {
+        "forceOriginalPackages": "Force Original Packages"
+      },
+      "errors": {
+        "readOnlyProject": "Read-only project can't be used as the target location for the cloned {{type}}"
+      },
+      "messages": {
+        "failed": "Clone task failed"
+      }
+    },
+    "compare": {
+      "tasks": "Tasks",
+      "models": "Models",
+      "tasksLower": "tasks",
+      "modelsLower": "models",
+      "compareTasks": "Compare Tasks",
+      "compareModels": "Compare Models",
+      "allTasks": "All Tasks",
+      "allModels": "All Models",
+      "selectComparedTasks": "Select compared tasks",
+      "selectComparedModels": "Select compared models",
+      "searchPlaceholder": "Start typing task name or ID to add to your comparison",
+      "includeArchived": "Include Archived",
+      "tooltips": {
+        "addRemoveTasks": "Add/Remove tasks to comparison",
+        "addRemoveModels": "Add/Remove models to comparison",
+        "exportCsv": "Export to CSV"
+      },
+      "messages": {
+        "atLeastOne": "Compare module should include at least one experiment",
+        "limit": "{{count}} or fewer experiments can be compared",
+        "limitEntity": "{{count}} or fewer {{entity}} can be compared"
+      },
+      "viewModes": {
+        "parallelCoordinates": "Parallel Coordinates",
+        "scatterPlot": "Scatter Plot",
+        "graph": "Graph",
+        "lastValues": "Last Values",
+        "minValues": "Min Values",
+        "maxValues": "Max Values",
+        "values": "Values"
+      },
+      "toggles": {
+        "hideIdenticalParameters": "Hide Identical Parameters",
+        "hideIdenticalFields": "Hide Identical Fields",
+        "showRowExtremes": "Show row extremes"
+      },
+      "generalData": {
+        "iterations": "iterations",
+        "lastUpdated": "Last updated"
+      }
+    },
+    "queue": {
+      "headers": {
+        "retryTask": "Retry Task",
+        "enqueueTask": "Enqueue Task"
+      },
+      "retryNoticeSingle": "has previously failed. Make sure you've corrected the problem before rerunning.",
+      "retryNoticePlural": "have previously failed. Make sure you've corrected the problem before rerunning.",
+      "selectQueueForExecution": "Select queue for execution.",
+      "scheduledForExecution": "will be scheduled for execution through the selected queue.",
+      "enqueueWarningLine1": "Note: Some tasks seem to not contain any executable code.",
+      "enqueueWarningLine2": "If enqueued to run, they might produce no results.",
+      "queue": "Queue",
+      "createNew": "Create New",
+      "errors": {
+        "provideValue": "Please provide a value"
+      }
+    },
+    "table": {
+      "systemTags": "System tags",
+      "unknownUser": "Unknown User",
+      "selectionLimit": "Reached selection limit",
+      "updated": "Updated",
+      "createdBy": "Created by",
+      "iterations": "Iterations"
+    },
+    "menu": {
+      "tasksCount": "{{count}} tasks",
+      "stopWarning": "will be stopped and additional model updates will not be allowed.",
+      "dequeuePrompt": "will be removed from the",
+      "executionQueue": "execution queue.",
+      "publishStatus": "status will be set to Published.",
+      "publishNotice": "Published tasks are read-only and cannot be reset. The task's output, including models will also be published so that other tasks can use it.",
+      "dialogs": {
+        "archiveRunning": {
+          "title": "Archive a running task",
+          "body": "Some of the tasks you are about to archive are running or queued.<br>Archiving running tasks will also <b>RESET</b> them.<br>Archive tasks?"
+        },
+        "dequeue": {
+          "title": "Dequeue Task"
+        },
+        "publish": {
+          "title": "Publish Tasks"
+        },
+        "share": {
+          "title": "Share Task Publicly"
+        },
+        "archiveShared": {
+          "title": "Archive a publicly shared task",
+          "body": "This task is accessible through a public access link.<br>Archiving will disable public access"
+        }
+      },
+      "messages": {
+        "fetchChildrenFailed": "Failed to fetch running child tasks"
+      }
+    }
+  },
+  "moveProject": {
+    "message": {
+      "willBeMoved": "will be moved",
+      "from": "from",
+      "toSelectedProject": "to the selected project."
+    },
+    "errors": {
+      "projectRequired": "Please provide a project.",
+      "sameProject": "Can't move the {{type}} to its current location",
+      "exampleProject": "Please provide a different name as this project name is taken as an Example project"
+    }
+  },
+  "shared": {
+    "ok": "OK",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "add": "Add",
+    "extend": "Extend",
+    "delete": "Delete",
+    "share": "Share",
+    "archive": "Archive",
+    "restore": "Restore",
+    "publish": "Publish",
+    "rename": "Rename",
+    "moveTo": "Move to",
+    "moveToProject": "Move to Project",
+    "addTag": "Add Tag",
+    "apply": "Apply",
+    "enqueue": "Enqueue",
+    "download": "Download",
+    "details": "Details",
+    "viewFullScreen": "View Full Screen",
+    "viewInTaskTable": "View in Task Table",
+    "editColor": "Edit Color",
+    "manageQueue": "Manage Queue",
+    "viewWorker": "View Worker",
+    "retry": "Retry",
+    "dequeue": "Dequeue",
+    "reset": "Reset",
+    "abort": "Abort",
+    "abortAllChildren": "Abort All Children",
+    "clone": "Clone",
+    "yes": "Yes",
+    "no": "No",
+    "notAvailable": "N/A",
+    "restoreFromArchive": "Restore from Archive",
+    "dontShowAgain": "Don't show this message again",
+    "searchParameters": "Search parameters",
+    "clearSelection": "Clear Selection",
+    "noData": "No data to show",
+    "selectionLimit": "You can only select up to {{count}} parameters",
+    "noItemFound": "No item found",
+    "invalidJson": "Not a valid JSON",
+    "codeCopied": "Code copied to clipboard",
+    "urlCopied": "URL copied successfully",
+    "idCopied": "ID copied to clipboard",
+    "examplePrefix": "e.g.",
+    "typeToSearch": "Type to search",
+    "searchExamplePlaceholder": "e.g.: {\"status\": [\"stopped\"], \"order_by\": [\"-last_update\"]}",
+    "copyToClipboard": "Copy to clipboard",
+    "dataTemporarilyNotAvailable": "Data temporarily not available",
+    "newVersionAvailable": "New version available",
+    "reloadPagePrompt": "Click the reload button below to reload the web page",
+    "create": "Create",
+    "remove": "Remove",
+    "project": "Project",
+    "name": "Name",
+    "description": "Description",
+    "sortedBy": "Sorted By",
+    "link": "link",
+    "noValue": "(No Value)",
+    "overall": "Overall",
+    "toggleGraphs": "Toggle Graphs",
+    "timeframes": {
+      "threeHours": "3 Hours",
+      "sixHours": "6 Hours",
+      "twelveHours": "12 Hours",
+      "oneDay": "1 Day",
+      "oneWeek": "1 Week",
+      "oneMonth": "1 Month"
+    },
+    "shareReadOnly": "<b>Any registered user with this link</b> has read-only access to this task and all its contents (Artifacts, Results, etc.)",
+    "shareCreateLink": "Create a shareable link to grant read access to <b>any registered user</b> you provide this link to.",
+    "noChangesLogged": "No changes logged"
+  },
+  "credentials": {
+    "label": "Label",
+    "credentialsLabel": "Credentials label",
+    "apiCredentials": "API Credentials",
+    "apiCredentialsInfo": "Key/secret credential pairs for ClearML Clients making API calls to the ClearML server. This includes the ClearML SDK, Agent, and any other clients making API calls",
+    "createNewCredentials": "Create new credentials",
+    "createCredentials": "Create Credentials",
+    "name": "Name",
+    "accessKey": "Access key",
+    "secretKey": "Secret key",
+    "localPython": "Local Python",
+    "jupyterNotebook": "Jupyter Notebook",
+    "copyAgentConfig": "Copy the below configuration to the ClearML Agents clearml.conf file",
+    "copyInitConfig": "Copy the below info for input to 'clearml-init' configuration request, or modify your existing clearml.conf",
+    "addToNotebook": "Add the below to your notebook to configure ClearML",
+    "updateLabel": "Update Label",
+    "revokeConfirmTitle": "Are you sure?",
+    "revokeConfirmBody": "Are you sure you want to revoke the {{label}} credentials ({{accessKey}})?<br>\n              Once revoked, these credentials cannot be recovered.",
+    "revoke": "Revoke",
+    "editLabelTitle": "Edit Label",
+    "save": "Save"
+  },
+  "errors": {
+    "auth": {
+      "identityVerificationFailed": "Could not complete identity verification. The provider may be down - Please try again later",
+      "identityVerificationTimeout": "Could not complete identity verification. Your sign-up session has probably timed out, please try again.\n** If this issue persists, the identity provider may be down - please try again later.",
+      "inviteExpired": "The invitation to {{user_name}}'s team has expired. Contact {{user_name}} to join their team, or sign up for a free standalone account.",
+      "accountAlreadyExists": "Account already exists for this {{provider}} identity. Use 'Log In' instead.",
+      "noAccountExists": "No account exists. Use the provider you signed up with or sign up to create a new account",
+      "checkEmail": "Please check your email to continue the signup process",
+      "emailNotAllowed": "{{email}} does not have access to ClearML - Ask your admin to whitelist this address",
+      "cantLoginTenant": "Can't login to tenant {{tenant}}, user isn't part of this tenant"
+    }
   }
 }

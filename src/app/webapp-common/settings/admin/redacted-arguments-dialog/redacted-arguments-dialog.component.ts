@@ -10,6 +10,7 @@ import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatError, MatFormField} from '@angular/material/form-field';
 import {UuidPipe} from '@common/shared/pipes/uuid.pipe';
+import {TranslatePipe} from '@ngx-translate/core';
 
 
 @Component({
@@ -27,7 +28,8 @@ import {UuidPipe} from '@common/shared/pipes/uuid.pipe';
     MatIconModule,
     UuidPipe,
     MatButton,
-    MatDialogActions
+    MatDialogActions,
+    TranslatePipe
   ]
 })
 export class RedactedArgumentsDialogComponent {

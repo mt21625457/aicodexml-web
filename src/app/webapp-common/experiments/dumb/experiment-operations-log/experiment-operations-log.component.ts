@@ -1,5 +1,5 @@
 import {Component, input, viewChild, output } from '@angular/core';
-import {DatePipe, TitleCasePipe} from '@angular/common';
+import {TitleCasePipe} from '@angular/common';
 import {FilterOutPipe} from '@common/shared/pipes/filterOut.pipe';
 import {TableComponent} from '@common/shared/ui-components/data/table/table.component';
 import {PrimeTemplate} from 'primeng/api';
@@ -13,6 +13,7 @@ import {
   TasksGetOperationsLogResponseOperations
 } from '~/business-logic/model/tasks/tasksGetOperationsLogResponseOperations';
 import {EXPERIMENTS_STATUS_LABELS} from '~/features/experiments/shared/experiments.const';
+import {LocalizedDatePipe} from '@common/shared/pipes/localized-format.pipe';
 
 
 @Component({
@@ -20,7 +21,7 @@ import {EXPERIMENTS_STATUS_LABELS} from '~/features/experiments/shared/experimen
   templateUrl: './experiment-operations-log.component.html',
   styleUrls: ['./experiment-operations-log.component.scss'],
   imports: [
-    DatePipe,
+    LocalizedDatePipe,
     TitleCasePipe,
     TableComponent,
     PrimeTemplate,

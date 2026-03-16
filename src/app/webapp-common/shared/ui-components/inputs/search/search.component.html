@@ -15,7 +15,7 @@
       [class.active]="active"
       data-id="searchInputField"
       #searchBar
-      [placeholder]="placeholder()"
+      [placeholder]="placeholder() | translate"
       (focusin)="focusInput(true)"
       (focusout)="focusInput(false)"
       (input)="enableSearchOnSubmit()? validateValue() :onValueChange()"

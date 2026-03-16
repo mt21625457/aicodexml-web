@@ -12,7 +12,7 @@ export const servingTableCols: ISmCol[] = [
     id: servingTableColFields.name,
     headerType: ColHeaderTypeEnum.sortFilter,
     sortable: true,
-    header: 'ENDPOINT',
+    header: 'serving.table.headers.endpoint',
     style: {width: '300px'}
   },
   {
@@ -22,7 +22,7 @@ export const servingTableCols: ISmCol[] = [
     searchableFilter: true,
     sortable: true,
     getter: 'model',
-    header: 'MODEL',
+    header: 'serving.table.headers.model',
     showInCardFilters: true,
     style: {width: '135px'}
   },
@@ -30,14 +30,14 @@ export const servingTableCols: ISmCol[] = [
     id: servingTableColFields.endpointURL,
     headerType: ColHeaderTypeEnum.sortFilter,
     sortable: true,
-    header: 'URL',
+    header: 'serving.table.headers.url',
     style: {width: '340px'}
   },
   {
     id: servingTableColFields.instances,
     headerType: ColHeaderTypeEnum.sortFilter,
     sortable: true,
-    header: '# INSTANCES',
+    header: 'serving.table.headers.instances',
     style: {width: '150px'}
   },
   {
@@ -46,7 +46,7 @@ export const servingTableCols: ISmCol[] = [
     sortable: true,
     filterable: true,
     filterType: ColHeaderFilterTypeEnum.duration,
-    header: 'UPTIME',
+    header: 'serving.table.headers.uptime',
     style: {width: '240px'}
   },
   {
@@ -55,7 +55,7 @@ export const servingTableCols: ISmCol[] = [
     sortable: true,
     filterType: ColHeaderFilterTypeEnum.durationNumeric,
     filterable: true,
-    header: '# REQUESTS',
+    header: 'serving.table.headers.requests',
     style: {width: '150px'}
   },
   {
@@ -64,7 +64,7 @@ export const servingTableCols: ISmCol[] = [
     sortable: true,
     filterable: true,
     filterType: ColHeaderFilterTypeEnum.durationNumeric,
-    header: 'REQUEST / MIN (avg)',
+    header: 'serving.table.headers.requestsPerMinute',
     style: {width: '240px'}
   },
   {
@@ -73,7 +73,7 @@ export const servingTableCols: ISmCol[] = [
     sortable: true,
     filterType: ColHeaderFilterTypeEnum.durationNumeric,
     filterable: true,
-    header: 'LATENCY (avg)',
+    header: 'serving.table.headers.latency',
     style: {width: '150px'}
   }
 ];
@@ -82,7 +82,7 @@ export const servingLoadingTableCols: ISmCol[] = [
     id: servingLoadingTableColFields.id,
     headerType: ColHeaderTypeEnum.sortFilter,
     sortable: true,
-    header: 'INSTANCE ID',
+    header: 'serving.loading.headers.instanceId',
     style: {width: '200px'}
   },
   {
@@ -92,7 +92,7 @@ export const servingLoadingTableCols: ISmCol[] = [
     searchableFilter: true,
     sortable: true,
     getter: 'model',
-    header: 'MODEL',
+    header: 'serving.table.headers.model',
     style: {width: '400px'}
   },
   {
@@ -101,7 +101,7 @@ export const servingLoadingTableCols: ISmCol[] = [
     sortable: true,
     filterable: true,
     filterType: ColHeaderFilterTypeEnum.duration,
-    header: 'AGE',
+    header: 'serving.loading.headers.age',
     style: {width: '240px'}
   },
   {
@@ -110,7 +110,7 @@ export const servingLoadingTableCols: ISmCol[] = [
     sortable: true,
     filterable: true,
     searchableFilter: true,
-    header: 'PREPROCESS ARTIFACT',
+    header: 'serving.loading.headers.preprocessArtifact',
     style: {width: '340px'}
   },
   {
@@ -119,7 +119,7 @@ export const servingLoadingTableCols: ISmCol[] = [
     sortable: true,
     filterable: true,
     searchableFilter: true,
-    header: 'INPUT TYPE',
+    header: 'serving.loading.headers.inputType',
     style: {width: '250px'}
   },
   {
@@ -128,24 +128,24 @@ export const servingLoadingTableCols: ISmCol[] = [
     sortable: true,
     filterable: true,
     filterType: ColHeaderFilterTypeEnum.durationNumeric,
-    header: 'INPUT SIZE',
+    header: 'serving.loading.headers.inputSize',
     style: {width: '340px'}
   }
 ];
 
 const MiB                            = 1024 * 1024;
 export const endpointsStatsParamInfo = {
-  cpu_usage      : {title: 'CPU Usage', multiply: 1},
-  gpu_usage      : {title: 'GPU Usage', multiply: 1},
-  memory_used    : {title: 'Memory Used', multiply: MiB},
-  gpu_memory_used: {title: 'GPU Memory', multiply: MiB},
-  network_rx     : {title: 'Network Receive', multiply: MiB},
-  network_tx     : {title: 'Network Transmit', multiply: MiB}
+  cpu_usage      : {title: 'serving.stats.cpuUsage', multiply: 1},
+  gpu_usage      : {title: 'serving.stats.gpuUsage', multiply: 1},
+  memory_used    : {title: 'serving.stats.memoryUsed', multiply: MiB},
+  gpu_memory_used: {title: 'serving.stats.gpuMemory', multiply: MiB},
+  network_rx     : {title: 'serving.stats.networkReceive', multiply: MiB},
+  network_tx     : {title: 'serving.stats.networkTransmit', multiply: MiB}
 };
 
 export const modelServingRoutes = [
-  {header: 'ACTIVE', link: 'endpoints/active'},
-  {header: 'LOADING', subHeader: '', link: 'endpoints/loading'}
+  {header: 'serving.routes.active', link: 'endpoints/active'},
+  {header: 'serving.routes.loading', subHeader: '', link: 'endpoints/loading'}
 ] as HeaderNavbarTabConfig[];
 
 export function sortAndFilterEndpoints(endpoints: EndpointStats[] | ContainerInfo[], filters: Record<string, FilterMetadata>, sortFields: SortMeta[]): EndpointStats[] | ContainerInfo[] {

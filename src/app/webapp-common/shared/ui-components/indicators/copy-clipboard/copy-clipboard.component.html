@@ -2,7 +2,7 @@
 @if (isStroked()) {
   <button
     mat-stroked-button
-    smTooltip="{{tooltipText()}}"
+    smTooltip="{{tooltipText() | translate}}"
     [matTooltipPosition]="tooltipPosition()"
     [matTooltipShowDelay]="500"
     type="button"
@@ -16,12 +16,12 @@
     [class.sm]="smallIcon()"
   >
     <mat-icon fontSet="al" [fontIcon]="copied() ? 'al-ico-success' : copyIcon() || 'al-ico-copy-to-clipboard'"></mat-icon>
-    <span>{{label()}}</span>
+    <span>{{ label() | translate }}</span>
   </button>
 } @else {
   <button
     mat-button
-    smTooltip="{{tooltipText()}}"
+    smTooltip="{{tooltipText() | translate}}"
     [matTooltipPosition]="tooltipPosition()"
     [matTooltipShowDelay]="500"
     type="button"
@@ -35,6 +35,6 @@
     [class.sm]="smallIcon()"
   >
     <mat-icon fontSet="al" [fontIcon]="copied() ? 'al-ico-success' : copyIcon() || 'al-ico-copy-to-clipboard'"></mat-icon>
-    <span>{{label()}}</span>
+    <span>{{ label() | translate }}</span>
   </button>
 }

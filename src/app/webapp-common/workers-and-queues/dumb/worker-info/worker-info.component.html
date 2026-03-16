@@ -3,12 +3,12 @@
 </button>
 
 <mat-tab-group [mat-stretch-tabs]="false" mat-align-tabs="center" [dynamicHeight]="true">
-  <mat-tab label="INFO" class="tab-link" bodyClass="h-100">
+  <mat-tab [label]="'workers.info.tabs.info' | translate" class="tab-link" bodyClass="h-100">
     <div class="worker-info-container">
       <div class="info-column">
-        <sm-vertical-labeled-row label="Worker Name" [tooltip]="selectedWorker()?.name">{{selectedWorker()?.name ?? '—' }}</sm-vertical-labeled-row>
-        <sm-vertical-labeled-row label="Update Time">{{selectedWorker()?.last_report_time | timeAgo}}</sm-vertical-labeled-row>
-        <sm-vertical-labeled-row label="Current Task" [tooltip]="selectedWorker()?.task?.name">
+        <sm-vertical-labeled-row label="workers.info.labels.workerName" [tooltip]="selectedWorker()?.name">{{selectedWorker()?.name ?? '—' }}</sm-vertical-labeled-row>
+        <sm-vertical-labeled-row label="workers.info.labels.updateTime">{{selectedWorker()?.last_report_time | timeAgo}}</sm-vertical-labeled-row>
+        <sm-vertical-labeled-row label="workers.info.labels.currentTask" [tooltip]="selectedWorker()?.task?.name">
           @if (selectedWorker()?.task?.name ) {
             <a [href]="'/projects/'+ ($any(selectedWorker()?.task)?.project?.id ?? '*') + '/tasks/' + selectedWorker()?.task?.id"
                target="_blank">{{selectedWorker()?.task?.name}}</a>
@@ -18,14 +18,14 @@
         </sm-vertical-labeled-row>
       </div>
       <div class="info-column">
-        <sm-vertical-labeled-row label="Tasks Run Time">{{selectedWorker()?.task?.running_time ? (selectedWorker()?.task?.running_time  | durationFormater:'ms':'ddhhmmss') : '—'}}</sm-vertical-labeled-row>
-        <sm-vertical-labeled-row label="Tasks Iteration">{{selectedWorker()?.task?.last_iteration ? selectedWorker()?.task?.last_iteration : '—'}}</sm-vertical-labeled-row>
+        <sm-vertical-labeled-row label="workers.info.labels.tasksRunTime">{{selectedWorker()?.task?.running_time ? (selectedWorker()?.task?.running_time  | durationFormater:'ms':'ddhhmmss') : '—'}}</sm-vertical-labeled-row>
+        <sm-vertical-labeled-row label="workers.info.labels.tasksIteration">{{selectedWorker()?.task?.last_iteration ? selectedWorker()?.task?.last_iteration : '—'}}</sm-vertical-labeled-row>
       </div>
     </div>
   </mat-tab>
-  <mat-tab label="QUEUES" class="tab-link">
+  <mat-tab [label]="'workers.info.tabs.queues' | translate" class="tab-link">
     @if (selectedWorker()?.queues.length === 0) {
-      <div class="empty-state">No queues currently assigned to this worker</div>
+      <div class="empty-state">{{ 'workers.info.empty.noQueues' | translate }}</div>
     } @else {
       <div class="queues-table-container">
         <sm-simple-table-2 [cols]="cols" [rowsData]="selectedWorker()?.queues">
@@ -42,7 +42,7 @@
                 <sm-copy-clipboard
                   class="copy-btn"
                   [label]="''"
-                  [tooltipText]="'Copy Queue ID'"
+                  [tooltipText]="'workers.info.copyQueueId'"
                   [clipboardText]="row?.id"
                 ></sm-copy-clipboard>
               </div>

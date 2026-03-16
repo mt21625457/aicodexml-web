@@ -14,6 +14,7 @@ import {CircleCounterComponent} from '@common/shared/ui-components/indicators/ci
 import {PushPipe} from '@ngrx/component';
 import {MatButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
     selector: 'sm-nested-reports-page',
@@ -24,6 +25,7 @@ import {MatIcon} from '@angular/material/icon';
     PushPipe,
     MatButton,
     MatIcon,
+    TranslatePipe,
     NestedProjectViewPageComponent
   ]
 })

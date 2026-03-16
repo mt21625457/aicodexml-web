@@ -6,6 +6,7 @@ import {getApiVersion} from '@common/core/actions/users.actions';
 import {
   AdminFooterActionsComponent
 } from '~/features/settings/containers/admin/admin-footer-actions/admin-footer-actions.component';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'sm-admin-footer',
@@ -13,7 +14,8 @@ import {
   styleUrls: ['./admin-footer.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    AdminFooterActionsComponent
+    AdminFooterActionsComponent,
+    TranslatePipe
   ]
 })
 export class AdminFooterComponent {

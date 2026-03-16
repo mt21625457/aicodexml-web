@@ -1,7 +1,7 @@
 @if (!hideHeaders()) {
   <div class="headers">
     @for (col of cols(); track col.header + $index) {
-      <div [class]="col.class">{{col.header}}</div>
+      <div [class]="col.class">{{ col.header | translate }}</div>
     }
   </div>
 }
@@ -24,7 +24,7 @@
   }
   @if (!rowsData()?.length) {
     <div class="empty-state">
-      {{ noDataMessage() || 'No data to show'}}
+      {{ (noDataMessage() || 'shared.noData') | translate }}
     </div>
   }
 </div>

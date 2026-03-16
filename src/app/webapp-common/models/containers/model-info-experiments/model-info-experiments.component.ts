@@ -11,6 +11,7 @@ import {RouterLink} from '@angular/router';
 import {
   ModelExperimentsTableComponent
 } from '@common/models/containers/model-experiments-table/model-experiments-table.component';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
 
 @Component({
@@ -21,11 +22,13 @@ import {
   imports: [
     IdBadgeComponent,
     RouterLink,
-    ModelExperimentsTableComponent
+    ModelExperimentsTableComponent,
+    TranslatePipe
   ]
 })
 export class ModelInfoExperimentsComponent {
   private store = inject(Store);
+  private translate = inject(TranslateService);
   public entityType = EntityTypeEnum.experiment;
 
   table = viewChild(ExperimentsTableComponent);
@@ -46,6 +49,6 @@ export class ModelInfoExperimentsComponent {
   }
 
   copyToClipboard() {
-    this.store.dispatch(addMessage('success', 'Copied to clipboard'));
+    this.store.dispatch(addMessage('success', this.translate.instant('shared.idCopied')));
   }
 }

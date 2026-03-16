@@ -1,12 +1,12 @@
 <div class="sm-card-list-header" [class.archive-mode]="archive()">
   @if (!disableSort()) {
     <div class="recent-title">
-      <sm-menu [header]="sortByTitle()" class="menu">
-        <sm-menu-item itemLabel="Recent"
-                      [sortOrder]="sortByTitle() === 'RECENT' && sortOrder()"
+      <sm-menu [header]="sortByTitleKey() | translate" class="menu">
+        <sm-menu-item [itemLabel]="'reports.sort.recent' | translate"
+                      [sortOrder]="!isSortByName() && sortOrder()"
                       (itemClicked)="orderByChanged.emit('last_update')"></sm-menu-item>
-        <sm-menu-item itemLabel="Name"
-                      [sortOrder]="sortByTitle() === 'NAME' && sortOrder()"
+        <sm-menu-item [itemLabel]="'reports.sort.name' | translate"
+                      [sortOrder]="isSortByName() && sortOrder()"
                       (itemClicked)="orderByChanged.emit('name')"></sm-menu-item>
       </sm-menu>
       <sm-main-pages-header-filter [allTags]="allTags()"></sm-main-pages-header-filter>
@@ -15,8 +15,8 @@
         (ngModelChange)="!archive() && !(!!projectId() && $event) && toggleNestedView.emit($any($event))"
         [disabled]="archive()"
         [options]="[
-             {value: false, icon: 'al-ico-flat-view',  label: 'List view'},
-             {value: true, icon:'al-ico-project-path', label: 'Project view'}
+             {value: false, icon: 'al-ico-flat-view',  label: ('reports.views.list' | translate)},
+             {value: true, icon:'al-ico-project-path', label: ('reports.views.project' | translate)}
             ]"
       ></sm-button-toggle>
       <sm-common-search class="ms-3"></sm-common-search>
@@ -32,7 +32,7 @@
               [disabled]="archive()"
               (click)="createReportClicked.emit(projectId())">
         <mat-icon fontSet="al" fontIcon="al-ico-add"></mat-icon>
-        NEW REPORT
+        {{ 'reports.actions.newReport' | translate }}
       </button>
     }
   </div>

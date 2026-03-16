@@ -16,7 +16,7 @@
         {{task.user.name}}
       }
       @case (QUEUES_TABLE_COL_FIELDS.QUEUED) {
-        <span [smTooltip]="task[col.id] | date : TIME_FORMAT_STRING">{{task[col.id] | timeAgo}}</span>
+        <span [smTooltip]="task[col.id] | smDate : TIME_FORMAT_STRING">{{task[col.id] | timeAgo}}</span>
       }
       @default {
         {{task[col.id]}}

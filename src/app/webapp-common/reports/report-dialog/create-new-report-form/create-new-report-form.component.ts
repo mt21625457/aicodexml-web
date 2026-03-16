@@ -13,6 +13,7 @@ import {MatDialogActions, MatDialogClose} from '@angular/material/dialog';
 import {MatInput} from '@angular/material/input';
 import {MatButton} from '@angular/material/button';
 import {minLengthTrimmed} from '@common/shared/validators/minLengthTrimmed';
+import {TranslatePipe} from '@ngx-translate/core';
 
 export interface NewReportData {
   name: string;
@@ -35,7 +36,8 @@ export interface NewReportData {
         MatLabel,
         MatError,
         MatInput,
-        MatButton
+        MatButton,
+        TranslatePipe
     ]
 })
 export class CreateNewReportFormComponent {
@@ -112,4 +114,3 @@ export class CreateNewReportFormComponent {
     this.filterSearchChanged.emit({value: value, loadMore});
   }
 }
-

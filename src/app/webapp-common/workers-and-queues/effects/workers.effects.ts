@@ -5,7 +5,6 @@ import {Action, Store} from '@ngrx/store';
 import {castArray, cloneDeep} from 'lodash-es';
 import {catchError, map, mergeMap, switchMap} from 'rxjs/operators';
 import {ApiWorkersService} from '~/business-logic/api-services/workers.service';
-import {WORKER_STATS_PARAM_INFO} from '../workers-and-queues.consts';
 import {WorkersGetActivityReportRequest} from '~/business-logic/model/workers/workersGetActivityReportRequest';
 import {WorkersGetActivityReportResponse} from '~/business-logic/model/workers/workersGetActivityReportResponse';
 import {WorkersGetStatsRequest} from '~/business-logic/model/workers/workersGetStatsRequest';
@@ -18,6 +17,7 @@ import {showStatsErrorNotice, hideNoStatsNotice} from '../actions/stats.actions'
 import {addMultipleSortColumns} from '../../shared/utils/shared-utils';
 import {transformAndSortWorkers} from '@common/workers-and-queues/workers-and-queues.utils';
 import {MESSAGES_SEVERITY} from '@common/constants';
+import {TranslateService} from '@ngx-translate/core';
 
 const prepareStatsQuery = (entitie: string, keys: { key: string }[], range: number, granularity: number): WorkersGetStatsRequest => {
   const now = Math.floor((new Date()).getTime() / 1000);
@@ -39,6 +39,7 @@ export class WorkersEffects {
   private actions = inject(Actions);
   private workersApi = inject(ApiWorkersService);
   private store = inject(Store);
+  private translate = inject(TranslateService);
 
   getWorkers$ = createEffect(() => this.actions.pipe(
     ofType(workersActions.getWorkers),
@@ -98,17 +99,25 @@ export class WorkersEffects {
         timeFrame = range;
       }
       if (worker) {
+        const workerStatsInfo = {
+          cpu_usage: {title: this.translate.instant('workers.stats.series.cpu'), multiply: 1, suffix: this.translate.instant('workers.stats.series.usage')},
+          gpu_usage: {title: this.translate.instant('workers.stats.series.gpu'), multiply: 1, suffix: this.translate.instant('workers.stats.series.usage')},
+          memory_used: {title: this.translate.instant('workers.stats.series.memoryUsed'), multiply: 1024 * 1024},
+          gpu_memory_used: {title: this.translate.instant('workers.stats.series.gpu'), multiply: 1024 * 1024, suffix: this.translate.instant('workers.stats.series.memory')},
+          network_rx: {title: this.translate.instant('workers.stats.series.networkReceive'), multiply: 1024 * 1024},
+          network_tx: {title: this.translate.instant('workers.stats.series.networkTransmit'), multiply: 1024 * 1024}
+        };
         const req = prepareStatsQuery(worker.id, keys, timeFrame, granularity);
         return this.workersApi.workersGetStats(req).pipe(
           map(res => {
             if (res) {
-              res = addStats(currentStats, res.workers, action.maxPoints, keys, 'worker', WORKER_STATS_PARAM_INFO);
+              res = addStats(currentStats, res.workers, action.maxPoints, keys, 'worker', workerStatsInfo);
             }
             return workersActions.setStats({data: res});
           }),
           catchError(err => [requestFailed(err),
             workersActions.setStats({data: []}),
-            addMessage(MESSAGES_SEVERITY.WARN, 'Failed to fetching activity worker statistics')])
+            addMessage(MESSAGES_SEVERITY.WARN, this.translate.instant('workers.stats.messages.fetchFailed'))])
         );
       } else {
         const req: WorkersGetActivityReportRequest = {
@@ -144,8 +153,8 @@ export class WorkersEffects {
               result = addStats(currentStats, statsData, action.maxPoints,
                 [{key: 'active'}, {key: 'total'}], 'activity',
                 {
-                  total: {title: 'Total Workers', multiply: 1},
-                  active: {title: 'Active Workers', multiply: 1}
+                  total: {title: this.translate.instant('workers.stats.series.totalWorkers'), multiply: 1},
+                  active: {title: this.translate.instant('workers.stats.series.activeWorkers'), multiply: 1}
                 });
             }
             return [workersActions.setStats({data: result}), hideNoStatsNotice()];

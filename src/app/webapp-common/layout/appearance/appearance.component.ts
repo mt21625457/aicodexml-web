@@ -7,10 +7,11 @@ import { Store } from '@ngrx/store';
 import { userThemeChanged } from '@common/core/actions/layout.actions';
 import {NgOptimizedImage} from '@angular/common';
 import {CdkTrapFocus} from '@angular/cdk/a11y';
+import {TranslatePipe} from '@ngx-translate/core';
 
 interface Themes {
   value: 'light' | 'dark' | 'system';
-  name: string;
+  nameKey: string;
 }
 
 @Component({
@@ -23,13 +24,14 @@ interface Themes {
         MatSelectionList,
         MatListOption,
         FormsModule,
+        TranslatePipe,
     ]
 })
 export class AppearanceComponent {
   themes: Themes[] = [
-    {value: 'light', name: 'Light'},
-    {value: 'dark', name: 'Dark'},
-    {value: 'system', name: 'System'},
+    {value: 'light', nameKey: 'appearance.light'},
+    {value: 'dark', nameKey: 'appearance.dark'},
+    {value: 'system', nameKey: 'appearance.system'},
   ];
   private store = inject(Store);
   protected userTheme = this.store.selectSignal(selectUserTheme);

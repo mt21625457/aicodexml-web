@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, EventEmitter, Inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, Inject, inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {compareAddDialogTableSortChanged, compareAddTableClearAllFilters, compareAddTableFilterChanged, compareAddTableFilterInit, getSelectedExperimentsForCompareAddDialog, resetSelectCompareHeader, setAddTableViewArchived, setShowSearchExperimentsForCompare} from '../../actions/compare-header.actions';
 import {selectExperimentsForCompareSearchTerm, selectSelectedExperimentsForCompareAdd, selectViewArchivedInAddTable} from '../../reducers';
@@ -38,6 +38,7 @@ import {MatButton} from '@angular/material/button';
 import {IdToObjectsArrayPipe} from '@common/shared/pipes/idToObjectsArray.pipe';
 import {PushPipe} from '@ngrx/component';
 import {SearchComponent} from '@common/shared/ui-components/inputs/search/search.component';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
 export const allowAddExperiment$ = (selectRouterParams$: Observable<Params>) => selectRouterParams$.pipe(
   distinctUntilKeyChanged('ids'),
@@ -59,10 +60,12 @@ export const allowAddExperiment$ = (selectRouterParams$: Observable<Params>) => 
     MatButton,
     IdToObjectsArrayPipe,
     PushPipe,
-    SearchComponent
+    SearchComponent,
+    TranslatePipe
   ]
 })
 export class SelectExperimentsForCompareComponent implements OnInit, OnDestroy {
+  private translate = inject(TranslateService);
   public entityTypes = EntityTypeEnum;
   public initTableCols = this.getInitTablesCols(this.data.entityType);
   public experimentsResults$: Observable<Task[]>;
@@ -188,7 +191,7 @@ export class SelectExperimentsForCompareComponent implements OnInit, OnDestroy {
   }
 
   syncAppSearch() {
-    this.store.dispatch(initSearch({payload: 'Search for experiments'}));
+    this.store.dispatch(initSearch({payload: 'experiments.compare.searchPlaceholder'}));
     this.store.dispatch(experimentsActions.getExperiments());
   }
 
@@ -243,14 +246,14 @@ export class SelectExperimentsForCompareComponent implements OnInit, OnDestroy {
   experimentsSelectionChanged(experiments: ITableExperiment[]) {
     this.reachedCompareLimit = experiments.length >= compareLimitations;
     if (experiments.length === 0) {
-      this.store.dispatch(addMessage(MESSAGES_SEVERITY.WARN, 'Compare module should include at least one experiment'));
+      this.store.dispatch(addMessage(MESSAGES_SEVERITY.WARN, this.translate.instant('experiments.compare.messages.atLeastOne')));
       this.selectedExperimentsIds = experiments.map(ex => ex.id);
       return;
     }
     if (experiments.length <= compareLimitations) {
       this.selectedExperimentsIds = experiments.map(ex => ex.id);
     } else {
-      this.store.dispatch(addMessage(MESSAGES_SEVERITY.WARN, compareLimitations + ' or fewer experiments can be compared'));
+      this.store.dispatch(addMessage(MESSAGES_SEVERITY.WARN, this.translate.instant('experiments.compare.messages.limit', {count: compareLimitations})));
     }
   }
 

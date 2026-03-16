@@ -7,6 +7,7 @@ import {FormsModule} from '@angular/forms';
 import {SaferPipe} from '@common/shared/pipes/safe.pipe';
 import {NgClass, NgTemplateOutlet} from '@angular/common';
 import {MatButton} from '@angular/material/button';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
     selector: 'sm-confirm-dialog',
@@ -19,7 +20,8 @@ import {MatButton} from '@angular/material/button';
         NgTemplateOutlet,
         NgClass,
         SaferPipe,
-        MatButton
+        MatButton,
+        TranslatePipe
     ]
 })
 export class ConfirmDialogComponent {

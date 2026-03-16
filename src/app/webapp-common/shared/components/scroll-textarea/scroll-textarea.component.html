@@ -4,7 +4,7 @@
     <div class="floating-buttons">
       <ng-content select="[extra-buttons]"></ng-content>
       @if (formData()) {
-        <sm-copy-clipboard [isStroked]="true" [clipboardText]="formData()" label="" class="copy-textarea" tooltipText='Copy to clipboard' data-id="copy to clipboard"></sm-copy-clipboard>
+        <sm-copy-clipboard [isStroked]="true" [clipboardText]="formData()" label="" class="copy-textarea" tooltipText="shared.copyToClipboard" data-id="copy to clipboard"></sm-copy-clipboard>
       }
       <sm-search
         class="outline"
@@ -33,7 +33,7 @@
   </div>
 }
 @if ((forceEmpty() || (!showSpinner() && !formData()?.length)) && !editable()) {
-  <span class="no-changes">{{emptyMessage()}}</span>
+  <span class="no-changes">{{ emptyMessage() | translate }}</span>
 }
 @if (showSpinner()) {
   <mat-spinner class="mx-auto mt-3" [diameter]="32" [strokeWidth]="4" color="accent"></mat-spinner>

@@ -15,7 +15,9 @@
     "lint": "ng lint",
     "e2e": "ng e2e --port 4300",
     "bundle-report": "node --max_old_space_size=3248 ./node_modules/.bin/ng build --configuration production --aot --stats-json; webpack-bundle-analyzer build/stats.json",
-    "submodule": "git submodule update --recursive --remote --init"
+    "submodule": "git submodule update --recursive --remote --init",
+    "i18n:guardrail": "node ./scripts/i18n-guardrail.mjs",
+    "i18n:guardrail:update-baseline": "node ./scripts/i18n-guardrail.mjs --update-baseline"
   },
   "private": true,
   "dependencies": {

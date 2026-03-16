@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {NestedProjectViewPageComponent, ProjectTypeEnum} from '@common/nested-project-view/nested-project-view-page/nested-project-view-page.component';
-import {CircleTypeEnum} from '~/shared/constants/non-common-consts';
+import {CircleTypeEnum, EntityTypeEnum} from '~/shared/constants/non-common-consts';
 import { AsyncPipe } from '@angular/common';
 import {ProjectsPageComponent} from '@common/projects/containers/projects-page/projects-page.component';
 import {DatasetEmptyComponent} from '@common/datasets/dataset-empty/dataset-empty.component';
@@ -9,6 +9,7 @@ import {TagListComponent} from '@common/shared/ui-components/tags/tag-list/tag-l
 import {MatButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 import {ClickStopPropagationDirective} from '@common/shared/ui-components/directives/click-stop-propagation.directive';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
     selector: 'sm-nested-datasets-page',
@@ -25,7 +26,8 @@ import {ClickStopPropagationDirective} from '@common/shared/ui-components/direct
     MatIcon,
     ClickStopPropagationDirective,
     NestedProjectViewPageComponent,
-    DatasetEmptyComponent
+    DatasetEmptyComponent,
+    TranslatePipe
   ]
 })
 export class NestedDatasetsPageComponent extends ProjectsPageComponent {
@@ -58,6 +60,10 @@ export class NestedDatasetsPageComponent extends ProjectsPageComponent {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected override getExtraProjects(selectedProjectId, selectedProject) {
     return [];
+  }
+
+  protected override getName() {
+    return EntityTypeEnum.openDataset;
   }
 
 }

@@ -22,7 +22,7 @@
       {{experiment()?.execution?.model?.name}}
     </div>
     <div class="top-labels d-flex justify-content-between">
-      <span [smTooltip]="experiment().created | date : TIME_FORMAT_STRING">Created {{experiment().created | timeAgo}}</span>
+      <span [smTooltip]="experiment().created | smDate : TIME_FORMAT_STRING">Created {{experiment().created | timeAgo}}</span>
       <span>{{experiment().user.name}}</span>
     </div>
     </div>

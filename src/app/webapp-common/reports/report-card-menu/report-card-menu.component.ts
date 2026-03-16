@@ -7,6 +7,7 @@ import {TagsMenuComponent} from '@common/shared/ui-components/tags/tags-menu/tag
 import {ClickStopPropagationDirective} from '@common/shared/ui-components/directives/click-stop-propagation.directive';
 import {MatIcon} from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
     selector: 'sm-report-card-menu',
@@ -17,7 +18,8 @@ import { MatIconButton } from '@angular/material/button';
         TagsMenuComponent,
         ClickStopPropagationDirective,
         MatIconButton,
-        MatIcon
+        MatIcon,
+        TranslatePipe
     ]
 })
 export class ReportCardMenuComponent {

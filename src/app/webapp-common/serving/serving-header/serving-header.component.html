@@ -3,7 +3,7 @@
     @if (!hideNavigation()) {
       <sm-button-toggle
         [disabled]="!tableMode() || noData()"
-        [options]="[{label: 'Table view', value: 'table', icon: 'al-ico-table-view'}, {label: 'Details view', value: 'info', icon: 'al-ico-experiment-view'}]"
+        [options]="viewModeOptions"
         [rippleEffect]="rippleEffect()"
         [ngModel]="!noData() && tableMode()"
         (ngModelChange)="tableModeChanged.emit($any($event))"></sm-button-toggle>
@@ -18,7 +18,7 @@
         (clearTableFilters)="clearTableFilters.emit(tableFilters())"
       ></sm-clear-filters-button>
     }
-    <div smTooltip="Download table as CSV">
+    <div [smTooltip]="'serving.actions.downloadCsv' | translate">
       <button mat-icon-button class="download-btn" [disabled]="noData()" (click)="!noData() && downloadTableAsCSV.emit()" data-id="downloadCSVButton">
         <mat-icon fontSet="al" fontIcon="al-ico-download"></mat-icon>
       </button>

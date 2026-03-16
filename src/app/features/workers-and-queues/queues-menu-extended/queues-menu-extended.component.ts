@@ -5,6 +5,7 @@ import {MenuComponent} from '@common/shared/ui-components/panel/menu/menu.compon
 import {MatDivider} from '@angular/material/divider';
 import {MatIconModule} from '@angular/material/icon';
 import {RouterLink} from '@angular/router';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'sm-queues-menu-extended',
@@ -16,6 +17,7 @@ import {RouterLink} from '@angular/router';
     MatIconModule,
     RouterLink,
     MatDivider,
+    TranslatePipe,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

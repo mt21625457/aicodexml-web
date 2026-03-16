@@ -35,7 +35,7 @@
     [activeContextRow]="contextModel()"
     [contextMenuOpen]="contextMenuActive()"
     [minimizedView]="minimizedView()"
-    [minimizedTableHeader]="'MODEL LIST'"
+    [minimizedTableHeader]="'models.table.modelList' | translate"
     [sortFields]="tableSortFields()"
     [keyboardControl]="true"
     [autoLoadMore]="true"
@@ -55,7 +55,7 @@
         [subValue]="filtersSubValues()[modelsTableColFields.TAGS]"
         [columns]="initialColumns"
         [filterMatch]="filtersMatch()"
-        fixedOptionsSubheader="System tags"
+        [fixedOptionsSubheader]="'models.table.systemTags' | translate"
         (subFilterChanged)="tableFilterChanged({id:'system_tags'}, $event)"
         (filterChanged)="tableFilterChanged({id: $event.col}, $event)"
         (menuOpened)="columnFilterOpened($event)"
@@ -82,10 +82,10 @@
         </div>
 <!--      }-->
       <mat-menu class="light-theme" #selectionMenu="matMenu">
-        <div class="menu-title">Select from project</div>
-        <button mat-menu-item data-id="All Option" (click)="selectAll()">All</button>
-        <button mat-menu-item data-id="None Option" (click)="emitSelection([])">None</button>
-        <button mat-menu-item data-id="All Matching Filter Option" (click)="selectAll(true)">All matching filter</button>
+        <div class="menu-title">{{ 'models.select.menu.selectFromProject' | translate }}</div>
+        <button mat-menu-item data-id="All Option" (click)="selectAll()">{{ 'models.select.menu.all' | translate }}</button>
+        <button mat-menu-item data-id="None Option" (click)="emitSelection([])">{{ 'models.select.menu.none' | translate }}</button>
+        <button mat-menu-item data-id="All Matching Filter Option" (click)="selectAll(true)">{{ 'models.select.menu.allMatchingFilter' | translate }}</button>
       </mat-menu>
     </ng-template>
 
@@ -98,7 +98,7 @@
         [searchValue]="searchValues[col.id]"
         [options]="filtersOptions()[col.id] | filter: searchValues[col.id]: 'label'"
         [sortOrder]="tableSortFieldsObject()[col.id]"
-        [fixedOptionsSubheader]="col.id === modelsTableColFields.TAGS ? 'System tags' : ''"
+        [fixedOptionsSubheader]="col.id === modelsTableColFields.TAGS ? ('models.table.systemTags' | translate) : ''"
         [andFilter]="col.andFilter ? filtersMatch()[col.id] === 'AND' : null"
         (sortOrderChanged)="onSortChanged($event, col.id)"
         (filterChanged)="tableFilterChanged(col, $event);"
@@ -127,8 +127,8 @@
           <sm-tag-list [tags]="model.tags" [sysTags]="getSysTags(model)"></sm-tag-list>
         }
         @case (modelsTableColFields.USER) {
-          <span class="ellipsis" [smTooltip]="model.user?.name ? model.user?.name : 'Unknown User'"
-          smShowTooltipIfEllipsis>{{model.user?.name ? model.user?.name : 'Unknown User'}}</span>
+          <span class="ellipsis" [smTooltip]="model.user?.name ? model.user?.name : ('models.table.unknownUser' | translate)"
+          smShowTooltipIfEllipsis>{{model.user?.name ? model.user?.name : ('models.table.unknownUser' | translate)}}</span>
         }
         @case (modelsTableColFields.PROJECT) {
           <span class="ellipsis" smShowTooltipIfEllipsis [smTooltip]="model?.project?.name"
@@ -148,7 +148,7 @@
         }
         @case (modelsTableColFields.LAST_UPDATE) {
           <span class="ellipsis"
-          [smTooltip]="model.last_update | date : timeFormatString">{{model.last_update | timeAgo}}</span>
+          [smTooltip]="model.last_update | smDate : timeFormatString">{{model.last_update | timeAgo}}</span>
         }
         @case (modelsTableColFields.SELECTED) {
           <mat-checkbox #cb
@@ -222,7 +222,7 @@
     <ng-template #compactCol>
       @if (!cardsCollapsed()) {
         <div animate.enter="enter" animate.leave="leaving" class="ellipsis compact-columns-data" [class.selected]="selected">
-          Updated {{model.last_update | timeAgo}} by {{model.user?.name || 'Unknown User'}}
+          {{ 'models.table.updatedBy' | translate:{time: (model.last_update | timeAgo), user: (model.user?.name || ('models.table.unknownUser' | translate))} }}
           @if (model.task) {
             <span class="dot">●</span>{{model.task.name}}
           }

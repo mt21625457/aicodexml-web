@@ -2,12 +2,12 @@
   <form [formGroup]="S3Form" class="form-container">
       @if (bucketCredentials.controls.length > 0 || externalCredentials()?.length) {
         <div class="s3-row header">
-          <div>Bucket</div>
-          <div>Key</div>
-          <div>Secret / SAS</div>
-          <div>Token</div>
-          <div>AWS Region</div>
-          <div>Host (Endpoint)</div>
+          <div>{{ 'settings.storage.fields.bucket' | translate }}</div>
+          <div>{{ 'settings.storage.fields.accessKeyShort' | translate }}</div>
+          <div>{{ 'settings.storage.fields.secretOrSas' | translate }}</div>
+          <div>{{ 'settings.storage.fields.token' | translate }}</div>
+          <div>{{ 'settings.storage.fields.awsRegion' | translate }}</div>
+          <div>{{ 'settings.storage.fields.hostEndpoint' | translate }}</div>
         </div>
       }
     <div class="credentials-container">
@@ -34,17 +34,17 @@
             <mat-form-field appearance="outline" class="no-bottom">
               <input matInput class="form-control" formControlName="Token"></mat-form-field>
             <mat-form-field appearance="outline" class="no-bottom">
-              <input matInput class="form-control" formControlName="Region" placeholder="us-east-2"></mat-form-field>
+              <input matInput class="form-control" formControlName="Region" [placeholder]="'settings.storage.s3Access.placeholders.region' | translate"></mat-form-field>
             <mat-form-field appearance="outline" class="no-bottom">
-              <input #endpoint matInput class="form-control" formControlName="Endpoint" placeholder="Leave empty for AWS S3">
+              <input #endpoint matInput class="form-control" formControlName="Endpoint" [placeholder]="'settings.storage.s3Access.placeholders.endpoint' | translate">
             </mat-form-field>
             <div class="d-flex justify-content-end">
               @if (endpoint.value.startsWith('http://') && secured) {
-                <span class="alert-icon me-2" smTooltip="Embedding images through a non-secure transport (HTTP) in a secure web application might require special configuration of your browser">
+                <span class="alert-icon me-2" [smTooltip]="'settings.storage.s3Access.insecureWarning' | translate">
                 <i class="al-icon sm-md al-ico-alert"></i>
               </span>
               }
-              <button mat-icon-button smTooltip="Remove" matTooltipShowDelay="500" (click)="removeBucket($index)">
+              <button mat-icon-button [smTooltip]="'shared.remove' | translate" matTooltipShowDelay="500" (click)="removeBucket($index)">
                 <mat-icon fontSet="al" [fontIcon]="ICONS.REMOVE"></mat-icon>
               </button>
             </div>
@@ -55,7 +55,7 @@
     <div>
       <button mat-button (click)="addBucket({})">
         <mat-icon fontSet="al" fontIcon="al-ico-add"></mat-icon>
-        Add Access Keys
+        {{ 'settings.storage.labels.addAccessKeys' | translate }}
       </button>
     </div>
   </form>

@@ -63,6 +63,7 @@ import {
 } from '@common/shared/ui-components/indicators/tooltip/show-tooltip-if-ellipsis.directive';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
 const replaceSlash = (part) => part
   .replace('\\', '/')
@@ -93,7 +94,8 @@ const replaceSlash = (part) => part
     TooltipDirective,
     MatButton,
     MatIconButton,
-    MatDrawerContent
+    MatDrawerContent,
+    TranslatePipe
   ]
 })
 export class ReportComponent implements OnDestroy {
@@ -104,6 +106,7 @@ export class ReportComponent implements OnDestroy {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private _clipboardService = inject(ClipboardService);
+  private translate = inject(TranslateService);
   private http = inject(HttpClient);
   private actions$ = inject(Actions);
   public icons = ICONS;
@@ -189,7 +192,7 @@ export class ReportComponent implements OnDestroy {
                 fromEvent(img, 'error')
               )
                 .pipe(
-                  map(() => {
+              map(() => {
                     if (img.width > 0 && img.height > 0) {
                       return file;
                     }
@@ -198,7 +201,7 @@ export class ReportComponent implements OnDestroy {
                 );
             }),
             catchError((err, caught) => {
-              this.store.dispatch(addMessage(MESSAGES_SEVERITY.ERROR, 'invalid file'));
+              this.store.dispatch(addMessage(MESSAGES_SEVERITY.ERROR, this.translate.instant('reports.messages.invalidFile')));
               this.store.dispatch(deactivateLoader('upload'));
               throw caught;
             })
@@ -207,9 +210,9 @@ export class ReportComponent implements OnDestroy {
         return obs;
       });
       if (valid.length === 0) {
-        this.store.dispatch(addMessage(MESSAGES_SEVERITY.ERROR, 'invalid file type'));
+        this.store.dispatch(addMessage(MESSAGES_SEVERITY.ERROR, this.translate.instant('reports.messages.invalidFileType')));
         this.store.dispatch(deactivateLoader('upload'));
-        return Promise.reject('Invalid file type');
+        return Promise.reject(this.translate.instant('reports.messages.invalidFileType'));
       }
       const uploads$ = combineLatest(valid).pipe(
         debounceTime(0),
@@ -231,7 +234,7 @@ export class ReportComponent implements OnDestroy {
           return this.http.post(filesServerUrl, formData, {withCredentials: true})
             .pipe(
               catchError((err) => {
-                this.store.dispatch(addMessage(MESSAGES_SEVERITY.ERROR, 'Upload failed' + err?.message));
+                this.store.dispatch(addMessage(MESSAGES_SEVERITY.ERROR, this.translate.instant('reports.messages.uploadFailed', {message: err?.message ?? ''})));
                 this.store.dispatch(deactivateLoader('upload'));
                 throw new Error('upload failed');
               }),
@@ -258,9 +261,10 @@ export class ReportComponent implements OnDestroy {
         breadcrumbOptions: {
           showProjects: !!this.report(),
           featureBreadcrumb: {
-            name: 'REPORTS',
+            name: 'reports.breadcrumb',
             url: this.nested()['reports'] ? 'reports/*/projects' : 'reports',
-            linkLast: true
+            linkLast: true,
+            translate: true
           },
           projectsOptions: {
             basePath: 'reports',

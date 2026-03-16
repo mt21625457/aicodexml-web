@@ -32,6 +32,7 @@ import {MatIconButton} from '@angular/material/button';
 import {PushPipe} from '@ngrx/component';
 import {MatIconModule} from '@angular/material/icon';
 import {ModelMenuExtendedComponent} from '~/features/models/containers/model-menu-extended/model-menu-extended.component';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'sm-model-info-header',
@@ -50,11 +51,13 @@ import {ModelMenuExtendedComponent} from '~/features/models/containers/model-men
     ShowTooltipIfEllipsisDirective,
     TooltipDirective,
     MatIconButton,
-    PushPipe
+    PushPipe,
+    TranslatePipe
   ]
 })
 export class ModelInfoHeaderComponent {
   private store = inject(Store);
+  private translate = inject(TranslateService);
 
   public menuPosition = { x: 0, y: 0 };
   protected tagsFilterByProject$ = this.store.select(selectTagsFilterByProject);
@@ -120,6 +123,6 @@ export class ModelInfoHeaderComponent {
   }
 
   copyToClipboard() {
-    this.store.dispatch(addMessage('success', 'Copied to clipboard'));
+    this.store.dispatch(addMessage('success', this.translate.instant('shared.idCopied')));
   }
 }

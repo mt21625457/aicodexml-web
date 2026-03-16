@@ -1,9 +1,9 @@
 <sm-dialog-template
-  subHeader="Click the reload button below to reload the web page"
+  subHeader="shared.reloadPagePrompt"
   [closeOnX]="true"
-  header="New version available"
+  header="shared.newVersionAvailable"
 ></sm-dialog-template>
 <div mat-dialog-actions>
-  <button mat-stroked-button mat-dialog-close >CANCEL</button>
-  <button mat-flat-button (click)="reload()">RELOAD</button>
+  <button mat-stroked-button mat-dialog-close>{{ 'shared.cancel' | translate }}</button>
+  <button mat-flat-button (click)="reload()">{{ 'auth.reload' | translate }}</button>
 </div>

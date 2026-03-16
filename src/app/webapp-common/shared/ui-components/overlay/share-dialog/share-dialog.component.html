@@ -19,5 +19,5 @@
   }
 </sm-dialog-template>
 <div mat-dialog-actions align="end">
-  <button mat-button (click)="createLink()">{{shared ? 'Remove' : 'Create'}} link</button>
+  <button mat-button (click)="createLink()">{{ shared ? ('shared.remove' | translate) : ('shared.create' | translate) }} {{ 'shared.link' | translate }}</button>
 </div>

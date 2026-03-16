@@ -2,7 +2,6 @@ import {ChangeDetectionStrategy, Component, computed, effect, inject, signal, un
 import {DateFnsAdapter, MAT_DATE_FNS_FORMATS, provideDateFnsAdapter} from '@angular/material-date-fns-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {addDays, format, parseISO, startOfDay, subSeconds} from 'date-fns';
-import {enGB} from 'date-fns/locale';
 import {HeaderMenuService} from '~/shared/services/header-menu.service';
 import {selectIsDeepMode, selectSelectedProject} from '@common/core/reducers/projects.reducer';
 import {isExample} from '@common/shared/utils/shared-utils';
@@ -31,6 +30,7 @@ import {
 } from '~/business-logic/model/organization/organizationGetProjectWorkloadsResponse';
 import {Workloads} from '~/business-logic/model/organization/workloads';
 import {PeriodSelectorComponent} from '@common/shared/components/period-selector/period-selector.component';
+import {LocaleService} from '~/shared/services/locale.service';
 
 @Component({
   selector: 'sm-workloads-page',
@@ -50,7 +50,7 @@ import {PeriodSelectorComponent} from '@common/shared/components/period-selector
     PeriodSelectorComponent,
   ],
   providers: [
-    { provide: MAT_DATE_LOCALE, useValue: enGB},
+    { provide: MAT_DATE_LOCALE, useFactory: () => inject(LocaleService).dateFnsLocale()},
     { provide: DateAdapter, useClass: DateFnsAdapter, deps: [MAT_DATE_LOCALE] },
     { provide: MAT_DATE_FORMATS, useValue: MAT_DATE_FNS_FORMATS },
     provideDateFnsAdapter()
@@ -61,6 +61,8 @@ export class WorkloadsPageComponent {
   private readonly store = inject(Store);
   private readonly orgService = inject(ApiOrganizationService);
   private readonly colorHash = inject(ColorHashService);
+  private readonly localeService = inject(LocaleService);
+  private readonly dateAdapter = inject(DateAdapter);
   private archive = injectQueryParams('archive');
 
   // 1. Change the control to match the object structure of PeriodSelector
@@ -180,6 +182,10 @@ export class WorkloadsPageComponent {
 
 
   constructor() {
+    effect(() => {
+      this.dateAdapter.setLocale(this.localeService.dateFnsLocale());
+    });
+
     if (this.period()) {
       this.rangeControl.patchValue({
         period: this.period(),

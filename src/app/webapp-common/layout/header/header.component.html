@@ -15,7 +15,7 @@
   @if (hideSideNav()) {
     <div class="logo-full middle">
       <div class="logo-full">
-        <img alt="logo" [priority]="true"
+        <img [alt]="'header.logoAlt' | translate" [priority]="true"
              [ngSrc]="darkTheme() ? environment().branding.logo : environment().branding.logo.replace('-white', '')"
              width="124" height="42">
       </div>
@@ -44,7 +44,7 @@
       </button>
       <span class="pointer menu-trigger position-relative" data-id="Avatar" [matMenuTriggerFor]="profileMenu">
         @if (user().avatar; as avatar) {
-          <img alt="avatar" class="avatar" [src]="avatar">
+          <img [alt]="'header.avatarAlt' | translate" class="avatar" [src]="avatar">
         } @else {
           <div class="user-icon">
             <i class="al-icon al-ico-account sm-md"></i>
@@ -76,28 +76,28 @@
       </mat-menu>
       <mat-menu #resourcesMenu="matMenu" class="user-menu">
         <button mat-menu-item (click)="openWelcome($event)" data-id="Python Package setup Option">
-          <mat-icon fontSet="al" fontIcon="al-ico-code-file">Code</mat-icon>
+          <mat-icon fontSet="al" fontIcon="al-ico-code-file">{{ 'header.codeIcon' | translate }}</mat-icon>
           <span>{{ 'header.pythonPackageSetup' | translate }}</span>
         </button>
         @if (environment().platformYoutubeChannel) {
           <a mat-menu-item [href]="environment().platformYoutubeChannel" target="_blank" data-id="Youtube Option">
-            <mat-icon fontSet="al" fontIcon="al-ico-youtube">Youtube</mat-icon>
+            <mat-icon fontSet="al" fontIcon="al-ico-youtube">{{ 'header.youtubeIcon' | translate }}</mat-icon>
             <span>{{ 'header.youtube' | translate }}</span>
           </a>
         }
         <a mat-menu-item [href]="environment().docsLink" target="_blank" data-id="Online Documentation Option">
-          <mat-icon fontSet="al" fontIcon="al-ico-documentation">Docs</mat-icon>
+          <mat-icon fontSet="al" fontIcon="al-ico-documentation">{{ 'header.docsIcon' | translate }}</mat-icon>
           <span>{{ 'header.documentation' | translate }}</span>
         </a>
         @if (tipsService.hasTips()) {
           <button mat-menu-item (click)="tipsService.showTipsModal(null, true)" data-id="Pro Tips Option">
-            <mat-icon fontSet="al" fontIcon="al-ico-tips">Tips</mat-icon>
+            <mat-icon fontSet="al" fontIcon="al-ico-tips">{{ 'header.tipsIcon' | translate }}</mat-icon>
             <span>{{ 'header.proTips' | translate }}</span>
           </button>
         }
         @if (isAdmin() && !environment().communityServer && changesService.hasChanges()) {
           <button mat-menu-item (click)="changesService.showChangesModal()" data-id="Pro Tips Option">
-            <mat-icon fontSet="al" fontIcon="al-ico-bullhorn">Notifications</mat-icon>
+            <mat-icon fontSet="al" fontIcon="al-ico-bullhorn">{{ 'header.notificationsIcon' | translate }}</mat-icon>
             <span>{{ 'header.versionNotifications' | translate }}</span>
           </button>
         }

@@ -42,7 +42,7 @@
         [subValue]="filtersSubValues()[experimentsTableColFields.TAGS]"
         [columns]="initialColumns()"
         [andFilter]="filtersMatch()['tags'] === 'AND'"
-        fixedOptionsSubheader="System tags"
+        [fixedOptionsSubheader]="'experiments.table.systemTags' | translate"
         (subFilterChanged)="tableFilterChanged({id:'system_tags'}, $event)"
         (filterChanged)="tableFilterChanged({id: $event.col}, $event)"
         (menuOpened)="columnFilterOpened($event)"
@@ -69,11 +69,11 @@
       </div>
       <mat-menu #selectionMenu="matMenu">
         @if (entityType() === entityTypes.experiment) {
-          <div class="menu-title">Select from project</div>
+          <div class="menu-title">{{ 'models.select.menu.selectFromProject' | translate }}</div>
         }
-        <button mat-menu-item data-id="All Option" (click)="selectAll()">All</button>
-        <button mat-menu-item data-id="None Option" (click)="emitSelection([])">None</button>
-        <button mat-menu-item data-id="All Matching Filter Option" (click)="selectAll(true)">All matching filter
+        <button mat-menu-item data-id="All Option" (click)="selectAll()">{{ 'models.select.menu.all' | translate }}</button>
+        <button mat-menu-item data-id="None Option" (click)="emitSelection([])">{{ 'models.select.menu.none' | translate }}</button>
+        <button mat-menu-item data-id="All Matching Filter Option" (click)="selectAll(true)">{{ 'models.select.menu.allMatchingFilter' | translate }}
         </button>
       </mat-menu>
     </ng-template>
@@ -87,7 +87,7 @@
         [options]="filtersOptions()[col.id] | filter:searchValues[col.id]:'label'"
         [sortOrder]="tableSortFieldsObject()[col.id]"
         [tooltip]="col.metric_hash || col.isParam"
-        [fixedOptionsSubheader]="col.id === experimentsTableColFields.TAGS ? 'System tags' : ''"
+        [fixedOptionsSubheader]="col.id === experimentsTableColFields.TAGS ? ('experiments.table.systemTags' | translate) : ''"
         [andFilter]="col.andFilter ? filtersMatch()[col.id] === 'AND' : null"
         (sortOrderChanged)="onSortChanged($event, col.id)"
         (filterChanged)="tableFilterChanged(col, $event);"
@@ -134,7 +134,7 @@
         @case (experimentsTableColFields.USER) {
           <span class="ellipsis"
             smShowTooltipIfEllipsis
-          [smTooltip]="experiment.user?.name ? experiment.user?.name : 'Unknown User'">{{ experiment.user?.name ? experiment.user?.name : 'Unknown User' }}</span>
+          [smTooltip]="experiment.user?.name ? experiment.user?.name : ('experiments.table.unknownUser' | translate)">{{ experiment.user?.name ? experiment.user?.name : ('experiments.table.unknownUser' | translate) }}</span>
         }
         @case (experimentsTableColFields.PROJECT) {
           <span
@@ -146,11 +146,11 @@
         }
         @case (experimentsTableColFields.STARTED) {
           <span class="ellipsis"
-          [smTooltip]="experiment.started | date : timeFormatString">{{ experiment.started | timeAgo }}</span>
+          [smTooltip]="experiment.started | smDate : timeFormatString">{{ experiment.started | timeAgo }}</span>
         }
         @case (experimentsTableColFields.LAST_UPDATE) {
           <span class="ellipsis"
-          [smTooltip]="experiment.last_update | date : timeFormatString">{{ experiment.last_update | timeAgo }}</span>
+          [smTooltip]="experiment.last_update | smDate : timeFormatString">{{ experiment.last_update | timeAgo }}</span>
         }
         @case (experimentsTableColFields.ACTIVE_DURATION) {
           <span class="ellipsis">{{ experiment.active_duration | duration }}</span>
@@ -162,7 +162,7 @@
           <mat-checkbox #cb
                         smClickStopPropagation
                         data-id="Select All Loaded Tasks"
-                        [smTooltip]="selectionReachedLimit() && !(checkedExperiments() | isRowSelected:experiment)? 'Reached selection limit': null"
+                        [smTooltip]="selectionReachedLimit() && !(checkedExperiments() | isRowSelected:experiment)? ('experiments.table.selectionLimit' | translate) : null"
                         [disabled]="selectionReachedLimit() && !(checkedExperiments() | isRowSelected:experiment)"
                         [checked]="checkedExperiments() | isRowSelected:experiment"
                         (click)="rowSelectedChanged({ value: cb.checked, event: $event}, experiment)">
@@ -278,11 +278,11 @@
         @if (!cardsCollapsed()) {
           <span animate.enter="enter" animate.leave="leaving">
             <div class="d-flex justify-content-between compact-columns-data" [class.selected]="selected">
-              <span class="ellipsis">Updated {{ experiment.last_update | timeAgo }}<span
-              class="dot">●</span>Created by {{ experiment.user?.name || 'Unknown User' }}
+              <span class="ellipsis">{{ 'experiments.table.updated' | translate }} {{ experiment.last_update | timeAgo }}<span
+              class="dot">●</span>{{ 'experiments.table.createdBy' | translate }} {{ experiment.user?.name || ('experiments.table.unknownUser' | translate) }}
             </span>
             @if (experiment.last_iteration) {
-              <span>{{ experiment.last_iteration }} Iterations</span>
+              <span>{{ experiment.last_iteration }} {{ 'experiments.table.iterations' | translate }}</span>
             }
           </div>
         </span>

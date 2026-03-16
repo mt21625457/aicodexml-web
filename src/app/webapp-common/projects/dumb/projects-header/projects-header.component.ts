@@ -5,6 +5,7 @@ import {MenuItemComponent} from '@common/shared/ui-components/panel/menu-item/me
 import {ShowOnlyUserWorkComponent} from '@common/shared/components/show-only-user-work/show-only-user-work.component';
 import {MainPagesHeaderFilterComponent} from '@common/shared/components/main-pages-header-filter/main-pages-header-filter.component';
 import {CommonSearchComponent} from '@common/common-search/containers/common-search/common-search.component';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'sm-projects-header',
@@ -16,6 +17,7 @@ import {CommonSearchComponent} from '@common/common-search/containers/common-sea
     ShowOnlyUserWorkComponent,
     MainPagesHeaderFilterComponent,
     CommonSearchComponent,
+    TranslatePipe,
   ]
 })
 export class ProjectsHeaderComponent {
@@ -25,10 +27,10 @@ export class ProjectsHeaderComponent {
   enableTagsFilter = input(true);
   sortByField = input<string>();
 
-  sortByTitle = computed(() => this.sortByField().includes('name') ? 'NAME' : 'RECENT');
+  sortByTitleKey = computed(() => this.sortByField()?.includes('name') ? 'projects.sort.name' : 'projects.sort.recent');
+  isSortByName = computed(() => this.sortByField()?.includes('name'));
 
   orderByChanged = output<string>();
   searchChanged = output<string>();
 }
-
 

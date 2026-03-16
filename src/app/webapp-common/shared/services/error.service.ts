@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
 
 export interface Error {
   meta: {
@@ -13,6 +14,7 @@ export interface Error {
   providedIn: 'root'
 })
 export class ErrorService {
+  private translate = inject(TranslateService);
 
   template(strings, ...keys) {
     return (values => {
@@ -49,6 +51,10 @@ export class ErrorService {
   };
 
   getErrorMsg(error: Error, extraParams: Record<string, string> = {}) {
+    const authErrorMessage = this.getAuthErrorMsg(error, extraParams);
+    if (authErrorMessage) {
+      return authErrorMessage;
+    }
     const template = this.codes?.[error?.meta?.result_code]?.[error?.meta?.result_subcode];
     if (template) {
       let params = {resultMsg: error?.meta?.result_msg, ...extraParams};
@@ -62,6 +68,39 @@ export class ErrorService {
       }
     }
     return error?.meta?.result_msg || '';
+  }
+
+  private getAuthErrorMsg(error: Error, extraParams: Record<string, string>) {
+    if (error?.meta?.result_code !== 400) {
+      return '';
+    }
+
+    let params = {resultMsg: error?.meta?.result_msg, ...extraParams};
+    if (error?.meta?.error_data) {
+      params = {...error.meta.error_data, ...params};
+    }
+
+    switch (error?.meta?.result_subcode) {
+      case 52:
+      case 53:
+        return this.translate.instant('errors.auth.identityVerificationFailed');
+      case 55:
+        return this.translate.instant('errors.auth.identityVerificationTimeout');
+      case 56:
+        return this.translate.instant('errors.auth.inviteExpired', params);
+      case 57:
+        return this.translate.instant('errors.auth.accountAlreadyExists', params);
+      case 58:
+        return this.translate.instant('errors.auth.noAccountExists');
+      case 62:
+        return this.translate.instant('errors.auth.checkEmail');
+      case 67:
+        return this.translate.instant('errors.auth.emailNotAllowed', params);
+      case 92:
+        return this.translate.instant('errors.auth.cantLoginTenant', params);
+      default:
+        return '';
+    }
   }
 
   lastRunError(error: Error) {

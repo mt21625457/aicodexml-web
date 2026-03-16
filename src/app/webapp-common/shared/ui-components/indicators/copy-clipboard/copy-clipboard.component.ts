@@ -5,6 +5,7 @@ import {ClipboardModule} from 'ngx-clipboard';
 import {ClickStopPropagationDirective} from '@common/shared/ui-components/directives/click-stop-propagation.directive';
 import {MatButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
     selector: 'sm-copy-clipboard',
@@ -16,15 +17,16 @@ import {MatIcon} from '@angular/material/icon';
         ClipboardModule,
         ClickStopPropagationDirective,
         MatIcon,
-        MatButton
+        MatButton,
+        TranslatePipe
     ]
 })
 export class CopyClipboardComponent {
 
   clipboardText = input<string>();
   disabled = input(false);
-  label = input<string>('Copy to clipboard');
-  tooltipText = input('Copy to clipboard');
+  label = input<string>('shared.copyToClipboard');
+  tooltipText = input('shared.copyToClipboard');
   copyIcon = input<string>();
   tooltipPosition = input<TooltipPosition>('above');
   smallIcon = input(false);

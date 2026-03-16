@@ -17,6 +17,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {
   ClearFiltersButtonComponent
 } from '@common/shared/components/clear-filters-button/clear-filters-button.component';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'sm-select-model-header',
@@ -31,6 +32,7 @@ import {
     SearchComponent,
     MatSlideToggleModule,
     ClearFiltersButtonComponent,
+    TranslatePipe,
   ],
 })
 export class SelectModelHeaderComponent {

@@ -48,6 +48,7 @@ import {
   ExperimentInfoEditDescriptionComponent
 } from '@common/experiments/dumb/experiment-info-edit-description/experiment-info-edit-description.component';
 import {MatIconModule} from '@angular/material/icon';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'sm-experiment-info-header',
@@ -68,13 +69,15 @@ import {MatIconModule} from '@angular/material/icon';
     ShowTooltipIfEllipsisDirective,
     MatIconButton,
     PushPipe,
-    ExperimentInfoEditDescriptionComponent
+    ExperimentInfoEditDescriptionComponent,
+    TranslatePipe
   ]
 })
 export class ExperimentInfoHeaderComponent {
   private store = inject(Store);
   private router = inject(Router);
   private activatedRoute = inject(ActivatedRoute);
+  private translate = inject(TranslateService);
 
   protected tagsFilterByProject$ = this.store.select(selectTagsFilterByProject);
   protected projectTags$ = this.store.select(selectExperimentsTags);
@@ -157,6 +160,6 @@ export class ExperimentInfoHeaderComponent {
   }
 
   copyToClipboard() {
-    this.store.dispatch(addMessage('success', 'Copied to clipboard'));
+    this.store.dispatch(addMessage('success', this.translate.instant('shared.idCopied')));
   }
 }

@@ -91,7 +91,7 @@ describe('DashboardComponent', () => {
   });
 
   it('should dispatch initSearch in the constructor', () => {
-    expect(store.dispatch).toHaveBeenCalledWith(initSearch({payload: 'Search for all'}));
+    expect(store.dispatch).toHaveBeenCalledWith(initSearch({payload: 'dashboard.searchPlaceholder'}));
   });
 
   it('should navigate to search when active search becomes true', fakeAsync(() => {
@@ -140,5 +140,4 @@ describe('DashboardComponent', () => {
     expect(component.width).toBe(1024);
   });
 });
-
 

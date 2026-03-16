@@ -10,6 +10,7 @@ import {SaferPipe} from '@common/shared/pipes/safe.pipe';
 import {TooltipDirective} from '@common/shared/ui-components/indicators/tooltip/tooltip.directive';
 import {MatCheckbox} from '@angular/material/checkbox';
 import {FormsModule} from '@angular/forms';
+import {TranslateService} from '@ngx-translate/core';
 
 export interface TipsModalData {
   tips: Tip[];
@@ -36,6 +37,7 @@ export interface TipsModalData {
 export class TipOfTheDayModalComponent {
   public matDialogRef = inject<MatDialogRef<TipOfTheDayModalComponent>>(MatDialogRef<TipOfTheDayModalComponent>);
   private store = inject(Store);
+  private translate = inject(TranslateService);
   protected data = inject<TipsModalData>(MAT_DIALOG_DATA);
 
   public tips = signal<Tip[]>(this.data.tips);
@@ -50,7 +52,7 @@ export class TipOfTheDayModalComponent {
   }
 
   copyToClipboardSuccess() {
-    this.store.dispatch(addMessage(MESSAGES_SEVERITY.SUCCESS, 'URL copied successfully'));
+    this.store.dispatch(addMessage(MESSAGES_SEVERITY.SUCCESS, this.translate.instant('shared.urlCopied')));
   }
 
   prev() {

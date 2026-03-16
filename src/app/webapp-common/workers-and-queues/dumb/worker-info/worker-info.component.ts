@@ -15,6 +15,7 @@ import {MatIconButton} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {TimeAgoPipe} from '@common/shared/pipes/timeAgo';
 import {DurationFormaterPipe} from '@common/shared/pipes/duration-formater.pipe';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'sm-worker-info',
@@ -34,6 +35,7 @@ import {DurationFormaterPipe} from '@common/shared/pipes/duration-formater.pipe'
     MatTabGroup,
     TimeAgoPipe,
     DurationFormaterPipe,
+    TranslatePipe,
   ]
 })
 export class WorkerInfoComponent {
@@ -41,8 +43,8 @@ export class WorkerInfoComponent {
   deselectWorker = output();
 
   public readonly cols     = [
-    {header: 'QUEUE', class: ''},
-    {header: 'NEXT TASK', class: ''},
-    {header: 'IN QUEUE', class: ''},
+    {header: 'workers.info.queueTable.headers.queue', class: ''},
+    {header: 'workers.info.queueTable.headers.nextTask', class: ''},
+    {header: 'workers.info.queueTable.headers.inQueue', class: ''},
   ];
 }

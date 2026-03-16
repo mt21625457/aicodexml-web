@@ -20,6 +20,7 @@ import {MatButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 import {Role} from '~/business-logic/model/auth/role';
 import {getBlockNotice} from '~/features/settings/settings.util';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
     selector: 'sm-profile-preferences',
@@ -30,7 +31,8 @@ import {getBlockNotice} from '~/features/settings/settings.util';
         TooltipDirective,
         UsageStatsComponent,
         MatButton,
-        MatIcon
+        MatIcon,
+        TranslatePipe
     ],
     changeDetection: ChangeDetectionStrategy.OnPush
 })

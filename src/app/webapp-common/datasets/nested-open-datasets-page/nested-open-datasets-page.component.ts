@@ -26,6 +26,8 @@ import {TagListComponent} from '@common/shared/ui-components/tags/tag-list/tag-l
 import {PushPipe} from '@ngrx/component';
 import {MatIcon} from '@angular/material/icon';
 import {MatButton} from '@angular/material/button';
+import {TranslatePipe} from '@ngx-translate/core';
+import {EntityTypeEnum} from '~/shared/constants/non-common-consts';
 
 @Component({
     selector: 'sm-nested-open-datasets-page',
@@ -39,7 +41,8 @@ import {MatButton} from '@angular/material/button';
     MatIcon,
     MatButton,
     DatasetEmptyComponent,
-    NestedProjectViewPageComponent
+    NestedProjectViewPageComponent,
+    TranslatePipe
   ]
 })
 export class NestedOpenDatasetsPageComponent extends ProjectsPageComponent implements OnInit, OnDestroy {
@@ -111,8 +114,9 @@ export class NestedOpenDatasetsPageComponent extends ProjectsPageComponent imple
         breadcrumbOptions: {
           showProjects: !!selectedProject,
           featureBreadcrumb: {
-            name: 'DATASETS',
-            url: defaultNestedModeForFeature['datasets'] ? 'datasets/simple/*/projects' : 'datasets'
+            name: 'datasets.breadcrumb',
+            url: defaultNestedModeForFeature['datasets'] ? 'datasets/simple/*/projects' : 'datasets',
+            translate: true
           },
           projectsOptions: {
             basePath: 'datasets/simple',
@@ -128,5 +132,9 @@ export class NestedOpenDatasetsPageComponent extends ProjectsPageComponent imple
 
   override  getProjectsTags(){
     this.store.dispatch(getProjectsTags({entity: 'dataset', projectId: this.projectId}));
+  }
+
+  protected override getName() {
+    return EntityTypeEnum.openDataset;
   }
 }

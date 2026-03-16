@@ -22,7 +22,7 @@ import {getSystemTags, isDevelopment} from '~/features/experiments/shared/experi
 import {User} from '~/business-logic/model/users/user';
 import {sortByArr} from '@common/shared/pipes/show-selected-first.pipe';
 import {NoUnderscorePipe} from '@common/shared/pipes/no-underscore.pipe';
-import {DatePipe, NgTemplateOutlet, TitleCasePipe} from '@angular/common';
+import {NgTemplateOutlet, TitleCasePipe} from '@angular/common';
 import {INITIAL_EXPERIMENT_TABLE_COLS} from '../../experiment.consts';
 import {
   ProjectsGetTaskParentsResponseParents
@@ -77,6 +77,8 @@ import {ReplaceViaMapPipe} from '@common/shared/pipes/replaceViaMap';
 import {DurationPipe} from '@common/shared/pipes/duration.pipe';
 import {TimeAgoPipe} from '@common/shared/pipes/timeAgo';
 import {FilterPipe} from '@common/shared/pipes/filter.pipe';
+import {LocalizedDatePipe} from '@common/shared/pipes/localized-format.pipe';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'sm-experiments-table',
@@ -107,15 +109,17 @@ import {FilterPipe} from '@common/shared/pipes/filter.pipe';
     ReactiveFormsModule,
     MatMenuTrigger,
     MatMenu,
-    DatePipe,
+    LocalizedDatePipe,
     IsRowSelectedPipe,
     ReplaceViaMapPipe,
     DurationPipe,
     TimeAgoPipe,
-    FilterPipe
+    FilterPipe,
+    TranslatePipe
   ]
 })
 export class ExperimentsTableComponent extends BaseTableView {
+  private translate = inject(TranslateService);
   override entitiesKey = 'experiments';
   override selectedEntitiesKey = 'checkedExperiments';
   readonly getSystemTags = getSystemTags;
@@ -222,7 +226,7 @@ export class ExperimentsTableComponent extends BaseTableView {
         value: type
       })),
     [EXPERIMENTS_TABLE_COL_FIELDS.USER]: this.sortOptionsList(this.users()?.map(user => ({
-      label: user.name ? user.name : 'Unknown User',
+      label: user.name ? user.name : this.translate.instant('experiments.table.unknownUser'),
       value: user.id,
       tooltip: ''
     })) ?? [], [this.currentUserId(), ...this.sortByFilterValues()[EXPERIMENTS_TABLE_COL_FIELDS.USER]]),

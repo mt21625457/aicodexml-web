@@ -11,11 +11,11 @@ import Convert from 'ansi-to-html';
 import {Log} from '../../actions/common-experiment-output.actions';
 
 import hasAnsi from 'has-ansi';
-import {DatePipe} from '@angular/common';
 import {SaferPipe} from '@common/shared/pipes/safe.pipe';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import {MatIcon} from '@angular/material/icon';
 import {MatButton} from '@angular/material/button';
+import {LocalizedDatePipe} from '@common/shared/pipes/localized-format.pipe';
 
 interface LogRow {
   timestamp?: string;
@@ -33,7 +33,7 @@ interface LogRow {
         CdkVirtualScrollViewport,
         CdkVirtualForOf,
         CdkFixedSizeVirtualScroll,
-        DatePipe,
+        LocalizedDatePipe,
         SaferPipe,
         MatProgressSpinner,
         MatIcon,

@@ -92,12 +92,12 @@ export const MESSAGES_SEVERITY = {
 export const rootProjectsPageSize = 50;
 
 export const timeFrameOptions: IOption[] = [
-  {label: '3 Hours', value: (3 * TIME_INTERVALS.HOUR).toString()},
-  {label: '6 Hours', value: (6 * TIME_INTERVALS.HOUR).toString()},
-  {label: '12 Hours', value: (12 * TIME_INTERVALS.HOUR).toString()},
-  {label: '1 Day', value: (TIME_INTERVALS.DAY).toString()},
-  {label: '1 Week', value: (TIME_INTERVALS.WEEK).toString()},
-  {label: '1 Month', value: (TIME_INTERVALS.MONTH).toString()}
+  {label: 'shared.timeframes.threeHours', value: (3 * TIME_INTERVALS.HOUR).toString()},
+  {label: 'shared.timeframes.sixHours', value: (6 * TIME_INTERVALS.HOUR).toString()},
+  {label: 'shared.timeframes.twelveHours', value: (12 * TIME_INTERVALS.HOUR).toString()},
+  {label: 'shared.timeframes.oneDay', value: (TIME_INTERVALS.DAY).toString()},
+  {label: 'shared.timeframes.oneWeek', value: (TIME_INTERVALS.WEEK).toString()},
+  {label: 'shared.timeframes.oneMonth', value: (TIME_INTERVALS.MONTH).toString()}
 ];
 
 export type ReportsApiMultiplotsResponse = Record<string, Record<string, Record<string, Record<string, {

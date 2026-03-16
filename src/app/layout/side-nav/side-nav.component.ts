@@ -11,6 +11,7 @@ import {MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipDefaultOptions} from '@angular/ma
 import {TooltipDirective} from '@common/shared/ui-components/indicators/tooltip/tooltip.directive';
 import {NgOptimizedImage} from '@angular/common';
 import {RouterLink, RouterLinkActive} from '@angular/router';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'sm-side-nav',
@@ -27,7 +28,8 @@ import {RouterLink, RouterLinkActive} from '@angular/router';
     TooltipDirective,
     NgOptimizedImage,
     RouterLink,
-    RouterLinkActive
+    RouterLinkActive,
+    TranslatePipe
   ]
 })
 export class SideNavComponent {

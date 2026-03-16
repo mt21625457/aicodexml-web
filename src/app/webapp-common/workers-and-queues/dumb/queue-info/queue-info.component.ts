@@ -26,6 +26,7 @@ import {MatIconButton} from '@angular/material/button';
 import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {MatIconModule} from '@angular/material/icon';
 import {SelectQueueModule} from '@common/experiments/shared/components/select-queue/select-queue.module';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'sm-queue-info',
@@ -43,7 +44,8 @@ import {SelectQueueModule} from '@common/experiments/shared/components/select-qu
     MatIconButton,
     MatTab,
     MatTabGroup,
-    SelectQueueModule
+    SelectQueueModule,
+    TranslatePipe
   ]
 })
 export class QueueInfoComponent {
@@ -72,9 +74,9 @@ export class QueueInfoComponent {
     {header: '', class: ''}
   ];
   public readonly workersCols = [
-    {header: 'NAME', class: ''},
-    {header: 'IP', class: ''},
-    {header: 'CURRENTLY EXECUTING', class: ''}
+    {header: 'queues.info.headers.name', class: ''},
+    {header: 'queues.info.headers.ip', class: ''},
+    {header: 'queues.info.headers.currentlyExecuting', class: ''}
   ];
 
   @HostListener('document:click', ['$event'])

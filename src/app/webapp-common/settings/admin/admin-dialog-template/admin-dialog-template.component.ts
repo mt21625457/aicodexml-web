@@ -8,6 +8,7 @@ import {MatInputModule} from '@angular/material/input';
 import {FormsModule} from '@angular/forms';
 import {MatButton} from '@angular/material/button';
 import {MatTab, MatTabGroup} from '@angular/material/tabs';
+import {TranslatePipe} from '@ngx-translate/core';
 
 
 @Component({
@@ -22,7 +23,8 @@ import {MatTab, MatTabGroup} from '@angular/material/tabs';
         FormsModule,
         MatButton,
         MatTabGroup,
-        MatTab
+        MatTab,
+        TranslatePipe
     ]
 })
 export class AdminDialogTemplateComponent {

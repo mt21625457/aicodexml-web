@@ -20,19 +20,19 @@
   >
   <button create-button mat-flat-button (click)="createPipeline()">
     <mat-icon fontSet="al" fontIcon="al-ico-add"></mat-icon>
-    NEW PIPELINE
+    {{ 'pipelines.actions.newPipeline' | translate }}
   </button>
 
   <div empty-state class="empty-state">
     <div class="title-icon">
       <mat-icon fontSet="al" fontIcon="al-ico-pipelines" class="xxl"></mat-icon>
     </div>
-    <div class="title">NO PIPELINES TO SHOW</div>
-    <div class="sub-title">Run your first pipeline to see it displayed here
+    <div class="title">{{ 'pipelines.empty.title' | translate }}</div>
+    <div class="sub-title">{{ 'pipelines.empty.subtitle' | translate }}
       @if (allExamples) {
-        or <a href=""
+        {{ 'pipelines.empty.or' | translate }} <a href=""
         (click)="$event.preventDefault(); createPipelineExamples()"
-        class="link">generate example
+        class="link">{{ 'pipelines.empty.generateExample' | translate }}
       </a>
     }
   </div>
@@ -43,15 +43,15 @@
 <ng-template #cardContent let-project>
   <sm-circle-counter
     [counter]="project.id === '*' ? '∞' : project.stats?.active?.status_count?.in_progress ?? '0'"
-    label="RUNNING"
+    [label]="'pipelines.labels.running' | translate"
   [type]="project.stats?.active?.status_count?.in_progress ===0 ? circleTypeEnum.empty : circleTypeEnum.running"></sm-circle-counter>
   <sm-circle-counter [counter]="project.id === '*' ? '∞' : project.stats?.active?.completed_tasks_24h ?? '0'"
-    label="COMPLETED"
+    [label]="'pipelines.labels.completed' | translate"
     [type]="project.stats?.active?.completed_tasks_24h ===0 ? circleTypeEnum.empty : circleTypeEnum.completed"
-  underLabel="(24 hrs)"></sm-circle-counter>
+    [underLabel]="'pipelines.labels.last24Hours' | translate"></sm-circle-counter>
   <sm-circle-counter
     [counter]="project.stats?.active?.status_count.failed"
-    label="FAILED"
+    [label]="'pipelines.labels.failed' | translate"
     [type]="project.stats?.active?.status_count.failed ? circleTypeEnum.failed : circleTypeEnum.empty"
   ></sm-circle-counter>
 </ng-template>
@@ -70,4 +70,3 @@
     }
   </div>
 </ng-template>
-

@@ -11,6 +11,7 @@ import {FormsModule} from '@angular/forms';
 import {MatButton} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {ButtonToggleComponent} from '@common/shared/ui-components/inputs/button-toggle/button-toggle.component';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'sm-reports-header',
@@ -26,7 +27,8 @@ import {ButtonToggleComponent} from '@common/shared/ui-components/inputs/button-
     MatIconModule,
     FormsModule,
     MatButton,
-    ButtonToggleComponent
+    ButtonToggleComponent,
+    TranslatePipe
   ]
 })
 export class ReportsHeaderComponent {
@@ -39,7 +41,8 @@ export class ReportsHeaderComponent {
   projectId = input<string>();
   sortByField = input<string>();
 
-  sortByTitle = computed(() => this.sortByField().includes('name') ? 'NAME' : 'RECENT')
+  sortByTitleKey = computed(() => this.sortByField()?.includes('name') ? 'reports.sort.name' : 'reports.sort.recent');
+  isSortByName = computed(() => this.sortByField()?.includes('name'));
 
   reportsFilterChanged = output<string>();
   orderByChanged = output<string>();

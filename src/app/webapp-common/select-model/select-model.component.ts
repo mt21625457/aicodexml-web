@@ -40,6 +40,7 @@ import {SelectModelHeaderComponent} from '@common/models/shared/select-model-hea
 import {DialogTemplateComponent} from '@common/shared/ui-components/overlay/dialog-template/dialog-template.component';
 import {PushPipe} from '@ngrx/component';
 import {MatButton} from '@angular/material/button';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
 export interface SelectModelData {
   selectionMode?: 'multiple' | 'single' | null;
@@ -60,11 +61,13 @@ export interface SelectModelData {
     DialogTemplateComponent,
     PushPipe,
     MatButton,
+    TranslatePipe,
   ]
 })
 export class SelectModelComponent {
   public dialogRef = inject<MatDialogRef<ConfirmDialogComponent>>(MatDialogRef<ConfirmDialogComponent>);
   public data = inject<SelectModelData>(MAT_DIALOG_DATA);
+  private translate = inject(TranslateService);
   protected tableSortOrder$: Observable<TableSortOrderEnum>;
   protected tableCols = MODELS_TABLE_COLS;
   protected tableCols$ = of(this.tableCols)
@@ -173,13 +176,13 @@ export class SelectModelComponent {
       return;
     }
     if (models.length === 0) {
-      this.store.dispatch(addMessage(MESSAGES_SEVERITY.WARN, 'Compare module should include at least one model'));
+      this.store.dispatch(addMessage(MESSAGES_SEVERITY.WARN, this.translate.instant('models.select.messages.atLeastOne')));
       return;
     }
     if (models.length <= compareLimitations) {
       this.store.dispatch(setSelectedModels({models}));
     } else {
-      this.store.dispatch(addMessage(MESSAGES_SEVERITY.WARN, compareLimitations + ' or fewer models can be compared'));
+      this.store.dispatch(addMessage(MESSAGES_SEVERITY.WARN, this.translate.instant('models.select.messages.limit', {count: compareLimitations})));
     }
   }
 

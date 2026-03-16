@@ -41,6 +41,8 @@ import {MatButton} from '@angular/material/button';
 import {minLengthTrimmed} from '@common/shared/validators/minLengthTrimmed';
 import {User} from '~/business-logic/model/users/user';
 import {Title} from '@angular/platform-browser';
+import {SaferPipe} from '@common/shared/pipes/safe.pipe';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
 
 @Component({
@@ -61,7 +63,9 @@ import {Title} from '@angular/platform-browser';
         MatLabel,
         MatInput,
         MatButton,
-        NgTemplateOutlet
+        NgTemplateOutlet,
+        TranslatePipe,
+        SaferPipe
     ]
 })
 export class LoginComponent {
@@ -76,6 +80,7 @@ export class LoginComponent {
   private destroy = inject(DestroyRef);
   private document = inject(DOCUMENT);
   private titleService = inject(Title);
+  private translate = inject(TranslateService);
 
   showSimpleLogin = input<boolean>();
   hideTou = input<boolean>();
@@ -104,7 +109,7 @@ export class LoginComponent {
 
   protected loginFailed = signal(false);
   protected showSpinner = signal<boolean>(null);
-  protected loginTitle = signal<string>(this.isInvite ? '' : 'Login');
+  protected loginTitle = signal<string>(this.isInvite ? '' : this.translate.instant('auth.loginTitle'));
   private title = computed(() => this.config.configuration().branding?.faviconUrl ? '' : 'ClearML');
   private titlePrefix = computed(() => this.title() ? this.title() + ' - ' : '')
   touLink = computed(() => this.environment().legal.TOULink);
@@ -115,15 +120,15 @@ export class LoginComponent {
   private theme = this.store.selectSignal(selectUserTheme);
   private originalTheme = signal(this.theme());
 
-  get buttonCaption() {
-    return this.loginMode() === loginModes.simple ? 'START' : 'LOGIN';
+  get buttonCaptionKey() {
+    return this.loginMode() === loginModes.simple ? 'auth.start' : 'auth.loginAction';
   }
 
   constructor() {
     if (!this.config.configuration().forceTheme) {
       this.setTheme(this.environment().communityServer ? 'light' : 'dark');
     }
-    this.titleService.setTitle(`${this.titlePrefix()}Login`);
+    this.titleService.setTitle(`${this.titlePrefix()}${this.translate.instant('auth.loginTitle')}`);
 
     effect(() => {
       if (this.config.configuration()) {
@@ -134,7 +139,8 @@ export class LoginComponent {
 
     this.store.dispatch(setBreadcrumbs({
       breadcrumbs: [[{
-        name: 'Login',
+        name: 'shell.breadcrumbs.login',
+        translate: true,
         type: CrumbTypeEnum.Feature
       }]]}));
 
@@ -168,8 +174,7 @@ export class LoginComponent {
       mergeMap(inviteId => this.loginService.getInviteInfo(inviteId))
     ).subscribe((inviteInfo: any) => {
       const shorterName = inviteInfo.user_given_name || inviteInfo.user_name?.split(' ')[0];
-      this.loginTitle.set(!shorterName ? '' : `Accept ${shorterName ? shorterName + '\'s' : ''} invitation and
-      join their team`);
+      this.loginTitle.set(!shorterName ? '' : this.translate.instant('auth.inviteTitle', {name: shorterName}));
     });
 
     this.route.queryParams
@@ -278,7 +283,7 @@ export class LoginComponent {
         disableClose: true,
         data: {
           body: this.environment().loginPopup,
-          yes: 'OK',
+          yes: 'shared.ok',
           iconClass: 'al-ico-alert',
           iconColor: 'var(--color-warning)'
         }

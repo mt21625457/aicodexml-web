@@ -19,6 +19,7 @@ import {MatIcon} from '@angular/material/icon';
 import MetricTypeEnum = ServingGetEndpointMetricsHistoryRequest.MetricTypeEnum;
 import {SelectableGroupedFilterListComponent} from '@common/shared/ui-components/data/selectable-grouped-filter-list/selectable-grouped-filter-list.component';
 import {GroupedList} from '@common/tasks/tasks.model';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
     selector: 'sm-serving-monitor',
@@ -39,7 +40,8 @@ import {GroupedList} from '@common/tasks/tasks.model';
         MatButton,
         MatIcon,
         MatIconButton,
-        SelectableGroupedFilterListComponent
+        SelectableGroupedFilterListComponent,
+        TranslatePipe
     ]
 })
 export class ServingMonitorComponent {

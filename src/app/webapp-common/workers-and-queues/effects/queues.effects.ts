@@ -26,6 +26,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {ConfirmDialogComponent} from '@common/shared/ui-components/overlay/confirm-dialog/confirm-dialog.component';
 import {ConfirmDialogConfig} from '@common/shared/ui-components/overlay/confirm-dialog/confirm-dialog.model';
 import {ErrorService} from '@common/shared/services/error.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Injectable()
 export class QueuesEffect {
@@ -34,6 +35,7 @@ export class QueuesEffect {
   private store = inject(Store);
   private dialog = inject(MatDialog);
   private errService = inject(ErrorService);
+  private translate = inject(TranslateService);
 
   activeLoader = createEffect(() => {
     return this.actions.pipe(
@@ -90,11 +92,11 @@ export class QueuesEffect {
         ConfirmDialogComponent,
         {
           data: {
-            title: 'Delete Queue',
-            body: `Are you sure you would like to delete the "<b>${escape(action.queue.caption)}</b>" queue?`,
+            title: 'queues.messages.deleteTitle',
+            body: this.translate.instant('queues.messages.deleteBody', {queue: `<b>${escape(action.queue.caption)}</b>`}),
             centerText: true,
-            yes: 'Delete',
-            no: 'Cancel',
+            yes: 'shared.delete',
+            no: 'shared.cancel',
             iconClass: 'al-ico-trash'
           }
         }).afterClosed().pipe(
@@ -106,7 +108,7 @@ export class QueuesEffect {
       catchError(err => [
         deactivateLoader(queueActions.deleteQueue.type),
         requestFailed(err),
-        addMessage(MESSAGES_SEVERITY.ERROR, 'Delete Queue failed')
+        addMessage(MESSAGES_SEVERITY.ERROR, this.translate.instant('queues.messages.deleteFailed'))
       ])
     );
   });
@@ -126,7 +128,7 @@ export class QueuesEffect {
         catchError(err => [
           deactivateLoader(action.type),
           requestFailed(err),
-          addMessage(MESSAGES_SEVERITY.ERROR, 'Clear queue failed')])
+          addMessage(MESSAGES_SEVERITY.ERROR, this.translate.instant('queues.messages.clearFailed'))])
       ))
     );
   });
@@ -143,7 +145,7 @@ export class QueuesEffect {
         catchError(err => [
           deactivateLoader(action.type),
           requestFailed(err),
-          addMessage(MESSAGES_SEVERITY.ERROR, 'Move Task failed')])
+          addMessage(MESSAGES_SEVERITY.ERROR, this.translate.instant('queues.messages.moveTaskFailed'))])
       ))
     )
   });
@@ -158,7 +160,7 @@ export class QueuesEffect {
       map(() => queueActions.fetchQueue({id: queue.id, autoRefresh: true})),
       catchError(err => [deactivateLoader(action.type),
         requestFailed(err),
-        addMessage(MESSAGES_SEVERITY.ERROR, 'Move Task failed')])
+        addMessage(MESSAGES_SEVERITY.ERROR, this.translate.instant('queues.messages.moveTaskFailed'))])
     ))
   ));
 
@@ -176,7 +178,7 @@ export class QueuesEffect {
           queueActions.fetchQueue({id: queue.id}),
           deactivateLoader(action.type),
           requestFailed(err),
-          addMessage(MESSAGES_SEVERITY.ERROR, 'Move Queue failed')])
+          addMessage(MESSAGES_SEVERITY.ERROR, this.translate.instant('queues.messages.moveQueueFailed'))])
       )
     ),
   ));
@@ -194,7 +196,7 @@ export class QueuesEffect {
         queueActions.getQueues({})
       ]),
       catchError(err => [deactivateLoader(action.type), requestFailed(err),
-        addMessage(MESSAGES_SEVERITY.ERROR, 'Remove Queue failed')])
+        addMessage(MESSAGES_SEVERITY.ERROR, this.translate.instant('queues.messages.removeFromQueueFailed'))])
     ))
   ));
 
@@ -208,7 +210,9 @@ export class QueuesEffect {
           ]
         ),
         catchError(err => [deactivateLoader(action.type), requestFailed(err),
-          addMessage(MESSAGES_SEVERITY.ERROR, `Failed to move task, ${this.errService.getErrorMsg(err.error)}`)])
+          addMessage(MESSAGES_SEVERITY.ERROR, this.translate.instant('queues.messages.moveToQueueFailed', {
+            error: this.errService.getErrorMsg(err.error)
+          }))])
       )
     )
   ));
@@ -271,9 +275,13 @@ export class QueuesEffect {
             }];
             newStats = {
               wait: addStats(currentStats.wait, waitData, action.maxPoints,
-                [{key: 'queueAvgWait'}], 'wait', {queueAvgWait: {title: 'Queue Average Wait Time', multiply: 1}}),
+                [{key: 'queueAvgWait'}], 'wait', {
+                  queueAvgWait: {title: this.translate.instant('queues.stats.series.queueAverageWaitTime'), multiply: 1}
+                }),
               length: addStats(currentStats.length, lenData, action.maxPoints,
-                [{key: 'queueLen'}], 'length', {queueLen: {title: 'Queues Average Length', multiply: 1}})
+                [{key: 'queueLen'}], 'length', {
+                  queueLen: {title: this.translate.instant('queues.stats.series.queuesAverageLength'), multiply: 1}
+                })
             };
             if (Array.isArray(newStats.wait) && newStats.wait.some(topic => topic.dates.length > 0)) {
               addFullRangeMarkers(newStats.wait, now - range, now);

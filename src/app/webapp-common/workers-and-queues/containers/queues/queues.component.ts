@@ -31,6 +31,7 @@ import {PushPipe} from '@ngrx/component';
 import {QueueInfoComponent} from '@common/workers-and-queues/dumb/queue-info/queue-info.component';
 import {QueueCreateDialogModule} from '@common/shared/queue-create-dialog/queue-create-dialog.module';
 import {injectQueryParams} from 'ngxtension/inject-query-params';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
 const REFRESH_INTERVAL = 30000;
 
@@ -50,7 +51,8 @@ const REFRESH_INTERVAL = 30000;
     QueuesTableComponent,
     PushPipe,
     QueueCreateDialogModule,
-    QueueInfoComponent
+    QueueInfoComponent,
+    TranslatePipe
   ]
 })
 export class QueuesComponent {
@@ -60,6 +62,7 @@ export class QueuesComponent {
   private dialog = inject(MatDialog);
   private breakpointObserver = inject(BreakpointObserver);
   private destroy = inject(DestroyRef);
+  private translate = inject(TranslateService);
   protected queueId = injectQueryParams('id');
 
   protected queues = this.store.selectSignal(selectSortedQueues);
@@ -73,7 +76,7 @@ export class QueuesComponent {
   protected queuesManager = this.route.snapshot.data.queuesManager;
 
   constructor() {
-    this.store.dispatch(initSearch({payload: 'Search for queues'}));
+    this.store.dispatch(initSearch({payload: 'queues.searchPlaceholder'}));
     this.store.dispatch(queueActions.getQueues({}));
 
     effect(() => {
@@ -116,10 +119,14 @@ export class QueuesComponent {
   clearQueue(queue: Queue) {
     this.dialog.open<ConfirmDialogComponent, ConfirmDialogConfig, boolean>(ConfirmDialogComponent, {
       data: {
-        title: 'Clear all pending tasks',
-        body: `Are you sure you want to dequeue the ${queue.entries_count} task${queue.entries_count > 1 ? 's' : ''} currently pending on the ${queue.caption} queue?`,
-        yes: 'Clear Queue',
-        no: 'Cancel',
+        title: 'queues.messages.clearTitle',
+        body: this.translate.instant('queues.messages.clearBody', {
+          count: queue.entries_count,
+          suffix: queue.entries_count > 1 ? 's' : '',
+          queue: queue.caption
+        }),
+        yes: 'queues.messages.clearAction',
+        no: 'shared.cancel',
         iconClass: 'al-ico-alert',
         iconColor: 'var(--color-warning)'
       }
@@ -183,6 +190,9 @@ export class QueuesComponent {
   }
 
   copySuccess(key: string) {
-    this.store.dispatch(addMessage(MESSAGES_SEVERITY.SUCCESS, `Queue ${key} copied to clipboard`));
+    this.store.dispatch(addMessage(
+      MESSAGES_SEVERITY.SUCCESS,
+      this.translate.instant('queues.messages.copied', {key})
+    ));
   }
 }

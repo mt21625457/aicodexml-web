@@ -31,13 +31,14 @@ import {FormsModule} from '@angular/forms';
 import {ClickStopPropagationDirective} from '@common/shared/ui-components/directives/click-stop-propagation.directive';
 import {PushPipe} from '@ngrx/component';
 import {selectModelId} from '@common/models/reducers';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
-export const INITIAL_MODEL_EXPERIMENTS_TABLE_COLS: ISmCol[] = [
+const createInitialModelExperimentsCols = (translate: TranslateService): ISmCol[] => [
   {
     id: EXPERIMENTS_TABLE_COL_FIELDS.NAME,
     headerType: ColHeaderTypeEnum.title,
     sortable: false,
-    header: 'NAME',
+    header: translate.instant('models.table.name'),
     style: {width: '400px'},
   },
   {
@@ -47,23 +48,23 @@ export const INITIAL_MODEL_EXPERIMENTS_TABLE_COLS: ISmCol[] = [
     filterable: true,
     searchableFilter: true,
     sortable: false,
-    header: 'TAGS',
+    header: translate.instant('models.table.tags'),
     style: {width: '300px'},
     excludeFilter: true,
     andFilter: true,
-    columnExplain: 'Click to include tag. Click again to exclude.',
+    columnExplain: translate.instant('models.table.tagsExplain'),
   },
   {
     id: EXPERIMENTS_TABLE_COL_FIELDS.STATUS,
     headerType: ColHeaderTypeEnum.sortFilter,
     filterable: true,
-    header: 'STATUS',
+    header: translate.instant('models.table.status'),
     style: {width: '130px', minWidth: '130px'},
   },
   {
     id: EXPERIMENTS_TABLE_COL_FIELDS.ID,
     headerType: ColHeaderTypeEnum.title,
-    header: 'ID',
+    header: translate.instant('models.table.id'),
     style: {width: '100px'},
   }
 ];
@@ -80,12 +81,14 @@ export const INITIAL_MODEL_EXPERIMENTS_TABLE_COLS: ISmCol[] = [
     FormsModule,
     ClickStopPropagationDirective,
     ClickStopPropagationDirective,
-    PushPipe
+    PushPipe,
+    TranslatePipe
   ]
 })
 export class ModelExperimentsTableComponent implements OnDestroy {
   private store = inject(Store);
-  public tableCols = INITIAL_MODEL_EXPERIMENTS_TABLE_COLS;
+  private translate = inject(TranslateService);
+  public tableCols = createInitialModelExperimentsCols(this.translate);
   public entityTypes = EntityTypeEnum;
   private paramsSubscription: Subscription;
   public tags$: Observable<string[]>;

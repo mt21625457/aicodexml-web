@@ -3,18 +3,16 @@ import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {catchError, map, switchMap} from 'rxjs/operators';
 import {CredentialsSettingsActions} from './settings.actions';
 import {addMessage} from '@common/core/actions/layout.actions';
-import {DatePipe} from '@angular/common';
 import {ApiStorageService} from '~/business-logic/api-services/storage.service';
 import {StorageGetSettingsResponse} from '~/business-logic/model/storage/storageGetSettingsResponse';
+import {TranslateService} from '@ngx-translate/core';
 
 @Injectable()
 export class SettingsEffects {
-
-  private datePipe = new DatePipe('en-US');
-
   constructor(
     private actions$: Actions,
     private storageApi: ApiStorageService,
+    private translate: TranslateService,
   ) {
   }
 
@@ -24,7 +22,7 @@ export class SettingsEffects {
       .pipe(
         map((res: { settings: StorageGetSettingsResponse }) => CredentialsSettingsActions.setCredentials({credentials: res.settings})),
         catchError(() => [
-          addMessage('error', 'Set storage credentials failed')
+          addMessage('error', this.translate.instant('settings.storage.messages.loadFailed'))
         ])
       )),
   ));
@@ -35,7 +33,7 @@ export class SettingsEffects {
       .pipe(
         map(() => CredentialsSettingsActions.setCredentials({credentials: action.credentials})),
         catchError(() => [
-          addMessage('error', 'Update storage credentials failed')
+          addMessage('error', this.translate.instant('settings.storage.messages.updateFailed'))
         ])
       ))
   ));

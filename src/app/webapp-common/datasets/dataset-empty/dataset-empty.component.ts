@@ -4,6 +4,7 @@ import {DialogTemplateComponent} from '@common/shared/ui-components/overlay/dial
 import {CodeEditorComponent} from '@common/shared/ui-components/data/code-editor/code-editor.component';
 import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {NgTemplateOutlet} from '@angular/common';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'sm-dataset-empty',
@@ -15,7 +16,8 @@ import {NgTemplateOutlet} from '@angular/common';
     CodeEditorComponent,
     MatTab,
     MatTabGroup,
-    NgTemplateOutlet
+    NgTemplateOutlet,
+    TranslatePipe
   ]
 })
 export class DatasetEmptyComponent {

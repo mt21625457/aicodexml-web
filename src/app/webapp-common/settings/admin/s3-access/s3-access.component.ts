@@ -10,6 +10,7 @@ import {MatFormField, MatInput} from '@angular/material/input';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldDefaultOptions} from '@angular/material/form-field';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
     selector: 'sm-s3-access',
@@ -23,7 +24,8 @@ import {MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldDefaultOptions} from '@angul
         MatFormField,
         MatButton,
         MatIcon,
-        MatIconButton
+        MatIconButton,
+        TranslatePipe
     ],
     providers: [
         {

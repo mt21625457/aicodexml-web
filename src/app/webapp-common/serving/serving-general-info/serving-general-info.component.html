@@ -13,13 +13,13 @@
         </div>
       }
       @if (kpi.href && (!kpi.value)) {
-        <div class="info-value">N/A</div>
+        <div class="info-value">{{ 'shared.notAvailable' | translate }}</div>
       }
     </sm-labeled-row>
   </div>
 }
 
-<div class="mid-title">MODEL INSTANCES LIST</div>
+<div class="mid-title">{{ 'serving.general.modelInstancesList' | translate }}</div>
 <sm-table
   [columns]="columns"
   [tableData]="lines()"
@@ -53,12 +53,12 @@
       }
       @case ('requests') {
         <span class="ellipsis" smShowTooltipIfEllipsis [smTooltip]="row?.requests">
-            {{ row?.requests | number }}
+            {{ row?.requests | smNumber }}
           </span>
       }
       @case ('requests_min') {
         <span class="ellipsis" smShowTooltipIfEllipsis [smTooltip]="row?.requests_min">
-            {{ row?.requests_min | number }}
+            {{ row?.requests_min | smNumber }}
           </span>
       }
       @case ('latency_ms') {

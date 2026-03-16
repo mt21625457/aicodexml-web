@@ -8,6 +8,7 @@ import {EditJsonComponent, EditJsonData} from '@common/shared/ui-components/over
 import {MatDialog} from '@angular/material/dialog';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
 type GoogleForm = FormGroup<{
   project: FormControl<string>;
@@ -31,6 +32,7 @@ type GoogleForm = FormGroup<{
         MatButton,
         MatIcon,
         MatIconButton,
+        TranslatePipe,
     ],
     templateUrl: './google-storage-credentials.component.html',
     styleUrls: ['./google-storage-credentials.component.scss', '../storage-credentials.scss']
@@ -41,6 +43,7 @@ export class GoogleStorageCredentialsComponent implements OnInit {
   private fb = inject(FormBuilder);
   private dialog = inject(MatDialog);
   private cdr = inject(ChangeDetectorRef);
+  private translate = inject(TranslateService);
 
   formGroupName = input('');
   cancelClicked = output();
@@ -113,7 +116,9 @@ export class GoogleStorageCredentialsComponent implements OnInit {
     }
     this.dialog.open<EditJsonComponent, EditJsonData, string>(EditJsonComponent, {
       data: {
-        title: `Bucket ${bucket.bucket}`,
+        title: bucket.bucket
+          ? this.translate.instant('settings.storage.google.bucketTitle', {bucket: bucket.bucket})
+          : this.translate.instant('settings.storage.labels.defaultCredentials'),
         readOnly: true,
         format: 'json',
         textData

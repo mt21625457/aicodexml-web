@@ -2,6 +2,7 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {DialogTemplateComponent} from '@common/shared/ui-components/overlay/dialog-template/dialog-template.component';
 import {MatDialogActions, MatDialogClose} from '@angular/material/dialog';
 import {MatButton} from '@angular/material/button';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'sm-ui-update-dialog',
@@ -12,7 +13,8 @@ import {MatButton} from '@angular/material/button';
     DialogTemplateComponent,
     MatDialogClose,
     MatButton,
-    MatDialogActions
+    MatDialogActions,
+    TranslatePipe
   ]
 })
 export class UiUpdateDialogComponent {

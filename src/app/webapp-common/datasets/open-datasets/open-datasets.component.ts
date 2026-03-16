@@ -20,6 +20,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {FormsModule} from '@angular/forms';
 import {MatButton} from '@angular/material/button';
 import {PushPipe} from '@ngrx/component';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'sm-open-datasets',
@@ -34,7 +35,8 @@ import {PushPipe} from '@ngrx/component';
     MatIconModule,
     FormsModule,
     MatButton,
-    PushPipe
+    PushPipe,
+    TranslatePipe
   ]
 })
 export class OpenDatasetsComponent extends PipelinesPageComponent implements OnInit {
@@ -88,8 +90,9 @@ export class OpenDatasetsComponent extends PipelinesPageComponent implements OnI
         breadcrumbOptions: {
           showProjects: !!selectedProject,
           featureBreadcrumb: {
-            name: 'DATASETS',
-            url: defaultNestedModeForFeature['datasets'] ? 'datasets/simple/*/projects' : 'datasets'
+            name: 'datasets.breadcrumb',
+            url: defaultNestedModeForFeature['datasets'] ? 'datasets/simple/*/projects' : 'datasets',
+            translate: true
           },
           projectsOptions: {
             basePath: 'datasets/simple',

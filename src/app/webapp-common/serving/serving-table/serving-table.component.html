@@ -17,7 +17,7 @@
     [activeContextRow]="contextEndpoint()"
     [contextMenuOpen]="contextMenuActive()"
     [minimizedView]="minimizedView()"
-    [minimizedTableHeader]="'ENDPOINTS LIST'"
+    [minimizedTableHeader]="'serving.table.listHeader'"
     [sortFields]="tableSortFields()"
     [keyboardControl]="true"
     [autoLoadMore]="true"
@@ -37,7 +37,7 @@
         [value]="filtersValues()"
         [columns]="initialColumns"
         [filterMatch]="filtersMatch"
-        fixedOptionsSubheader="System tags"
+        [fixedOptionsSubheader]="'serving.table.systemTags' | translate"
         (subFilterChanged)="tableFilterChanged({id:'system_tags'}, $event)"
         (filterChanged)="tableFilterChanged({id: $event.col}, $event)"
         (menuOpened)="columnFilterOpened($event)"
@@ -96,7 +96,7 @@
         }
         @case (endpointsTableColFields.instances) {
           <span class="ellipsis" smShowTooltipIfEllipsis [smTooltip]="endpoint?.instances">
-            {{ endpoint?.instances | number }}
+            {{ endpoint?.instances | smNumber }}
           </span>
         }
         @case (endpointsTableColFields.uptime) {
@@ -116,12 +116,12 @@
         }
         @case (endpointsTableColFields.totalRequests) {
           <span class="ellipsis" smShowTooltipIfEllipsis [smTooltip]="endpoint?.requests">
-            {{ endpoint?.requests | number }}
+            {{ endpoint?.requests | smNumber }}
           </span>
         }
         @case (endpointsTableColFields.rpm) {
           <span class="ellipsis" smShowTooltipIfEllipsis [smTooltip]="endpoint?.requests_min">
-            {{ endpoint?.requests_min | number }}
+            {{ endpoint?.requests_min | smNumber }}
           </span>
         }
         @case (endpointsTableColFields.latency) {
@@ -159,7 +159,7 @@
         [noSelection]="true"
         [class.no-tags]="true"
       >
-        <span class="uptime ms-auto">Uptime: {{ endpoint.uptime_sec | duration }}</span>
+        <span class="uptime ms-auto">{{ 'serving.table.uptimePrefix' | translate }} {{ endpoint.uptime_sec | duration }}</span>
 
       </sm-table-card>
       <ng-template #compactCol>

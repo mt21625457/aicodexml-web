@@ -6,11 +6,12 @@ import {EntityTypeEnum} from '~/shared/constants/non-common-consts';
 import {TooltipDirective} from '@common/shared/ui-components/indicators/tooltip/tooltip.directive';
 import {IdBadgeComponent} from '@common/shared/components/id-badge/id-badge.component';
 import {TagListComponent} from '@common/shared/ui-components/tags/tag-list/tag-list.component';
-import { DatePipe, DecimalPipe } from '@angular/common';
 import {NAPipe} from '@common/shared/pipes/na.pipe';
 import {TimeAgoPipe} from '@common/shared/pipes/timeAgo';
 import {EllipsisMiddleDirective} from '@common/shared/ui-components/directives/ellipsis-middle.directive';
 import {StatusIconLabelComponent} from '@common/shared/experiment-status-icon-label/status-icon-label.component';
+import {LocalizedDatePipe, LocalizedNumberPipe} from '@common/shared/pipes/localized-format.pipe';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
     selector: 'sm-experiment-compare-general-data',
@@ -22,12 +23,13 @@ import {StatusIconLabelComponent} from '@common/shared/experiment-status-icon-la
         RouterLink,
         IdBadgeComponent,
         TagListComponent,
-        DecimalPipe,
+        LocalizedNumberPipe,
         NAPipe,
         TimeAgoPipe,
-        DatePipe,
+        LocalizedDatePipe,
         EllipsisMiddleDirective,
-        StatusIconLabelComponent
+        StatusIconLabelComponent,
+        TranslatePipe
     ]
 })
 export class ExperimentCompareGeneralDataComponent {

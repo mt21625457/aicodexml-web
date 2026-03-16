@@ -8,12 +8,13 @@ import {CleanProjectPathPipe} from '@common/shared/pipes/clean-project-path.pipe
 import {
   ShowTooltipIfEllipsisDirective
 } from '@common/shared/ui-components/indicators/tooltip/show-tooltip-if-ellipsis.directive';
-import {DatePipe} from '@angular/common';
 import {TimeAgoPipe} from '@common/shared/pipes/timeAgo';
 import {StatusIconLabelComponent} from '@common/shared/experiment-status-icon-label/status-icon-label.component';
 import {TagListComponent} from '@common/shared/ui-components/tags/tag-list/tag-list.component';
 import {ReportCardMenuComponent} from '@common/reports/report-card-menu/report-card-menu.component';
 import {ClickStopPropagationDirective} from '@common/shared/ui-components/directives/click-stop-propagation.directive';
+import {LocalizedDatePipe} from '@common/shared/pipes/localized-format.pipe';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
     selector: 'sm-report-card',
@@ -26,11 +27,12 @@ import {ClickStopPropagationDirective} from '@common/shared/ui-components/direct
         CleanProjectPathPipe,
         ShowTooltipIfEllipsisDirective,
         ClickStopPropagationDirective,
-        DatePipe,
+        LocalizedDatePipe,
         TimeAgoPipe,
         StatusIconLabelComponent,
         TagListComponent,
-        ReportCardMenuComponent
+        ReportCardMenuComponent,
+        TranslatePipe
     ]
 })
 export class ReportCardComponent {

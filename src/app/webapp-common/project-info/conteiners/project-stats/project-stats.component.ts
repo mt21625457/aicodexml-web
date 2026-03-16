@@ -32,6 +32,7 @@ import {selectMetricVariants} from '@common/experiments/reducers';
 import {TooltipDirective} from '@common/shared/ui-components/indicators/tooltip/tooltip.directive';
 import {MatIcon} from '@angular/material/icon';
 import {MatButton} from '@angular/material/button';
+import {LocaleFormatService} from '~/shared/services/locale-format.service';
 
 @Component({
   selector: 'sm-project-stats',
@@ -50,6 +51,7 @@ export class ProjectStatsComponent implements OnDestroy {
   private router = inject(Router);
   private dialog = inject(MatDialog);
   private cdr = inject(ChangeDetectorRef);
+  private localeFormat = inject(LocaleFormatService);
 
   public selectedVariants: ISmCol[];
   public colors: string[];
@@ -138,7 +140,7 @@ export class ProjectStatsComponent implements OnDestroy {
             y: point.y,
             id: point.id,
             name: point.name,
-            description: `Created By ${point.user}, Finished ${new Date(point.x).toLocaleString()}`,
+            description: `Created By ${point.user}, Finished ${this.localeFormat.formatDate(point.x, 'medium')}`,
           })),
         } as ScatterPlotSeries));
         this.cdr.markForCheck();

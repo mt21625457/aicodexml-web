@@ -7,7 +7,7 @@
   (cancelClicked)="onCancelComment() "
   (activateEditClicked)="onDescriptionEditMode()"
   >
-  <sm-section-header label="DESCRIPTION:"></sm-section-header>
+  <sm-section-header [label]="('experiments.details.description' | translate) + ':'"></sm-section-header>
   <textarea #description
     rows="4"
     class="mb-2"
@@ -17,83 +17,83 @@
 
 
 <sm-editable-section [hideEditButton]="true" [disableEditable]="true" class="section">
-  <sm-section-header label="TASK DETAILS"></sm-section-header>
-  <sm-labeled-row label="ARCHIVED:">
-    <div style="width: 93px">{{ experiment()?.system_tags?.includes('archived') ? 'Yes' : 'No' }}</div>
+  <sm-section-header [label]="'experiments.details.taskDetails' | translate"></sm-section-header>
+  <sm-labeled-row [label]="('experiments.details.archived' | translate) + ':'">
+    <div style="width: 93px">{{ experiment()?.system_tags?.includes('archived') ? ('shared.yes' | translate) : ('shared.no' | translate) }}</div>
   </sm-labeled-row>
 
-  <sm-labeled-row label="CHANGED AT:">
-    {{ (experiment()?.status_changed | date : timeFormatString) | NA }}
+  <sm-labeled-row [label]="('experiments.details.changedAt' | translate) + ':'">
+    {{ (experiment()?.status_changed | smDate : timeFormatString) | NA }}
   </sm-labeled-row>
 
-  <sm-labeled-row label="LAST ITERATION:">
+  <sm-labeled-row [label]="('experiments.details.lastIteration' | translate) + ':'">
     {{ (experiment()?.last_iteration) | NA }}
   </sm-labeled-row>
 
-  <sm-labeled-row label="STATUS MESSAGE:">
+  <sm-labeled-row [label]="('experiments.details.statusMessage' | translate) + ':'">
     {{ experiment()?.status_message | NA }}
   </sm-labeled-row>
 
-  <sm-labeled-row label="STATUS REASON:">
+  <sm-labeled-row [label]="('experiments.details.statusReason' | translate) + ':'">
     {{ experiment()?.status_reason | NA }}
   </sm-labeled-row>
 
-  <sm-labeled-row label="CREATED AT:">
-    {{ (experiment()?.created | date : timeFormatString) | NA }}
+  <sm-labeled-row [label]="('experiments.details.createdAt' | translate) + ':'">
+    {{ (experiment()?.created | smDate : timeFormatString) | NA }}
   </sm-labeled-row>
 
-  <sm-labeled-row label="STARTED AT:">
-    {{ (experiment()?.started | date : timeFormatString) | NA }}
+  <sm-labeled-row [label]="('experiments.details.startedAt' | translate) + ':'">
+    {{ (experiment()?.started | smDate : timeFormatString) | NA }}
   </sm-labeled-row>
 
-  <sm-labeled-row label="LAST UPDATED AT:">
-    {{ (experiment()?.last_update | date:'MMM d yyyy H:mm') | NA }}
+  <sm-labeled-row [label]="('experiments.details.lastUpdatedAt' | translate) + ':'">
+    {{ (experiment()?.last_update | smDate:'MMM d yyyy H:mm') | NA }}
   </sm-labeled-row>
 
-  <sm-labeled-row label="COMPLETED AT:">
-    {{ (experiment()?.completed | date : timeFormatString) | NA }}
+  <sm-labeled-row [label]="('experiments.details.completedAt' | translate) + ':'">
+    {{ (experiment()?.completed | smDate : timeFormatString) | NA }}
   </sm-labeled-row>
 
-  <sm-labeled-row label="RUN TIME:">
+  <sm-labeled-row [label]="('experiments.details.runTime' | translate) + ':'">
     {{ (experiment()?.active_duration | duration) | NA }}
   </sm-labeled-row>
 
-  <sm-labeled-row label="QUEUE:">
+  <sm-labeled-row [label]="('experiments.details.queue' | translate) + ':'">
     <a [routerLink]="'/workers-and-queues/queues'" [queryParams]="{id: experiment()?.execution?.queue?.id}" [class.na]="!experiment()?.execution?.queue?.name">
       {{ experiment()?.execution?.queue?.display_name || experiment()?.execution?.queue?.name | NA }}
     </a>
   </sm-labeled-row>
 
-  <sm-labeled-row label="WORKER:">
+  <sm-labeled-row [label]="('experiments.details.worker' | translate) + ':'">
     <a [routerLink]="'/workers-and-queues/workers'" [queryParams]="{id: experiment()?.last_worker}" [class.na]="!experiment()?.last_worker">
       {{ experiment()?.last_worker | NA }}
     </a>
   </sm-labeled-row>
 
-  <sm-labeled-row label="CREATED BY:">
+  <sm-labeled-row [label]="('experiments.details.createdBy' | translate) + ':'">
     {{ experiment()?.user?.name | NA }}
   </sm-labeled-row>
 
 
-  <sm-labeled-row label="PARENT TASK:">
+  <sm-labeled-row [label]="('experiments.details.parentTask' | translate) + ':'">
     @if (experiment()?.parent) {
       <div class="d-flex align-items-center">
         <a [href]="'projects/*/tasks/'+ experiment()?.parent?.id"
         target="_blank">{{ experiment()?.parent?.name }}</a>
         <sm-copy-clipboard [smallIcon]="true" [clipboardText]="experiment()?.parent?.id"
           [label]="''"
-        [tooltipText]="'Copy parent task ID to clipboard'" class="copy-btn ms-2"></sm-copy-clipboard>
+        [tooltipText]="'experiments.details.copyParentTaskId' | translate" class="copy-btn ms-2"></sm-copy-clipboard>
       </div>
     } @else {
       {{ null| NA }}
     }
   </sm-labeled-row>
 
-  <sm-labeled-row label="PROJECT:">
+  <sm-labeled-row [label]="('experiments.details.project' | translate) + ':'">
     {{ experiment()?.project?.name | NA }}
   </sm-labeled-row>
 
-  <sm-labeled-row label="ID:">
+  <sm-labeled-row [label]="('experiments.details.id' | translate) + ':'">
     {{ experiment()?.id | NA }}
   </sm-labeled-row>
 
@@ -104,5 +104,3 @@
   }
 
 </sm-editable-section>
-
-

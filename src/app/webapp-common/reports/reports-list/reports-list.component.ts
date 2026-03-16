@@ -5,6 +5,7 @@ import {ReportCardComponent} from '@common/reports/report-card/report-card.compo
 import {DotsLoadMoreComponent} from '@common/shared/ui-components/indicators/dots-load-more/dots-load-more.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButton} from '@angular/material/button';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'sm-reports-list',
@@ -14,7 +15,8 @@ import {MatButton} from '@angular/material/button';
     ReportCardComponent,
     DotsLoadMoreComponent,
     MatIconModule,
-    MatButton
+    MatButton,
+    TranslatePipe
   ]
 })
 export class ReportsListComponent {

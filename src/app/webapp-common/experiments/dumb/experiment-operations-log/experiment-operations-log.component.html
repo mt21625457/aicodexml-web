@@ -25,7 +25,7 @@
       }
       @case ('created') {
         <div>
-          {{ row?.[col.id] | date:'MMM d yyyy H:mm' }}
+          {{ row?.[col.id] | smDate:'MMM d yyyy H:mm' }}
         </div>
       }
       @case ('operation') {
@@ -52,7 +52,7 @@
           @switch (col.id) {
             @case ('created') {
               <div>
-                {{ event?.[col.id] | date:'MMM d yyyy H:mm' }}
+                {{ event?.[col.id] | smDate:'MMM d yyyy H:mm' }}
               </div>
             }
             @case ('operation') {

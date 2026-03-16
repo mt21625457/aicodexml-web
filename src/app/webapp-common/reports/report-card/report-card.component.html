@@ -45,9 +45,9 @@
       @if (report()?.last_update) {
         <div
           class="last-run"
-          [smTooltip]="report().last_update | date: timeFormatString"
+          [smTooltip]="report().last_update | smDate: timeFormatString"
           matTooltipPosition="after"
-        >Updated {{report().last_update | timeAgo}}</div>
+        >{{ 'reports.labels.updated' | translate }} {{report().last_update | timeAgo}}</div>
       } @else {
         <div class="last-run"></div>
       }

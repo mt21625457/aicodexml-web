@@ -19,6 +19,16 @@ During development, the development server will need to proxy an API server. to 
 
 Start the development server: `npm run start`
 
+### Localization guardrail
+The web app now includes a lightweight regression guardrail for hard-coded UI copy under `src/app`.
+
+* Run `npm run i18n:guardrail` before merging UI work that touches templates, dialogs, menus, tables, or runtime labels/messages.
+* Use `TranslatePipe` in templates for user-visible copy and for translation keys passed into shared components.
+* Use `TranslateService.instant(...)` in TypeScript when labels, toast messages, dialog titles, or chart/table metadata are assembled at runtime.
+* Do not translate user-generated content, API payload values, URLs, router links, CSS classes, icon names, or other internal identifiers.
+* The guardrail intentionally ignores translation keys, route/icon/class-like values, and anything already recorded in `scripts/i18n-guardrail-baseline.json`.
+* Only run `npm run i18n:guardrail:update-baseline` when a flagged string is an intentional safe exception or after you deliberately accept the current repository-wide finding set.
+
 #### Business Logic module
 Contains ClearML logic. api calls and ClearML objects (e.g tasks, models) and ClearML logic function (e.g isTaskHidden)
 
@@ -48,4 +58,3 @@ Depend only on shared module for ui components
 #### Shared Module
 Application shared UI components, directives and pipes. **contain only declarations**.
 All the components should be **reusable**.
-

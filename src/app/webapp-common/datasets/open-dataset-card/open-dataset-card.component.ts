@@ -10,12 +10,12 @@ import {NAPipe} from '@common/shared/pipes/na.pipe';
 import {ShortProjectNamePipe} from '@common/shared/pipes/short-project-name.pipe';
 import {CleanProjectPathPipe} from '@common/shared/pipes/clean-project-path.pipe';
 import {TimeAgoPipe} from '@common/shared/pipes/timeAgo';
-import {DatePipe} from '@angular/common';
 import {ClickStopPropagationDirective} from '@common/shared/ui-components/directives/click-stop-propagation.directive';
 import {TooltipDirective} from '@common/shared/ui-components/indicators/tooltip/tooltip.directive';
 import {
   ShowTooltipIfEllipsisDirective
 } from '@common/shared/ui-components/indicators/tooltip/show-tooltip-if-ellipsis.directive';
+import {LocalizedDatePipe} from '@common/shared/pipes/localized-format.pipe';
 
 @Component({
   selector: 'sm-open-dataset-card',
@@ -33,7 +33,7 @@ import {
     ShortProjectNamePipe,
     CleanProjectPathPipe,
     TimeAgoPipe,
-    DatePipe,
+    LocalizedDatePipe,
     ClickStopPropagationDirective,
     TooltipDirective,
     ShowTooltipIfEllipsisDirective

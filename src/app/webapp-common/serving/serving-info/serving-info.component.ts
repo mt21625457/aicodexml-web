@@ -42,8 +42,8 @@ export class ServingInfoComponent implements OnInit, OnDestroy {
   public selectedModel$: Observable<EndpointStats | null>;
   public splitSize$: Observable<number>;
   links = [
-    {name: 'details', url: ['general']},
-    {name: 'monitor', url: ['monitor']}
+    {name: 'serving.routes.details', url: ['general']},
+    {name: 'serving.routes.monitor', url: ['monitor']}
   ] as Link[];
   public isSharedAndNotOwner$: Observable<boolean>;
   private modelsFeature: boolean;
@@ -84,7 +84,7 @@ export class ServingInfoComponent implements OnInit, OnDestroy {
     this.store.dispatch(setBreadcrumbsOptions({
       breadcrumbOptions: {
         showProjects: false,
-        featureBreadcrumb: {name: 'Model Endpoints'}
+        featureBreadcrumb: {name: 'serving.breadcrumb', translate: true}
       }
     }));
   }
@@ -93,4 +93,3 @@ export class ServingInfoComponent implements OnInit, OnDestroy {
     this.router.navigate(['..'], {relativeTo: this.route, queryParamsHandling: 'merge'});
   }
 }
-
